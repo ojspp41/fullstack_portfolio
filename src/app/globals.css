@@ -1,19 +1,47 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #0b1014;
-  --color-panel: #10171d;
-  --color-panel2: #141c24;
-  --color-line: #1e2a33;
-  --color-ink: #e8eef2;
-  --color-mute: #8fa0ab;
-  --color-amber: #f2a33c;
-  --color-steel: #7a93ad;
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-panel: var(--c-panel);
+  --color-panel2: var(--c-panel2);
+  --color-line: var(--c-line);
+  --color-ink: var(--c-ink);
+  --color-mute: var(--c-mute);
+  --color-amber: var(--c-amber);
+  --color-steel: var(--c-steel);
 
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular,
     Menlo, monospace;
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
+}
+
+/* light theme — same instrument mood on paper: darker amber/steel for contrast */
+:root {
+  --c-bg: #f3f5f7;
+  --c-panel: #ffffff;
+  --c-panel2: #e9edf1;
+  --c-line: #d8dfe6;
+  --c-ink: #17222c;
+  --c-mute: #5a6a77;
+  --c-amber: #b06e12;
+  --c-steel: #4d6b89;
+  --c-codebg: #eef1f4;
+  color-scheme: light;
+}
+
+/* dark theme (default — html ships with .dark, inline script removes it for light) */
+:root.dark {
+  --c-bg: #0b1014;
+  --c-panel: #10171d;
+  --c-panel2: #141c24;
+  --c-line: #1e2a33;
+  --c-ink: #e8eef2;
+  --c-mute: #8fa0ab;
+  --c-amber: #f2a33c;
+  --c-steel: #7a93ad;
+  --c-codebg: #0a0f13;
+  color-scheme: dark;
 }
 
 html {
@@ -22,18 +50,18 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-ink);
+  background-color: var(--c-bg);
+  color: var(--c-ink);
   font-family: var(--font-sans);
   /* hairline engineering grid */
-  background-image: linear-gradient(var(--color-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-image: linear-gradient(var(--c-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
   background-size: 72px 72px;
   background-attachment: fixed;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-amber) 35%, transparent);
+  background: color-mix(in srgb, var(--c-amber) 35%, transparent);
 }
 
 /* ---- scroll reveal ---- */
@@ -51,7 +79,7 @@ body {
 .signal-flow {
   background-image: repeating-linear-gradient(
     90deg,
-    var(--color-amber) 0 6px,
+    var(--c-amber) 0 6px,
     transparent 6px 14px
   );
   animation: signal-slide 1.2s linear infinite;
@@ -59,7 +87,7 @@ body {
 .signal-flow-v {
   background-image: repeating-linear-gradient(
     180deg,
-    var(--color-amber) 0 6px,
+    var(--c-amber) 0 6px,
     transparent 6px 14px
   );
   animation: signal-slide-v 1.2s linear infinite;
@@ -94,7 +122,7 @@ body {
 .md-body {
   font-size: 0.9375rem;
   line-height: 1.75;
-  color: var(--color-ink);
+  color: var(--c-ink);
 }
 .md-body h1 {
   font-size: 1.375rem;
@@ -107,7 +135,7 @@ body {
   font-weight: 700;
   margin: 2rem 0 0.75rem;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--c-line);
   letter-spacing: -0.01em;
 }
 .md-body > h1:first-child,
@@ -123,7 +151,7 @@ body {
 }
 .md-body p {
   margin: 0.75rem 0;
-  color: color-mix(in srgb, var(--color-ink) 88%, var(--color-mute));
+  color: color-mix(in srgb, var(--c-ink) 88%, var(--c-mute));
 }
 .md-body ul,
 .md-body ol {
@@ -138,20 +166,20 @@ body {
 }
 .md-body li {
   margin: 0.375rem 0;
-  color: color-mix(in srgb, var(--color-ink) 85%, var(--color-mute));
+  color: color-mix(in srgb, var(--c-ink) 85%, var(--c-mute));
 }
 .md-body strong {
-  color: var(--color-ink);
+  color: var(--c-ink);
   font-weight: 700;
 }
 .md-body a {
-  color: var(--color-amber);
+  color: var(--c-amber);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .md-body blockquote {
-  border-left: 2px solid var(--color-amber);
-  background: var(--color-panel2);
+  border-left: 2px solid var(--c-amber);
+  background: var(--c-panel2);
   padding: 0.625rem 1rem;
   margin: 1rem 0;
   border-radius: 0 0.375rem 0.375rem 0;
@@ -163,15 +191,15 @@ body {
 .md-body code {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  background: var(--color-panel2);
-  border: 1px solid var(--color-line);
+  background: var(--c-panel2);
+  border: 1px solid var(--c-line);
   border-radius: 0.25rem;
   padding: 0.0625rem 0.375rem;
-  color: var(--color-amber);
+  color: var(--c-amber);
 }
 .md-body pre {
-  background: #0a0f13;
-  border: 1px solid var(--color-line);
+  background: var(--c-codebg);
+  border: 1px solid var(--c-line);
   border-radius: 0.5rem;
   padding: 1rem;
   margin: 1rem 0;
@@ -181,14 +209,14 @@ body {
   background: transparent;
   border: none;
   padding: 0;
-  color: var(--color-ink);
+  color: var(--c-ink);
   font-size: 0.8125rem;
   line-height: 1.6;
 }
 .md-body .md-table-wrap {
   overflow-x: auto;
   margin: 1rem 0;
-  border: 1px solid var(--color-line);
+  border: 1px solid var(--c-line);
   border-radius: 0.5rem;
 }
 .md-body table {
@@ -201,16 +229,16 @@ body {
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-mute);
+  color: var(--c-mute);
   text-align: left;
   padding: 0.625rem 0.875rem;
-  background: var(--color-panel2);
-  border-bottom: 1px solid var(--color-line);
+  background: var(--c-panel2);
+  border-bottom: 1px solid var(--c-line);
   white-space: nowrap;
 }
 .md-body td {
   padding: 0.625rem 0.875rem;
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--c-line);
   vertical-align: top;
 }
 .md-body tr:last-child td {
@@ -218,6 +246,6 @@ body {
 }
 .md-body hr {
   border: none;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--c-line);
   margin: 1.5rem 0;
 }
