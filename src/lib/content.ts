@@ -19,6 +19,7 @@ export const projectSchema = z.object({
   title: z.string(),
   category: z.enum(["fullstack", "frontend", "infra"]),
   badge: z.string(),
+  layers: z.array(z.string()).default([]),
   stack: z.array(z.string()),
   metrics: z.array(metricSchema),
   summary: z.string(),

@@ -20,6 +20,28 @@ const CATEGORY_LABEL: Record<Project["category"], string> = {
   infra: "INFRA",
 };
 
+// same 2-color rule as the architecture diagram:
+// "…직접" → amber (direct build), 연동/이해/관점/협업 → steel (integrated)
+function layerChipClass(layer: string): string {
+  return /연동|이해|관점|협업/.test(layer)
+    ? "border-steel/50 bg-steel/10 text-steel"
+    : "border-amber/50 bg-amber/10 text-amber";
+}
+
+function LayerChips({ layers, size = "sm" }: { layers: string[]; size?: "sm" | "md" }) {
+  if (layers.length === 0) return null;
+  const pad = size === "sm" ? "px-1.5 py-0.5 text-[10px]" : "px-2 py-0.5 text-[11px]";
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {layers.map((l) => (
+        <span key={l} className={`rounded border font-mono leading-snug ${pad} ${layerChipClass(l)}`}>
+          {l}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function ProjectsSection({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -100,7 +122,10 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 </span>
               </div>
               <h3 className="mt-3 text-base font-bold leading-snug">{p.title}</h3>
-              <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-mute">{p.summary}</p>
+              <div className="mt-2.5">
+                <LayerChips layers={p.layers} />
+              </div>
+              <p className="mt-2.5 line-clamp-3 text-sm leading-relaxed text-mute">{p.summary}</p>
 
               {/* metric chips — highlighted on hover */}
               <div className="mt-4 flex flex-wrap gap-1.5">
@@ -151,6 +176,9 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                   {CATEGORY_LABEL[openProject.category]} · {openProject.badge}
                 </p>
                 <h3 className="mt-1 text-lg font-bold leading-snug">{openProject.title}</h3>
+                <div className="mt-2">
+                  <LayerChips layers={openProject.layers} size="md" />
+                </div>
               </div>
               <button
                 type="button"

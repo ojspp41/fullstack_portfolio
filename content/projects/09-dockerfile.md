@@ -9,6 +9,7 @@ metrics:
   - { label: "이미지 (비압축)", value: "3.63GB → 1.82GB", note: "50%↓ 실측" }
   - { label: "숨은 회귀", value: "1.56GB 적발", note: "레이어별 기여 분리 측정" }
   - { label: "cold pull", value: "24s → 13s", note: "초는 추정" }
+layers: ["Infra 직접", "K8s 운영 협업"]
 summary: 운영팀이 두 번 반려한 이미지를 슬림화했는데, 기능이 붙는 동안 1.56GB가 슬그머니 되살아났다. 레이어 측정으로 적발해 50% 절감으로 되돌렸다.
 ---
 

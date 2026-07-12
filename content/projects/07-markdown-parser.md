@@ -8,6 +8,7 @@ stack: [Progressive Markdown Parser, TypeScript, 60fps 예산]
 metrics:
   - { label: "1000줄 표 처리", value: "1.07ms", note: "60fps 한 프레임 16.67ms 예산 내" }
   - { label: "화면 깜빡임", value: "제거", note: "미완성 블록 숨김 전략" }
+layers: ["FE 직접", "스트리밍 프로토콜 이해"]
 summary: AI가 글자를 한 글자씩 보낼 때, 미완성 표·코드블록·리스트는 잠시 가렸다가 확실해지면 보여줘 화면 깜빡임을 없앤 파서를 직접 설계했다.
 ---
 

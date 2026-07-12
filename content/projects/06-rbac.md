@@ -9,6 +9,7 @@ metrics:
   - { label: "우회 경로", value: "2개 제거", note: "로그인 확인 ≠ 권한 확인 분리" }
   - { label: "플리커", value: "원천 제거", note: "3-상태 · 확인 전 닫힘 보장" }
   - { label: "역할 확장", value: "FE 무변경", note: "6역할 → N역할 그대로 흡수" }
+layers: ["FE 직접", "BE permission.go 연동", "서버 계약 접점 설계"]
 summary: 무엇에 권한을 묻는지는 FE가 정하고, 어떻게 강제하는지는 BE가 맡는다. can() 추상화로 미확정 역할 스펙과 FE를 격리했다.
 ---
 

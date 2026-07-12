@@ -9,6 +9,7 @@ metrics:
   - { label: "JSON 회복률", value: "60% → 97.5%", note: "40개 fixture 벤치 실측" }
   - { label: "위젯 장애", value: "약 95%↓", note: "렌더 실패 payload 47건 → 1건" }
   - { label: "장애 영향 범위", value: "세션 전체 → 위젯 1개", note: "Error Boundary 격리" }
+layers: ["FE 직접", "모델 출력 계약 설계"]
 summary: 모델 출력을 믿지 않는다는 전제로, 깨진 JSON을 받아도 위젯이 뜨도록 6단계 정제 + 2겹 파싱으로 복구. 회복률을 코드로 측정해 회귀를 자동 검출한다.
 ---
 
