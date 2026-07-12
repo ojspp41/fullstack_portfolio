@@ -21,8 +21,8 @@ interface DiagramColumn {
 
 const COLUMNS: DiagramColumn[] = [
   {
-    key: "fe",
-    title: "FRONTEND",
+    key: "client",
+    title: "CLIENT",
     subtitle: "React 19 · Next.js 15 · TS strict",
     nodes: [
       {
@@ -56,37 +56,51 @@ const COLUMNS: DiagramColumn[] = [
     ],
   },
   {
-    key: "gw",
-    title: "API GATEWAY",
-    subtitle: "Go 1.24 · Gin · gRPC · Protobuf",
+    key: "contract",
+    title: "API 계약",
+    subtitle: "REST · 서버 계약 직접 설계",
     nodes: [
       {
-        id: "gw-metering",
+        id: "api-metering",
         label: "미터링 조회 API",
         detail: "필터 6종 · 페이지네이션 · ExcelJS 서버 스트리밍",
         ownership: "direct",
         projects: ["metering"],
       },
       {
-        id: "gw-quota",
+        id: "api-quota",
         label: "사용 한도 제어 API",
         detail: "요금제별 쿼터 · Redis 카운터 429 즉시 차단",
         ownership: "direct",
         projects: ["metering"],
       },
       {
-        id: "gw-preview",
-        label: "미리보기 엔드포인트 · 통로 분리",
-        detail: "다운로드/미리보기 분리 · DRM 사본 격리 서빙",
+        id: "api-preview",
+        label: "파일 미리보기 엔드포인트",
+        detail: "다운로드/미리보기 통로 분리 · DRM 사본 격리 서빙",
         ownership: "direct",
         projects: ["file-preview"],
       },
       {
-        id: "gw-pdf",
+        id: "api-pdf",
         label: "서버사이드 PDF 캡처",
         detail: "헤드리스 Chromium · DOM 1:1 캡처",
         ownership: "direct",
         projects: ["pdf-invoice"],
+      },
+    ],
+  },
+  {
+    key: "gateway",
+    title: "GO GATEWAY",
+    subtitle: "Go 1.24 · Gin · gRPC · Protobuf",
+    nodes: [
+      {
+        id: "gw-grpc",
+        label: "gRPC · Protobuf 게이트웨이",
+        detail: "중앙 API Gateway — 설계 의도를 이해하고 연동",
+        ownership: "integrated",
+        projects: ["metering", "file-preview"],
       },
       {
         id: "gw-perm",
@@ -98,9 +112,9 @@ const COLUMNS: DiagramColumn[] = [
     ],
   },
   {
-    key: "pipe",
+    key: "pipeline",
     title: "DATA PIPELINE",
-    subtitle: "Kafka · Redis · MinIO · MongoDB",
+    subtitle: "Kafka → 사전집계 → SCD-2",
     nodes: [
       {
         id: "pipe-kafka",
@@ -111,28 +125,76 @@ const COLUMNS: DiagramColumn[] = [
       },
       {
         id: "pipe-agg",
-        label: "일배치 사전집계 · SCD-2",
-        detail: "300만 건 → 1,440건 · 가격/환율 이력 보존",
+        label: "일배치 사전집계",
+        detail: "300만 건 → 1,440건 · 조회 비용 상수화",
         ownership: "integrated",
         projects: ["metering"],
       },
       {
-        id: "pipe-minio",
+        id: "pipe-scd2",
+        label: "SCD-2 가격 · 환율 이력",
+        detail: "과거 청구를 그 시점 기준으로 재현 · 정산 감사 대응",
+        ownership: "integrated",
+        projects: ["metering"],
+      },
+    ],
+  },
+  {
+    key: "storage",
+    title: "STORAGE",
+    subtitle: "Redis · MinIO · MongoDB · MySQL",
+    nodes: [
+      {
+        id: "st-redis",
+        label: "Redis 한도 카운터",
+        detail: "분당 100회 · 호출이 나가기 전 429 차단",
+        ownership: "integrated",
+        projects: ["metering"],
+      },
+      {
+        id: "st-minio",
         label: "MinIO 오브젝트 스토리지",
         detail: "원본/DRM 사본 분리 저장 · gRPC 게이트웨이 경유",
         ownership: "integrated",
         projects: ["file-preview"],
       },
       {
-        id: "pipe-docker",
-        label: "Docker Multi-stage · K8s",
-        detail: "이미지 50%↓ · 숨은 회귀 1.56GB 적발",
-        ownership: "direct",
-        projects: ["dockerfile"],
+        id: "st-mongo",
+        label: "MongoDB 집계 저장소",
+        detail: "미터링 요약 1,440건 · 멱등 upsert 대상",
+        ownership: "integrated",
+        projects: ["metering"],
+      },
+      {
+        id: "st-mysql",
+        label: "MySQL",
+        detail: "운영 데이터 — COMAtching에서는 스키마·조인·인덱스 직접 설계",
+        ownership: "integrated",
+        projects: [],
       },
     ],
   },
 ];
+
+// full-width runtime strip under the 5 columns
+const INFRA_NODES: DiagramNode[] = [
+  {
+    id: "infra-docker",
+    label: "Docker Multi-stage · 스모크 테스트",
+    detail: "이미지 50%↓ (3.63GB → 1.82GB) · 숨은 회귀 1.56GB 적발",
+    ownership: "direct",
+    projects: ["dockerfile"],
+  },
+  {
+    id: "infra-k8s",
+    label: "K8s · 폐쇄망 운영",
+    detail: "non-root 정책 · APM 권한 충돌 해결 · 운영팀 협업",
+    ownership: "integrated",
+    projects: ["dockerfile"],
+  },
+];
+
+const ALL_NODES = [...COLUMNS.flatMap((c) => c.nodes), ...INFRA_NODES];
 
 const OWNERSHIP_META: Record<Ownership, { label: string; chip: string; dot: string }> = {
   direct: {
@@ -147,13 +209,41 @@ const OWNERSHIP_META: Record<Ownership, { label: string; chip: string; dot: stri
   },
 };
 
+function NodeButton({
+  node,
+  isActive,
+  onActivate,
+}: {
+  node: DiagramNode;
+  isActive: boolean;
+  onActivate: (id: string) => void;
+}) {
+  const meta = OWNERSHIP_META[node.ownership];
+  return (
+    <button
+      type="button"
+      onMouseEnter={() => onActivate(node.id)}
+      onFocus={() => onActivate(node.id)}
+      onClick={() => onActivate(node.id)}
+      className={`group rounded-md border px-3 py-2.5 text-left transition-colors ${
+        isActive ? "border-amber/70 bg-panel2" : "border-line bg-bg/60 hover:border-mute/60"
+      }`}
+    >
+      <span className="flex items-center gap-2">
+        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${meta.dot}`} />
+        <span className="text-[13px] font-medium leading-snug">{node.label}</span>
+      </span>
+    </button>
+  );
+}
+
 export default function ArchitectureDiagram({
   projectTitles,
 }: {
   projectTitles: Record<string, string>;
 }) {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const activeNode = COLUMNS.flatMap((c) => c.nodes).find((n) => n.id === activeId) ?? null;
+  const activeNode = ALL_NODES.find((n) => n.id === activeId) ?? null;
 
   const openProject = (projectId: string) => {
     document.dispatchEvent(new CustomEvent("open-project", { detail: projectId }));
@@ -172,49 +262,54 @@ export default function ArchitectureDiagram({
         <span className="hidden text-mute/60 sm:inline">— 노드에 올리면 관련 프로젝트로 연결됩니다</span>
       </div>
 
-      {/* diagram */}
-      <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_2.5rem_1fr_2.5rem_1fr]">
+      {/* 5-tier diagram */}
+      <div className="grid grid-cols-1 gap-0 xl:grid-cols-[1fr_1.5rem_1fr_1.5rem_1fr_1.5rem_1fr_1.5rem_1fr]">
         {COLUMNS.map((col, ci) => (
           <div key={col.key} className="contents">
             <div className="rounded-lg border border-line bg-panel p-4">
-              <p className="font-mono text-xs tracking-[0.2em] text-amber">{col.title}</p>
+              <p className="font-mono text-xs tracking-[0.18em] text-amber">{col.title}</p>
               <p className="mt-1 font-mono text-[11px] text-mute">{col.subtitle}</p>
               <div className="mt-4 flex flex-col gap-2">
-                {col.nodes.map((node) => {
-                  const isActive = activeId === node.id;
-                  const meta = OWNERSHIP_META[node.ownership];
-                  return (
-                    <button
-                      key={node.id}
-                      type="button"
-                      onMouseEnter={() => setActiveId(node.id)}
-                      onFocus={() => setActiveId(node.id)}
-                      onClick={() => setActiveId(node.id)}
-                      className={`group rounded-md border px-3 py-2.5 text-left transition-colors ${
-                        isActive
-                          ? "border-amber/70 bg-panel2"
-                          : "border-line bg-bg/60 hover:border-mute/60"
-                      }`}
-                    >
-                      <span className="flex items-center gap-2">
-                        <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${meta.dot}`} />
-                        <span className="text-sm font-medium leading-snug">{node.label}</span>
-                      </span>
-                    </button>
-                  );
-                })}
+                {col.nodes.map((node) => (
+                  <NodeButton
+                    key={node.id}
+                    node={node}
+                    isActive={activeId === node.id}
+                    onActivate={setActiveId}
+                  />
+                ))}
               </div>
             </div>
 
             {/* signal connector */}
             {ci < COLUMNS.length - 1 && (
-              <div className="flex items-center justify-center py-2 lg:py-0" aria-hidden>
-                <div className="signal-flow-v h-8 w-0.5 opacity-70 lg:hidden" />
-                <div className="signal-flow hidden h-0.5 w-full opacity-70 lg:block" />
+              <div className="flex items-center justify-center py-2 xl:py-0" aria-hidden>
+                <div className="signal-flow-v h-8 w-0.5 opacity-70 xl:hidden" />
+                <div className="signal-flow hidden h-0.5 w-full opacity-70 xl:block" />
               </div>
             )}
           </div>
         ))}
+      </div>
+
+      {/* runtime / infra strip */}
+      <div className="mt-4 rounded-lg border border-line bg-panel p-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="shrink-0 sm:w-40">
+            <p className="font-mono text-xs tracking-[0.18em] text-amber">RUNTIME / INFRA</p>
+            <p className="mt-1 font-mono text-[11px] text-mute">Docker · K8s · On-Premise</p>
+          </div>
+          <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+            {INFRA_NODES.map((node) => (
+              <NodeButton
+                key={node.id}
+                node={node}
+                isActive={activeId === node.id}
+                onActivate={setActiveId}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* readout panel */}
@@ -232,18 +327,20 @@ export default function ArchitectureDiagram({
               </div>
               <p className="mt-1.5 text-sm text-mute">{activeNode.detail}</p>
             </div>
-            <div className="flex shrink-0 flex-wrap gap-2">
-              {activeNode.projects.map((pid) => (
-                <button
-                  key={pid}
-                  type="button"
-                  onClick={() => openProject(pid)}
-                  className="rounded-md border border-line bg-bg px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-amber hover:text-amber"
-                >
-                  {projectTitles[pid] ?? pid} →
-                </button>
-              ))}
-            </div>
+            {activeNode.projects.length > 0 && (
+              <div className="flex shrink-0 flex-wrap gap-2">
+                {activeNode.projects.map((pid) => (
+                  <button
+                    key={pid}
+                    type="button"
+                    onClick={() => openProject(pid)}
+                    className="rounded-md border border-line bg-bg px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-amber hover:text-amber"
+                  >
+                    {projectTitles[pid] ?? pid} →
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         ) : (
           <p className="font-mono text-xs text-mute">
