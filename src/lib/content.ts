@@ -152,6 +152,8 @@ export function getProfile(): Profile {
 export interface ExperienceContent {
   jobs: string[]; // markdown blocks, one per position
   extra: string; // 학력 · 동아리
+  /** AI Atlas 서비스 개요 (content/sections/ai-atlas-overview.md가 있을 때만) */
+  aiAtlasOverview: string | null;
 }
 
 export function getExperience(): ExperienceContent {
@@ -162,7 +164,13 @@ export function getExperience(): ExperienceContent {
     .split(/^---$/m)
     .map((b) => b.trim())
     .filter(Boolean);
-  return { jobs: blocks.slice(0, -1), extra: blocks.at(-1) ?? "" };
+
+  const overviewPath = path.join(CONTENT_DIR, "sections", "ai-atlas-overview.md");
+  const aiAtlasOverview = fs.existsSync(overviewPath)
+    ? matter(fs.readFileSync(overviewPath, "utf8")).content.trim()
+    : null;
+
+  return { jobs: blocks.slice(0, -1), extra: blocks.at(-1) ?? "", aiAtlasOverview };
 }
 
 /* ---------- side projects ---------- */
