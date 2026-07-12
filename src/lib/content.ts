@@ -54,6 +54,8 @@ const profileSchema = z.object({
   github: z.string(),
   website: z.string().optional(),
   tagline: z.string(),
+  subtagline: z.string().optional(),
+  resumePdf: z.string().optional(),
 });
 
 export interface HeroStat {
@@ -92,7 +94,8 @@ function parseTableRows(md: string): string[][] {
 }
 
 // The four headline stats shown as Hero counters (label match against profile.md table)
-const HERO_STAT_LABELS = ["서비스 규모", "리렌더", "수상", "조회 속도"];
+// Full-stack first: metering API speedup → scale → render → docker image
+const HERO_STAT_LABELS = ["조회 속도", "서비스 규모", "리렌더", "도커 이미지"];
 
 export function getProfile(): Profile {
   const raw = fs.readFileSync(path.join(CONTENT_DIR, "sections", "profile.md"), "utf8");

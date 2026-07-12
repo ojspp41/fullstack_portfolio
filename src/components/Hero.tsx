@@ -13,7 +13,12 @@ export default function Hero({ profile }: { profile: Profile }) {
           <h1 className="max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
             {profile.tagline}
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-mute">
+          {profile.subtagline && (
+            <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-ink/90 sm:text-lg">
+              {profile.subtagline}
+            </p>
+          )}
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-mute">
             {profile.name} — {profile.role}
           </p>
         </Reveal>

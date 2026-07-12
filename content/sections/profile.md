@@ -8,13 +8,15 @@ phone: 010-7593-4447
 github: https://github.com/ojspp41
 website: https://portfolio-nextjs-puce-pi.vercel.app
 tagline: 문제를 직접 정의하고 끝까지 푸는 풀스택 개발자
+subtagline: 화면부터 서버 계약, 파이프라인 연동, 인프라까지 — 백오피스 어드민 풀스택
+resumePdf: /junseok-oh-fullstack-portfolio.pdf
 ---
 
 # 문제를 직접 정의하고 끝까지 푸는 풀스택 개발자
 
 기획자·디자이너 없는 환경에서 사용자 문제를 직접 정의하고 끝까지 푸는 풀스택 개발자입니다.
 
-한솔그룹 13개 계열사·1만 명 사내 AI(LLM) 서비스 **AI Atlas**에서 프론트를 오너로 구현하고, 미리보기 엔드포인트·다운로드/미리보기 통로 분리와 미터링 조회 API·사용 한도 제어 API까지 **서버 계약을 직접 설계·구현**했습니다.
+한솔그룹 13개 계열사·1만 명 사내 AI(LLM) 서비스 **AI Atlas**에서 프론트를 오너로 구현하고, **백오피스 어드민(사용량·비용 미터링·과금)의 서버 계약(RESTful API)을 직접 설계·구현**했습니다 — 미터링 조회 API·사용 한도 제어 API·파일 미리보기 엔드포인트·서버사이드 PDF 캡처까지.
 
 그 프론트가 붙는 Go 기반 중앙 API Gateway(gRPC·Kafka·Redis·MinIO)는 설계 의도를 이해하고 연동했습니다. 화면부터 서버 계약까지 직접 설계하며, 모든 결정을 수치로 증명합니다.
 
