@@ -1,4 +1,5 @@
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
+import CoverageMap from "@/components/CoverageMap";
 import Hero from "@/components/Hero";
 import Markdown from "@/components/Markdown";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -45,6 +46,16 @@ export default function Home() {
           </Reveal>
           <Reveal delay={100}>
             <ArchitectureDiagram projectTitles={projectTitles} />
+          </Reveal>
+
+          {/* Coverage Map — per-layer direct vs. integrated matrix */}
+          <Reveal>
+            <div className="mt-12">
+              <p className="mb-3 font-mono text-xs tracking-[0.2em] text-amber">
+                COVERAGE MAP <span className="text-mute">//</span> 레이어별 담당 범위
+              </p>
+              <CoverageMap coverage={profile.coverage} />
+            </div>
           </Reveal>
 
           {/* About — intro / stack / strengths from profile.md */}

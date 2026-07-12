@@ -64,10 +64,17 @@ export interface HeroStat {
   note: string;
 }
 
+export interface CoverageRow {
+  layer: string;
+  direct: string[];
+  integrated: string[];
+}
+
 export interface Profile extends z.infer<typeof profileSchema> {
   intro: string;
   stats: HeroStat[];
   heroStats: HeroStat[];
+  coverage: CoverageRow[];
   stack: string;
   strengths: string;
 }
@@ -115,11 +122,25 @@ export function getProfile(): Profile {
     (s): s is HeroStat => Boolean(s)
   );
 
+  // items are separated by " · " (spaced); an unspaced "·" stays inside one item
+  // (e.g. "MySQL 스키마·조인·인덱스" is a single chip)
+  const splitItems = (cell: string) =>
+    cell === "—" || cell === "" ? [] : cell.split(/\s·\s/).map((s) => s.trim()).filter(Boolean);
+
+  const coverage: CoverageRow[] = parseTableRows(
+    extractSection(content, "Full-Stack Coverage Map")
+  ).map(([layer, direct, integrated]) => ({
+    layer,
+    direct: splitItems(direct ?? ""),
+    integrated: splitItems(integrated ?? ""),
+  }));
+
   return {
     ...meta,
     intro,
     stats,
     heroStats: heroStats.length === 4 ? heroStats : stats.slice(0, 4),
+    coverage,
     stack: extractSection(content, "Tech Stack"),
     strengths: extractSection(content, "강점 & 협업 역량"),
   };

@@ -31,6 +31,15 @@ resumePdf: /junseok-oh-fullstack-portfolio.pdf
 | 조회 속도 | 750배↑ | 미터링 1,970ms → 2.6ms (사전집계) |
 | 도커 이미지 | 50%↓ | 3.63GB → 1.82GB, 숨은 회귀 1.56GB 적발 |
 
+## Full-Stack Coverage Map
+
+| 레이어 | 직접 구현 | 설계 이해·연동 |
+|---|---|---|
+| UI | 스트리밍 마크다운 파서 · Generative UI · WebSocket 6단계 방어 · RBAC can() · 백오피스 대시보드 | — |
+| API · 서버 계약 | 미터링 조회 · 사용 한도 제어 · 파일 미리보기 엔드포인트 · PDF 캡처 · ExcelJS 스트리밍 | permission.go (멀티소스 SSOT) |
+| 데이터 · 파이프라인 | COMAtching MySQL 스키마·조인·인덱스 | Kafka 인입 · 일배치 사전집계 · SCD-2 |
+| 인프라 | Docker 이미지 50%↓ · 스모크 테스트 | K8s · 폐쇄망 운영 |
+
 ## Tech Stack
 
 - **AI / LLM**: LLM Streaming · Generative UI Pipeline · RAG Integration · Markdown Parser · MCP
