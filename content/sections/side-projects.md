@@ -21,13 +21,14 @@ section: side-projects
 - Go 기반 **병렬 청킹 + 상태 저장 메커니즘** — 네트워크 중단 시 자동 재개, 대용량 파일 전송 **실패율 90% 감소**
 - WebSocket 3계층 모니터링 (CLI → Python Server → React UI) — 업로드 진행률·파트별 상태 실시간 시각화
 
-## COMAtching v3 ~ v4 (팀장)
+## COMAtching v3 ~ v4 (팀장) — 풀스택 사이드 프로젝트
 **2023.06 — 2025.05 · 서비스 상용화 · 누적 사용자 2,000명 · 매출 800만원**
 
 `React` `Recoil` `SockJS/STOMP` `Node.js` `MySQL` `Docker/Jenkins`
 
-- 팀장 — 기획·개발·운영 전 과정 책임(프론트 주도), **MySQL 스키마·매칭 조회(user–match 조인 + status 인덱스) 설계**, 백엔드 매칭 로직 일부 구현, Docker/Jenkins CI/CD
-- Toss Payments SDK + **Idempotency-Key 기반 중복 결제 방지** 시스템 구축
+- 팀장 — 기획·개발·운영 전 과정 책임(프론트 주도), **MySQL 스키마·조인·인덱스 직접 설계**(매칭 조회 user–match 조인 + status 인덱스), 백엔드 매칭 로직 일부 구현
+- Toss Payments SDK + **Idempotency-Key 기반 중복 결제 방지(결제 멱등성)** 시스템 구축
+- **Docker·Jenkins CI/CD 파이프라인 직접 구축** — 빌드·배포 자동화
 
 ## 부천 FC | AI 응원 매칭 — 기업 협업 프로젝트
 **2024.09 — 2024.10 · 부천 FC 경기장 실서비스 배포 · 700명 참여**

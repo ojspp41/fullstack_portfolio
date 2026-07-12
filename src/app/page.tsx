@@ -133,6 +133,15 @@ export default function Home() {
               >
                 {profile.email}
               </a>
+              {profile.resumePdf && (
+                <a
+                  href={profile.resumePdf}
+                  download
+                  className="rounded-md border border-line px-5 py-2.5 text-mute transition-colors hover:border-amber hover:text-amber"
+                >
+                  풀스택 포트폴리오 PDF ↓
+                </a>
+              )}
               <a
                 href={profile.github}
                 target="_blank"
