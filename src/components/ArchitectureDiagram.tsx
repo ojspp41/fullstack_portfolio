@@ -255,12 +255,10 @@ export default function ArchitectureDiagram({
     <div>
       {/* legend */}
       <div className="mb-5 flex flex-wrap items-center gap-4 text-xs font-medium">
-        {(Object.keys(OWNERSHIP_META) as Ownership[]).map((k) => (
-          <span key={k} className="flex items-center gap-2 text-mute">
-            <span className={`h-2 w-2 rounded-full ${OWNERSHIP_META[k].dot}`} />
-            {OWNERSHIP_META[k].label}
-          </span>
-        ))}
+        <span className="flex items-center gap-2 text-mute">
+          <span className={`h-2 w-2 rounded-full ${OWNERSHIP_META.direct.dot}`} />
+          {OWNERSHIP_META.direct.label}
+        </span>
         <span className="hidden text-mute/60 sm:inline">— 노드를 선택하면 관련 프로젝트로 연결됩니다</span>
       </div>
 
