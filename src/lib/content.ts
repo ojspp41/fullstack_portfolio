@@ -56,6 +56,7 @@ const profileSchema = z.object({
   website: z.string().optional(),
   tagline: z.string(),
   subtagline: z.string().optional(),
+  badges: z.array(z.string()).default([]),
   resumePdf: z.string().optional(),
 });
 
@@ -182,9 +183,10 @@ export function getExperience(): ExperienceContent {
   if (fs.existsSync(overviewPath)) {
     const body = matter(fs.readFileSync(overviewPath, "utf8")).content.trim();
     // pull the 운영·관리자(백오피스 어드민) heading section out of the accordion
-    // so it is always visible (the target role is a back-office position)
-    const sections = body.split(/(?=^##\s)/m);
-    const isBackoffice = (s: string) => /^##\s+.*(운영|관리자|백오피스|어드민)/.test(s);
+    // so it is always visible (the target role is a back-office position);
+    // matches the heading at h2 or h3 level
+    const sections = body.split(/(?=^###?\s)/m);
+    const isBackoffice = (s: string) => /^###?\s+[^\n]*(운영|관리자|백오피스|어드민)/.test(s);
     aiAtlasOverview = {
       main: sections.filter((s) => !isBackoffice(s)).join("").trim(),
       backoffice: sections.filter(isBackoffice).join("").trim() || null,
