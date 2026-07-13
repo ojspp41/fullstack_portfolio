@@ -11,7 +11,7 @@ export default function CoverageMap({ coverage }: { coverage: CoverageRow[] }) {
   return (
     <div className="overflow-hidden rounded-lg border border-line">
       {/* header */}
-      <div className="grid grid-cols-[6.5rem_1fr_1fr] gap-px bg-line sm:grid-cols-[9rem_1.4fr_1fr]">
+      <div className="grid grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,1fr)] gap-px bg-line sm:grid-cols-[9rem_minmax(0,1.4fr)_minmax(0,1fr)]">
         <div className="bg-panel2 px-3 py-2.5 font-mono text-[10px] uppercase tracking-widest text-mute sm:px-4">
           Layer
         </div>
