@@ -9,25 +9,25 @@ export default function CoverageMap({ coverage }: { coverage: CoverageRow[] }) {
   if (coverage.length === 0) return null;
 
   return (
-    <div className="overflow-hidden rounded-lg border border-line">
+    <div className="overflow-hidden rounded-2xl border border-line shadow-sm">
       {/* header */}
       <div className="grid grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,1fr)] gap-px bg-line sm:grid-cols-[9rem_minmax(0,1.4fr)_minmax(0,1fr)]">
-        <div className="bg-panel2 px-3 py-2.5 font-mono text-[10px] uppercase tracking-widest text-mute sm:px-4">
+        <div className="bg-panel2 px-3 py-2.5 text-[11px] font-bold text-mute sm:px-4">
           Layer
         </div>
-        <div className="flex items-center gap-2 bg-panel2 px-3 py-2.5 font-mono text-[10px] uppercase tracking-widest text-amber sm:px-4">
-          <span className="h-2 w-2 rounded-full bg-amber" />
+        <div className="flex items-center gap-2 bg-panel2 px-3 py-2.5 text-[11px] font-bold text-accent sm:px-4">
+          <span className="h-2 w-2 rounded-full bg-accent" />
           직접 구현
         </div>
-        <div className="flex items-center gap-2 bg-panel2 px-3 py-2.5 font-mono text-[10px] uppercase tracking-widest text-steel sm:px-4">
-          <span className="h-2 w-2 rounded-full bg-steel" />
+        <div className="flex items-center gap-2 bg-panel2 px-3 py-2.5 text-[11px] font-bold text-sub sm:px-4">
+          <span className="h-2 w-2 rounded-full bg-sub" />
           설계 이해 · 연동
         </div>
 
         {/* rows */}
         {coverage.map((row) => (
           <div key={row.layer} className="contents">
-            <div className="flex items-center bg-panel px-3 py-3 font-mono text-xs font-semibold text-ink sm:px-4">
+            <div className="flex items-center bg-panel px-3 py-3 text-xs font-bold text-ink sm:px-4">
               {row.layer}
             </div>
             <div className="flex flex-wrap content-start gap-1.5 bg-panel px-3 py-3 sm:px-4">
@@ -35,7 +35,7 @@ export default function CoverageMap({ coverage }: { coverage: CoverageRow[] }) {
                 row.direct.map((item) => (
                   <span
                     key={item}
-                    className="rounded border border-amber/40 bg-amber/10 px-2 py-1 text-[11px] leading-snug text-amber"
+                    className="rounded-full bg-accent/10 px-2.5 py-1 text-[11px] font-medium leading-snug text-accent"
                   >
                     {item}
                   </span>
@@ -49,7 +49,7 @@ export default function CoverageMap({ coverage }: { coverage: CoverageRow[] }) {
                 row.integrated.map((item) => (
                   <span
                     key={item}
-                    className="rounded border border-steel/40 bg-steel/10 px-2 py-1 text-[11px] leading-snug text-steel"
+                    className="rounded-full bg-sub/10 px-2.5 py-1 text-[11px] font-medium leading-snug text-sub"
                   >
                     {item}
                   </span>

@@ -43,7 +43,7 @@ export default function SectionNav({ sections }: { sections: NavSection[] }) {
       {/* scroll progress indicator */}
       <div className="fixed inset-x-0 top-0 z-50 h-0.5 bg-line/50">
         <div
-          className="h-full bg-amber transition-[width] duration-150 ease-out"
+          className="h-full bg-accent transition-[width] duration-150 ease-out"
           style={{ width: `${progress * 100}%` }}
         />
       </div>
@@ -64,14 +64,14 @@ export default function SectionNav({ sections }: { sections: NavSection[] }) {
             >
               <span
                 className={`font-mono text-[10px] uppercase tracking-widest transition-opacity ${
-                  isActive ? "text-amber opacity-100" : "text-mute opacity-0 group-hover:opacity-100"
+                  isActive ? "text-accent opacity-100" : "text-mute opacity-0 group-hover:opacity-100"
                 }`}
               >
                 {s.label}
               </span>
               <span
                 className={`block h-2 w-2 rounded-full border transition-colors ${
-                  isActive ? "border-amber bg-amber" : "border-mute bg-transparent group-hover:border-ink"
+                  isActive ? "border-accent bg-accent" : "border-mute bg-transparent group-hover:border-ink"
                 }`}
               />
             </a>

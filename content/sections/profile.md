@@ -9,6 +9,7 @@ github: https://github.com/ojspp41
 website: https://portfolio-nextjs-puce-pi.vercel.app
 tagline: 문제를 직접 정의하고 끝까지 푸는 풀스택 개발자
 subtagline: 화면부터 서버 계약, 파이프라인 연동, 인프라까지 — 백오피스 어드민 풀스택
+badges: ["OSSCA 2025 우수상 (장관상)", "오픈소스 개발자 대회 우수작", "정보처리기사", "OPIc IH"]
 resumePdf: /junseok-oh-fullstack-portfolio.pdf
 ---
 

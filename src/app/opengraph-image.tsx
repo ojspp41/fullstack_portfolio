@@ -4,13 +4,12 @@ export const alt = "오준석 — Full-Stack Engineer · AI / LLM Application";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// design tokens (dark theme — the canonical look)
-const BG = "#0b1014";
-const PANEL = "#10171d";
-const LINE = "#1e2a33";
-const INK = "#e8eef2";
-const MUTE = "#8fa0ab";
-const AMBER = "#f2a33c";
+// design tokens (light pastel — the canonical look)
+const PANEL = "#ffffff";
+const LINE = "#e2e8f0";
+const INK = "#1e293b";
+const MUTE = "#64748b";
+const ACCENT = "#4f46e5";
 
 const METRICS = [
   { label: "조회 속도", value: "750배↑" },
@@ -60,9 +59,7 @@ export default async function OgImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: BG,
-          backgroundImage: `linear-gradient(${LINE} 1px, transparent 1px), linear-gradient(90deg, ${LINE} 1px, transparent 1px)`,
-          backgroundSize: "72px 72px",
+          backgroundImage: "linear-gradient(120deg, #dbeafe 0%, #ede9fe 45%, #fce7f3 100%)",
           padding: "64px 72px",
           fontFamily: "NotoSansKR",
         }}
@@ -76,10 +73,10 @@ export default async function OgImage() {
               fontFamily: mono,
               fontSize: 22,
               letterSpacing: 6,
-              color: AMBER,
+              color: ACCENT,
             }}
           >
-            SEC.01 <span style={{ color: MUTE }}>//</span> FULL-STACK ENGINEER · AI / LLM
+            FULL-STACK ENGINEER · AI / LLM APPLICATION
           </div>
           <div
             style={{
@@ -97,7 +94,7 @@ export default async function OgImage() {
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 2, borderRadius: 12, border: `1px solid ${LINE}` }}>
+        <div style={{ display: "flex", gap: 16 }}>
           {METRICS.map((m, i) => (
             <div
               key={m.label}
@@ -107,8 +104,9 @@ export default async function OgImage() {
                 flex: 1,
                 background: PANEL,
                 padding: "28px 32px",
-                borderLeft: i === 0 ? "none" : `1px solid ${LINE}`,
-                borderRadius: i === 0 ? "12px 0 0 12px" : i === 3 ? "0 12px 12px 0" : 0,
+                border: `1px solid ${LINE}`,
+                borderRadius: 20,
+                boxShadow: "0 8px 24px rgba(79,70,229,0.10)",
               }}
             >
               <div style={{ fontFamily: mono, fontSize: 18, letterSpacing: 3, color: MUTE }}>
@@ -120,7 +118,7 @@ export default async function OgImage() {
                   fontFamily: mono,
                   fontSize: 44,
                   fontWeight: 700,
-                  color: AMBER,
+                  color: ACCENT,
                 }}
               >
                 {m.value}

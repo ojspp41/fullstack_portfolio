@@ -31,13 +31,9 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
-      className="fixed right-4 top-2.5 z-50 flex h-8 items-center gap-2 rounded-md border border-line bg-panel px-3 font-mono text-[10px] tracking-[0.15em] text-mute transition-colors hover:border-amber hover:text-amber"
+      className="fixed right-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-line bg-panel text-lg shadow-md transition-all duration-300 hover:scale-110 hover:border-accent/50"
     >
-      <span
-        className={`h-2 w-2 rounded-full border border-current ${dark ? "" : "bg-current"}`}
-        aria-hidden
-      />
-      {dark === null ? "THEME" : dark ? "DARK" : "LIGHT"}
+      <span aria-hidden>{dark === null ? "✨" : dark ? "🌙" : "☀️"}</span>
     </button>
   );
 }

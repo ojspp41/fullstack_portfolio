@@ -199,13 +199,13 @@ const ALL_NODES = [...COLUMNS.flatMap((c) => c.nodes), ...INFRA_NODES];
 const OWNERSHIP_META: Record<Ownership, { label: string; chip: string; dot: string }> = {
   direct: {
     label: "직접 구현",
-    chip: "border-amber/60 bg-amber/10 text-amber",
-    dot: "bg-amber",
+    chip: "bg-accent/10 text-accent",
+    dot: "bg-accent",
   },
   integrated: {
     label: "설계 이해 · 연동",
-    chip: "border-steel/60 bg-steel/10 text-steel",
-    dot: "bg-steel",
+    chip: "bg-sub/10 text-sub",
+    dot: "bg-sub",
   },
 };
 
@@ -225,8 +225,10 @@ function NodeButton({
       onMouseEnter={() => onActivate(node.id)}
       onFocus={() => onActivate(node.id)}
       onClick={() => onActivate(node.id)}
-      className={`group rounded-md border px-3 py-2.5 text-left transition-colors ${
-        isActive ? "border-amber/70 bg-panel2" : "border-line bg-bg/60 hover:border-mute/60"
+      className={`group rounded-xl border px-3 py-2.5 text-left transition-all duration-200 ${
+        isActive
+          ? "border-accent/60 bg-panel2 shadow-md shadow-indigo-500/10"
+          : "border-line bg-bg/50 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-sm"
       }`}
     >
       <span className="flex items-center gap-2">
@@ -252,7 +254,7 @@ export default function ArchitectureDiagram({
   return (
     <div>
       {/* legend */}
-      <div className="mb-5 flex flex-wrap items-center gap-4 font-mono text-xs">
+      <div className="mb-5 flex flex-wrap items-center gap-4 text-xs font-medium">
         {(Object.keys(OWNERSHIP_META) as Ownership[]).map((k) => (
           <span key={k} className="flex items-center gap-2 text-mute">
             <span className={`h-2 w-2 rounded-full ${OWNERSHIP_META[k].dot}`} />
@@ -266,9 +268,9 @@ export default function ArchitectureDiagram({
       <div className="grid grid-cols-1 gap-0 xl:grid-cols-[1fr_1.5rem_1fr_1.5rem_1fr_1.5rem_1fr_1.5rem_1fr]">
         {COLUMNS.map((col, ci) => (
           <div key={col.key} className="contents">
-            <div className="rounded-lg border border-line bg-panel p-4">
-              <p className="font-mono text-xs tracking-[0.18em] text-amber">{col.title}</p>
-              <p className="mt-1 font-mono text-[11px] text-mute">{col.subtitle}</p>
+            <div className="h-full rounded-2xl border border-line bg-panel/85 p-4 shadow-sm backdrop-blur">
+              <p className="text-sm font-bold tracking-wide text-accent">{col.title}</p>
+              <p className="mt-1 text-[11px] text-mute">{col.subtitle}</p>
               <div className="mt-4 flex flex-col gap-2">
                 {col.nodes.map((node) => (
                   <NodeButton
@@ -293,11 +295,11 @@ export default function ArchitectureDiagram({
       </div>
 
       {/* runtime / infra strip */}
-      <div className="mt-4 rounded-lg border border-line bg-panel p-4">
+      <div className="mt-4 rounded-2xl border border-line bg-panel/85 p-4 shadow-sm backdrop-blur">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="shrink-0 sm:w-40">
-            <p className="font-mono text-xs tracking-[0.18em] text-amber">RUNTIME / INFRA</p>
-            <p className="mt-1 font-mono text-[11px] text-mute">Docker · K8s · On-Premise</p>
+            <p className="text-sm font-bold tracking-wide text-accent">RUNTIME / INFRA</p>
+            <p className="mt-1 text-[11px] text-mute">Docker · K8s · On-Premise</p>
           </div>
           <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
             {INFRA_NODES.map((node) => (
@@ -313,14 +315,14 @@ export default function ArchitectureDiagram({
       </div>
 
       {/* readout panel */}
-      <div className="mt-4 min-h-24 rounded-lg border border-line bg-panel2 p-4">
+      <div className="mt-4 min-h-24 rounded-2xl border border-line bg-panel2/80 p-4 backdrop-blur">
         {activeNode ? (
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm font-semibold">{activeNode.label}</span>
                 <span
-                  className={`rounded-full border px-2 py-0.5 font-mono text-[10px] tracking-wider ${OWNERSHIP_META[activeNode.ownership].chip}`}
+                  className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${OWNERSHIP_META[activeNode.ownership].chip}`}
                 >
                   {OWNERSHIP_META[activeNode.ownership].label}
                 </span>
@@ -334,7 +336,7 @@ export default function ArchitectureDiagram({
                     key={pid}
                     type="button"
                     onClick={() => openProject(pid)}
-                    className="rounded-md border border-line bg-bg px-3 py-1.5 font-mono text-xs text-ink transition-colors hover:border-amber hover:text-amber"
+                    className="rounded-xl border border-line bg-panel px-3 py-1.5 text-xs font-medium text-ink shadow-sm transition-all hover:scale-105 hover:border-accent/50 hover:text-accent"
                   >
                     {projectTitles[pid] ?? pid} →
                   </button>
@@ -343,9 +345,9 @@ export default function ArchitectureDiagram({
             )}
           </div>
         ) : (
-          <p className="font-mono text-xs text-mute">
-            <span className="text-amber">READOUT</span> — 노드를 선택하면 담당 범위와 관련 심층분석이
-            표시됩니다.
+          <p className="text-xs text-mute">
+            <span className="font-semibold text-accent">💡 READOUT</span> — 노드를 선택하면 담당 범위와
+            관련 심층분석이 표시됩니다.
           </p>
         )}
       </div>

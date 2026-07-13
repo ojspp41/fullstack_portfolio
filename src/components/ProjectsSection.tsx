@@ -21,11 +21,11 @@ const CATEGORY_LABEL: Record<Project["category"], string> = {
 };
 
 // same 2-color rule as the architecture diagram:
-// "…직접" → amber (direct build), 연동/이해/관점/협업 → steel (integrated)
+// "…직접" → accent (direct build), 연동/이해/관점/협업 → sub (integrated)
 function layerChipClass(layer: string): string {
   return /연동|이해|관점|협업/.test(layer)
-    ? "border-steel/50 bg-steel/10 text-steel"
-    : "border-amber/50 bg-amber/10 text-amber";
+    ? "bg-sub/10 text-sub"
+    : "bg-accent/10 text-accent";
 }
 
 function LayerChips({ layers, size = "sm" }: { layers: string[]; size?: "sm" | "md" }) {
@@ -34,7 +34,7 @@ function LayerChips({ layers, size = "sm" }: { layers: string[]; size?: "sm" | "
   return (
     <div className="flex flex-wrap gap-1.5">
       {layers.map((l) => (
-        <span key={l} className={`rounded border font-mono leading-snug ${pad} ${layerChipClass(l)}`}>
+        <span key={l} className={`rounded-full font-medium leading-snug ${pad} ${layerChipClass(l)}`}>
           {l}
         </span>
       ))}
@@ -87,10 +87,10 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
             role="tab"
             aria-selected={filter === f.key}
             onClick={() => setFilter(f.key)}
-            className={`rounded-md border px-4 py-1.5 font-mono text-sm transition-colors ${
+            className={`rounded-full px-5 py-2 text-sm font-medium shadow-sm transition-all duration-300 ${
               filter === f.key
-                ? "border-amber bg-amber/10 text-amber"
-                : "border-line text-mute hover:border-mute hover:text-ink"
+                ? "grad-bg text-white shadow-indigo-500/30"
+                : "border border-line bg-panel text-mute hover:scale-105 hover:text-ink"
             }`}
           >
             {f.label}
@@ -111,13 +111,13 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
               type="button"
               id={`project-${p.id}`}
               onClick={() => setOpenId(p.id)}
-              className="group flex h-full w-full flex-col rounded-lg border border-line bg-panel p-5 text-left transition-colors hover:border-amber/60"
+              className="group flex h-full w-full flex-col rounded-2xl border border-line bg-panel/85 p-5 text-left shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-indigo-500/10"
             >
               <div className="flex items-start justify-between gap-3">
-                <span className="font-mono text-[10px] tracking-[0.18em] text-mute">
+                <span className="text-[11px] font-semibold tracking-wide text-mute">
                   {String(p.order).padStart(2, "0")} · {CATEGORY_LABEL[p.category]}
                 </span>
-                <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-mute group-hover:border-amber/50 group-hover:text-amber">
+                <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-[10px] font-medium text-purple-800 dark:bg-purple-500/20 dark:text-purple-200">
                   {p.badge}
                 </span>
               </div>
@@ -133,17 +133,17 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                   <span
                     key={m.label}
                     title={m.note}
-                    className="rounded border border-line bg-bg/60 px-2 py-1 font-mono text-[11px] text-mute transition-colors group-hover:border-amber/40 group-hover:text-ink"
+                    className="rounded-lg bg-panel2 px-2 py-1 text-[11px] text-mute transition-colors group-hover:text-ink"
                   >
                     <span className="opacity-70">{m.label}</span>{" "}
-                    <span className="font-semibold text-amber">{m.value}</span>
+                    <span className="font-mono font-semibold text-accent">{m.value}</span>
                   </span>
                 ))}
               </div>
 
               <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
                 {p.stack.slice(0, 5).map((s) => (
-                  <span key={s} className="font-mono text-[10px] text-mute/80">
+                  <span key={s} className="rounded-md bg-bg/70 px-1.5 py-0.5 font-mono text-[10px] text-mute/90">
                     {s}
                   </span>
                 ))}
@@ -166,12 +166,12 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           onClick={close}
         >
           <div
-            className="my-4 w-full max-w-3xl rounded-lg border border-line bg-panel shadow-2xl"
+            className="my-4 w-full max-w-3xl rounded-2xl border border-line bg-panel shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-lg border-b border-line bg-panel px-6 py-4">
+            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-2xl border-b border-line bg-panel px-6 py-4">
               <div>
-                <p className="font-mono text-[11px] tracking-[0.18em] text-amber">
+                <p className="text-[11px] font-semibold tracking-wide text-accent">
                   {String(openProject.order).padStart(2, "0")} ·{" "}
                   {CATEGORY_LABEL[openProject.category]} · {openProject.badge}
                 </p>
@@ -184,20 +184,18 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 type="button"
                 onClick={close}
                 aria-label="닫기"
-                className="rounded-md border border-line px-2.5 py-1 font-mono text-sm text-mute transition-colors hover:border-mute hover:text-ink"
+                className="rounded-full border border-line px-3 py-1 text-sm text-mute transition-all hover:scale-105 hover:text-ink"
               >
                 ESC
               </button>
             </div>
 
             <div className="px-6 py-5">
-              <div className="mb-5 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-4">
+              <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {openProject.metrics.map((m) => (
-                  <div key={m.label} className="bg-panel2 p-3">
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-mute">
-                      {m.label}
-                    </p>
-                    <p className="mt-1 font-mono text-sm font-bold text-amber">{m.value}</p>
+                  <div key={m.label} className="rounded-xl bg-panel2 p-3">
+                    <p className="text-[10px] font-semibold tracking-wide text-mute">{m.label}</p>
+                    <p className="mt-1 font-mono text-sm font-bold text-accent">{m.value}</p>
                     {m.note && <p className="mt-1 text-[11px] text-mute">{m.note}</p>}
                   </div>
                 ))}
@@ -207,7 +205,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 {openProject.stack.map((s) => (
                   <span
                     key={s}
-                    className="rounded border border-line bg-bg/60 px-2 py-0.5 font-mono text-[11px] text-mute"
+                    className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-[11px] font-medium text-indigo-800 dark:bg-indigo-500/20 dark:text-indigo-200"
                   >
                     {s}
                   </span>

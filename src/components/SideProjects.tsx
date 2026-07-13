@@ -8,7 +8,7 @@ export default function SideProjects({ content }: { content: SideProjectsContent
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {content.cards.map((card, i) => (
           <Reveal key={i} delay={(i % 2) * 80}>
-            <div className="h-full rounded-lg border border-line bg-panel p-5 transition-colors hover:border-amber/40">
+            <div className="h-full rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/10">
               <Markdown>{card}</Markdown>
             </div>
           </Reveal>
@@ -17,10 +17,8 @@ export default function SideProjects({ content }: { content: SideProjectsContent
 
       {content.awards && (
         <Reveal>
-          <div className="mt-6 rounded-lg border border-line bg-panel2 p-5 sm:p-6">
-            <p className="mb-3 font-mono text-xs tracking-[0.2em] text-amber">
-              AWARDS <span className="text-mute">//</span> 수상 내역
-            </p>
+          <div className="mt-6 rounded-2xl border border-line bg-gradient-to-br from-indigo-50/90 to-pink-50/60 p-5 shadow-sm dark:from-indigo-500/10 dark:to-pink-500/5 sm:p-6">
+            <p className="mb-3 text-sm font-bold text-accent">🏆 수상 내역</p>
             <Markdown>{content.awards}</Markdown>
           </div>
         </Reveal>
@@ -28,10 +26,8 @@ export default function SideProjects({ content }: { content: SideProjectsContent
 
       {content.aiExperience && (
         <Reveal>
-          <div className="mt-4 rounded-lg border border-line bg-panel p-5 sm:p-6">
-            <p className="mb-3 font-mono text-xs tracking-[0.2em] text-amber">
-              AI <span className="text-mute">//</span> AI 활용 경험
-            </p>
+          <div className="mt-4 rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur sm:p-6">
+            <p className="mb-3 text-sm font-bold text-accent">🤖 AI 활용 경험</p>
             <Markdown>{content.aiExperience}</Markdown>
           </div>
         </Reveal>

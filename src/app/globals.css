@@ -7,8 +7,9 @@
   --color-line: var(--c-line);
   --color-ink: var(--c-ink);
   --color-mute: var(--c-mute);
-  --color-amber: var(--c-amber);
-  --color-steel: var(--c-steel);
+  --color-accent: var(--c-accent);
+  --color-accent2: var(--c-accent2);
+  --color-sub: var(--c-sub);
 
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, SFMono-Regular,
     Menlo, monospace;
@@ -16,31 +17,33 @@
     "Segoe UI", sans-serif;
 }
 
-/* light theme — same instrument mood on paper: darker amber/steel for contrast */
+/* light theme (default) — pastel blue→purple→pink wash, indigo accent */
 :root {
-  --c-bg: #f3f5f7;
+  --c-bg: #f6f7fd;
   --c-panel: #ffffff;
-  --c-panel2: #e9edf1;
-  --c-line: #d8dfe6;
-  --c-ink: #17222c;
-  --c-mute: #5a6a77;
-  --c-amber: #b06e12;
-  --c-steel: #4d6b89;
-  --c-codebg: #eef1f4;
+  --c-panel2: #eef2ff;
+  --c-line: #e2e8f0;
+  --c-ink: #1e293b;
+  --c-mute: #64748b;
+  --c-accent: #4f46e5;
+  --c-accent2: #9333ea;
+  --c-sub: #db2777;
+  --c-codebg: #f1f5f9;
   color-scheme: light;
 }
 
-/* dark theme (default — html ships with .dark, inline script removes it for light) */
+/* dark theme — deep slate with soft indigo/purple glow */
 :root.dark {
-  --c-bg: #0b1014;
-  --c-panel: #10171d;
-  --c-panel2: #141c24;
-  --c-line: #1e2a33;
-  --c-ink: #e8eef2;
-  --c-mute: #8fa0ab;
-  --c-amber: #f2a33c;
-  --c-steel: #7a93ad;
-  --c-codebg: #0a0f13;
+  --c-bg: #0f172a;
+  --c-panel: #1e293b;
+  --c-panel2: #273449;
+  --c-line: #334155;
+  --c-ink: #e2e8f0;
+  --c-mute: #94a3b8;
+  --c-accent: #818cf8;
+  --c-accent2: #c084fc;
+  --c-sub: #f472b6;
+  --c-codebg: #0b1120;
   color-scheme: dark;
 }
 
@@ -53,21 +56,128 @@ body {
   background-color: var(--c-bg);
   color: var(--c-ink);
   font-family: var(--font-sans);
-  /* hairline engineering grid */
-  background-image: linear-gradient(var(--c-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
-  background-size: 72px 72px;
+  position: relative;
+  /* pastel wash */
+  background-image: linear-gradient(
+    120deg,
+    #dbeafe 0%,
+    #ede9fe 45%,
+    #fce7f3 100%
+  );
   background-attachment: fixed;
+}
+:root.dark body {
+  background-image: linear-gradient(
+    150deg,
+    #0f172a 0%,
+    #171a35 45%,
+    #251a35 100%
+  );
+}
+
+/* floating gradient blobs */
+.blob {
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  animation: blob-float 18s ease-in-out infinite alternate;
+}
+.blob-1 {
+  top: -8rem;
+  left: -6rem;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, #a5b4fc, transparent 70%);
+}
+.blob-2 {
+  top: 30%;
+  right: -8rem;
+  width: 30rem;
+  height: 30rem;
+  background: radial-gradient(circle, #f0abfc, transparent 70%);
+  animation-delay: -6s;
+}
+.blob-3 {
+  bottom: -10rem;
+  left: 20%;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, #f9a8d4, transparent 70%);
+  animation-delay: -12s;
+}
+:root.dark .blob {
+  opacity: 0.25;
+}
+@keyframes blob-float {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2rem, 3rem, 0) scale(1.08);
+  }
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--c-amber) 35%, transparent);
+  background: color-mix(in srgb, var(--c-accent) 25%, transparent);
+}
+
+/* ===== indigo gradient scrollbar (ported from Portfolio_nextjs) ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a5b4fc 0%, #818cf8 50%, #6366f1 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #818cf8 0%, #6366f1 50%, #4f46e5 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+:root.dark ::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+}
+:root.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 50%, #4338ca 100%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #818cf8 transparent;
+}
+
+/* ---- gradient helpers ---- */
+.grad-text {
+  background: linear-gradient(90deg, var(--c-accent), var(--c-accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.grad-bg {
+  background: linear-gradient(90deg, var(--c-accent), var(--c-accent2));
 }
 
 /* ---- scroll reveal ---- */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .reveal.reveal-in {
@@ -79,7 +189,7 @@ body {
 .signal-flow {
   background-image: repeating-linear-gradient(
     90deg,
-    var(--c-amber) 0 6px,
+    var(--c-accent) 0 6px,
     transparent 6px 14px
   );
   animation: signal-slide 1.2s linear infinite;
@@ -87,7 +197,7 @@ body {
 .signal-flow-v {
   background-image: repeating-linear-gradient(
     180deg,
-    var(--c-amber) 0 6px,
+    var(--c-accent) 0 6px,
     transparent 6px 14px
   );
   animation: signal-slide-v 1.2s linear infinite;
@@ -103,6 +213,22 @@ body {
   }
 }
 
+/* ---- typewriter caret ---- */
+.tw-caret {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.1em;
+  background: var(--c-accent);
+  animation: caret-blink 1s step-end infinite;
+}
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -113,7 +239,9 @@ body {
     transition: none;
   }
   .signal-flow,
-  .signal-flow-v {
+  .signal-flow-v,
+  .blob,
+  .tw-caret {
     animation: none;
   }
 }
@@ -151,7 +279,7 @@ body {
 }
 .md-body p {
   margin: 0.75rem 0;
-  color: color-mix(in srgb, var(--c-ink) 88%, var(--c-mute));
+  color: color-mix(in srgb, var(--c-ink) 82%, var(--c-mute));
 }
 .md-body ul,
 .md-body ol {
@@ -166,23 +294,26 @@ body {
 }
 .md-body li {
   margin: 0.375rem 0;
-  color: color-mix(in srgb, var(--c-ink) 85%, var(--c-mute));
+  color: color-mix(in srgb, var(--c-ink) 80%, var(--c-mute));
+}
+.md-body li::marker {
+  color: var(--c-accent);
 }
 .md-body strong {
   color: var(--c-ink);
   font-weight: 700;
 }
 .md-body a {
-  color: var(--c-amber);
+  color: var(--c-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .md-body blockquote {
-  border-left: 2px solid var(--c-amber);
+  border-left: 3px solid var(--c-accent);
   background: var(--c-panel2);
   padding: 0.625rem 1rem;
   margin: 1rem 0;
-  border-radius: 0 0.375rem 0.375rem 0;
+  border-radius: 0 0.75rem 0.75rem 0;
   font-size: 0.875rem;
 }
 .md-body blockquote p {
@@ -193,14 +324,14 @@ body {
   font-size: 0.8125rem;
   background: var(--c-panel2);
   border: 1px solid var(--c-line);
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   padding: 0.0625rem 0.375rem;
-  color: var(--c-amber);
+  color: var(--c-accent);
 }
 .md-body pre {
   background: var(--c-codebg);
   border: 1px solid var(--c-line);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   padding: 1rem;
   margin: 1rem 0;
   overflow-x: auto;
@@ -217,7 +348,7 @@ body {
   overflow-x: auto;
   margin: 1rem 0;
   border: 1px solid var(--c-line);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
 }
 .md-body table {
   width: 100%;
@@ -225,11 +356,10 @@ body {
   font-size: 0.8125rem;
 }
 .md-body th {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--c-mute);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--c-accent);
   text-align: left;
   padding: 0.625rem 0.875rem;
   background: var(--c-panel2);

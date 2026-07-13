@@ -31,17 +31,17 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f5f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1014" },
+    { media: "(prefers-color-scheme: light)", color: "#e8e4fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
   ],
 };
 
-// applied before paint: stored choice > system preference > dark (design default)
-const THEME_INIT = `(function(){try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.classList.toggle("dark",t!=="light")}catch(e){}})()`;
+// applied before paint: stored choice > system preference > light (design default)
+const THEME_INIT = `(function(){try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.classList.toggle("dark",t==="dark")}catch(e){}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={`${jetbrainsMono.variable} dark`} suppressHydrationWarning>
+    <html lang="ko" className={jetbrainsMono.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <link
@@ -52,6 +52,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="antialiased">
+        <div className="blob blob-1" aria-hidden />
+        <div className="blob blob-2" aria-hidden />
+        <div className="blob blob-3" aria-hidden />
         <ThemeToggle />
         {children}
       </body>

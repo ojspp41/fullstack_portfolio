@@ -1,69 +1,91 @@
 import type { Profile } from "@/lib/content";
 import MetricCounter from "./MetricCounter";
 import Reveal from "./Reveal";
+import TypeWriter from "./TypeWriter";
+
+// pastel pill palette cycled over profile.badges (old-portfolio style)
+const PILL_COLORS = [
+  "bg-indigo-100 text-indigo-800 dark:bg-indigo-500/20 dark:text-indigo-200",
+  "bg-green-100 text-green-800 dark:bg-green-500/20 dark:text-green-200",
+  "bg-purple-100 text-purple-800 dark:bg-purple-500/20 dark:text-purple-200",
+  "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200",
+];
 
 export default function Hero({ profile }: { profile: Profile }) {
   return (
-    <section id="hero" className="relative overflow-hidden border-b border-line">
-      <div className="mx-auto max-w-5xl px-6 pb-16 pt-28 sm:pt-36">
+    <section id="hero" className="relative overflow-hidden">
+      <div className="mx-auto max-w-5xl px-6 pb-20 pt-28 sm:pt-32">
         <Reveal>
-          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-amber">
-            SEC.01 <span className="text-mute">//</span> FULL-STACK ENGINEER · AI / LLM
-          </p>
-          <h1 className="max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
-            {profile.tagline}
+          <p className="mb-3 text-lg font-medium text-accent">안녕하세요, 저는</p>
+          <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
+            오준석<span className="text-mute/70 text-2xl sm:text-4xl"> 입니다</span>
           </h1>
-          {profile.subtagline && (
-            <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-ink/90 sm:text-lg">
-              {profile.subtagline}
-            </p>
-          )}
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-mute">
-            {profile.name} — {profile.role}
+          <p className="mt-4 h-9 text-2xl sm:text-3xl">
+            <TypeWriter />
+          </p>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">
+            {profile.tagline}. {profile.subtagline}.
           </p>
         </Reveal>
 
-        {/* headline instruments */}
-        <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-4">
-          {profile.heroStats.map((stat, i) => (
-            <div key={stat.label} className="bg-panel p-5">
-              <Reveal delay={i * 90}>
-                <p className="font-mono text-[11px] uppercase tracking-widest text-mute">
-                  {stat.label}
-                </p>
-                <p className="mt-2 text-2xl font-bold text-amber sm:text-3xl">
-                  <MetricCounter value={stat.value} />
-                </p>
-                <p className="mt-2 text-xs leading-relaxed text-mute">{stat.note}</p>
-              </Reveal>
+        {/* award / cert pills */}
+        {profile.badges.length > 0 && (
+          <Reveal delay={120}>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {profile.badges.map((b, i) => (
+                <span
+                  key={b}
+                  className={`rounded-full px-4 py-1.5 text-sm font-medium shadow-sm ${PILL_COLORS[i % PILL_COLORS.length]}`}
+                >
+                  {b}
+                </span>
+              ))}
             </div>
-          ))}
-        </div>
+          </Reveal>
+        )}
 
+        {/* CTA buttons */}
         <Reveal delay={200}>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-9 flex flex-wrap items-center gap-3">
             <a
               href="#projects"
-              className="rounded-md border border-amber bg-amber/10 px-5 py-2.5 font-mono text-sm text-amber transition-colors hover:bg-amber hover:text-bg"
+              className="grad-bg inline-flex items-center rounded-xl px-7 py-3 text-base font-medium text-white shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/40"
             >
-              Deep Dives ↓
+              프로젝트 보기
             </a>
             <a
               href="#coverage"
-              className="rounded-md border border-line px-5 py-2.5 font-mono text-sm text-mute transition-colors hover:border-amber hover:text-amber"
+              className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-all duration-300 hover:scale-105 hover:border-accent/50"
             >
-              Coverage Map ↓
+              Coverage Map
             </a>
             <a
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md border border-line px-5 py-2.5 font-mono text-sm text-mute transition-colors hover:border-mute hover:text-ink"
+              className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-all duration-300 hover:scale-105 hover:border-accent/50"
             >
               GitHub ↗
             </a>
           </div>
         </Reveal>
+
+        {/* headline metrics */}
+        <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {profile.heroStats.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 90}>
+              <div className="h-full rounded-2xl border border-line bg-panel/80 p-5 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <p className="text-xs font-semibold uppercase tracking-wider text-mute">
+                  {stat.label}
+                </p>
+                <p className="grad-text mt-2 text-2xl font-bold sm:text-3xl">
+                  <MetricCounter value={stat.value} />
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-mute">{stat.note}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
