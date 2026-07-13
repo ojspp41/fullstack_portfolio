@@ -110,6 +110,11 @@ export function getProfile(): Profile {
   const { data, content } = matter(raw);
   const meta = profileSchema.parse(data);
 
+  // never ship a dead download link: drop resumePdf unless the file exists in public/
+  if (meta.resumePdf && !fs.existsSync(path.join(process.cwd(), "public", meta.resumePdf))) {
+    meta.resumePdf = undefined;
+  }
+
   const intro = content
     .split(/^##\s/m)[0]
     .replace(/^#\s+[^\n]+\n/m, "")
