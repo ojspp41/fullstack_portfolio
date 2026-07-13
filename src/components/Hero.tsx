@@ -49,6 +49,12 @@ export default function Hero({ profile }: { profile: Profile }) {
               Deep Dives ↓
             </a>
             <a
+              href="#coverage"
+              className="rounded-md border border-line px-5 py-2.5 font-mono text-sm text-mute transition-colors hover:border-amber hover:text-amber"
+            >
+              Coverage Map ↓
+            </a>
+            <a
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"

@@ -259,7 +259,7 @@ export default function ArchitectureDiagram({
             {OWNERSHIP_META[k].label}
           </span>
         ))}
-        <span className="hidden text-mute/60 sm:inline">— 노드에 올리면 관련 프로젝트로 연결됩니다</span>
+        <span className="hidden text-mute/60 sm:inline">— 노드를 선택하면 관련 프로젝트로 연결됩니다</span>
       </div>
 
       {/* 5-tier diagram */}

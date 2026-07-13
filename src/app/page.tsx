@@ -50,7 +50,7 @@ export default function Home() {
 
           {/* Coverage Map — per-layer direct vs. integrated matrix */}
           <Reveal>
-            <div className="mt-12">
+            <div id="coverage" className="mt-12 scroll-mt-16">
               <p className="mb-3 font-mono text-xs tracking-[0.2em] text-amber">
                 COVERAGE MAP <span className="text-mute">//</span> 레이어별 담당 범위
               </p>
