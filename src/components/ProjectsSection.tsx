@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Project } from "@/lib/content";
 import Markdown from "./Markdown";
 import Reveal from "./Reveal";
+import TiltCard from "./TiltCard";
 
 const FILTERS = [
   { key: "all", label: "전체" },
@@ -106,12 +107,13 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       {/* cards */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {visible.map((p, i) => (
-          <Reveal key={p.id} delay={(i % 3) * 80}>
+          <Reveal key={p.id} delay={(i % 3) * 80} className="h-full">
+            <TiltCard>
             <button
               type="button"
               id={`project-${p.id}`}
               onClick={() => setOpenId(p.id)}
-              className="group flex h-full w-full flex-col rounded-2xl border border-line bg-panel/85 p-5 text-left shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-indigo-500/10"
+              className="group flex h-full w-full flex-col rounded-2xl border border-line bg-panel/85 p-5 text-left shadow-sm backdrop-blur transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-xl hover:shadow-indigo-500/10"
             >
               <div className="flex items-start justify-between gap-3">
                 <span className="text-[11px] font-semibold tracking-wide text-mute">
@@ -152,6 +154,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 )}
               </div>
             </button>
+            </TiltCard>
           </Reveal>
         ))}
       </div>

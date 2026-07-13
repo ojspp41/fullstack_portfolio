@@ -1,6 +1,7 @@
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import CoverageMap from "@/components/CoverageMap";
 import Hero from "@/components/Hero";
+import MagneticButton from "@/components/MagneticButton";
 import Markdown from "@/components/Markdown";
 import ProjectsSection from "@/components/ProjectsSection";
 import Reveal from "@/components/Reveal";
@@ -123,12 +124,14 @@ export default function Home() {
           <Reveal>
             <SectionHeading icon="📨" title="연락하기" />
             <div className="flex flex-wrap gap-3 text-sm font-medium">
-              <a
-                href={`mailto:${profile.email}`}
-                className="grad-bg rounded-xl px-6 py-3 text-white shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105"
-              >
-                {profile.email}
-              </a>
+              <MagneticButton>
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="grad-bg block rounded-xl px-6 py-3 text-white shadow-lg shadow-indigo-500/30 transition-shadow duration-300 hover:shadow-xl hover:shadow-indigo-500/40"
+                >
+                  {profile.email}
+                </a>
+              </MagneticButton>
               {profile.resumePdf && (
                 <a
                   href={profile.resumePdf}

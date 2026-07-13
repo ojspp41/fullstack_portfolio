@@ -1,6 +1,8 @@
 import type { Profile } from "@/lib/content";
 import MetricCounter from "./MetricCounter";
+import MagneticButton from "./MagneticButton";
 import Reveal from "./Reveal";
+import TiltCard from "./TiltCard";
 import TypeWriter from "./TypeWriter";
 
 // pastel pill palette cycled over profile.badges (old-portfolio style)
@@ -47,42 +49,50 @@ export default function Hero({ profile }: { profile: Profile }) {
         {/* CTA buttons */}
         <Reveal delay={200}>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a
-              href="#projects"
-              className="grad-bg inline-flex items-center rounded-xl px-7 py-3 text-base font-medium text-white shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/40"
-            >
-              프로젝트 보기
-            </a>
-            <a
-              href="#coverage"
-              className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-all duration-300 hover:scale-105 hover:border-accent/50"
-            >
-              Coverage Map
-            </a>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-all duration-300 hover:scale-105 hover:border-accent/50"
-            >
-              GitHub ↗
-            </a>
+            <MagneticButton>
+              <a
+                href="#projects"
+                className="grad-bg inline-flex items-center rounded-xl px-7 py-3 text-base font-medium text-white shadow-lg shadow-indigo-500/30 transition-shadow duration-300 hover:shadow-xl hover:shadow-indigo-500/40"
+              >
+                프로젝트 보기
+              </a>
+            </MagneticButton>
+            <MagneticButton>
+              <a
+                href="#coverage"
+                className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-colors duration-300 hover:border-accent/50"
+              >
+                Coverage Map
+              </a>
+            </MagneticButton>
+            <MagneticButton>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-colors duration-300 hover:border-accent/50"
+              >
+                GitHub ↗
+              </a>
+            </MagneticButton>
           </div>
         </Reveal>
 
         {/* headline metrics */}
         <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {profile.heroStats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 90}>
-              <div className="h-full rounded-2xl border border-line bg-panel/80 p-5 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+            <Reveal key={stat.label} delay={i * 90} className="h-full">
+              <TiltCard>
+                <div className="h-full rounded-2xl border border-line bg-panel/80 p-5 shadow-sm backdrop-blur">
                 <p className="text-xs font-semibold uppercase tracking-wider text-mute">
                   {stat.label}
                 </p>
                 <p className="grad-text mt-2 text-2xl font-bold sm:text-3xl">
                   <MetricCounter value={stat.value} />
                 </p>
-                <p className="mt-2 text-xs leading-relaxed text-mute">{stat.note}</p>
-              </div>
+                  <p className="mt-2 text-xs leading-relaxed text-mute">{stat.note}</p>
+                </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>
