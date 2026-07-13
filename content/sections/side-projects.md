@@ -60,3 +60,5 @@ section: side-projects
 - playwright-mcp + Confluence MCP 결합 가이드북 자동화 — Claude Code로 화면 캡처·문서 자동 생성
 - 사용량·비용 미터링 대시보드 — 화면 요구를 백엔드 집계로 정의 (Kafka·SCD2 연동, FE 훅·ExcelJS 직접 구현)
 - 파일 인앱 미리보기 풀스택 — 미리보기 엔드포인트·통로 분리 직접 구현 + 악성코드 차단 3겹
+- agent-browser 기반 QA 시트 자동 제작 — 시나리오 도출부터 결과 정리까지 AI 처리 흐름
+- QA 시트를 토대로 FSD(Feature-Sliced Design) 구조 리팩토링 — 책임 경계 재정렬 및 의존성 단방향화

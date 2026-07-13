@@ -154,11 +154,18 @@ export function getProfile(): Profile {
 
 /* ---------- experience ---------- */
 
+export interface AiAtlasOverview {
+  /** 입사 상황 + 일반 도메인 기능 — 아코디언 안에 접힘 */
+  main: string;
+  /** 운영·관리자(백오피스 어드민) 섹션 — 아코디언 밖에 항상 노출 */
+  backoffice: string | null;
+}
+
 export interface ExperienceContent {
   jobs: string[]; // markdown blocks, one per position
   extra: string; // 학력 · 동아리
   /** AI Atlas 서비스 개요 (content/sections/ai-atlas-overview.md가 있을 때만) */
-  aiAtlasOverview: string | null;
+  aiAtlasOverview: AiAtlasOverview | null;
 }
 
 export function getExperience(): ExperienceContent {
@@ -171,9 +178,18 @@ export function getExperience(): ExperienceContent {
     .filter(Boolean);
 
   const overviewPath = path.join(CONTENT_DIR, "sections", "ai-atlas-overview.md");
-  const aiAtlasOverview = fs.existsSync(overviewPath)
-    ? matter(fs.readFileSync(overviewPath, "utf8")).content.trim()
-    : null;
+  let aiAtlasOverview: AiAtlasOverview | null = null;
+  if (fs.existsSync(overviewPath)) {
+    const body = matter(fs.readFileSync(overviewPath, "utf8")).content.trim();
+    // pull the 운영·관리자(백오피스 어드민) heading section out of the accordion
+    // so it is always visible (the target role is a back-office position)
+    const sections = body.split(/(?=^##\s)/m);
+    const isBackoffice = (s: string) => /^##\s+.*(운영|관리자|백오피스|어드민)/.test(s);
+    aiAtlasOverview = {
+      main: sections.filter((s) => !isBackoffice(s)).join("").trim(),
+      backoffice: sections.filter(isBackoffice).join("").trim() || null,
+    };
+  }
 
   return { jobs: blocks.slice(0, -1), extra: blocks.at(-1) ?? "", aiAtlasOverview };
 }

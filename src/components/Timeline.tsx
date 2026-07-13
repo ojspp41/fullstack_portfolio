@@ -19,14 +19,27 @@ export default function Timeline({ experience }: { experience: ExperienceContent
                 <Markdown>{job}</Markdown>
                 {/* AI Atlas 서비스 개요 — 첫 번째(현재) 직장에만, md 파일이 있을 때만 */}
                 {i === 0 && experience.aiAtlasOverview && (
-                  <details open className="mt-5 rounded-md border border-line bg-panel2 px-4 py-3">
-                    <summary className="cursor-pointer font-mono text-xs tracking-[0.15em] text-amber">
-                      AI ATLAS <span className="text-mute">//</span> 서비스 개요 · 백오피스 어드민 기능
-                    </summary>
-                    <div className="mt-3">
-                      <Markdown>{experience.aiAtlasOverview}</Markdown>
-                    </div>
-                  </details>
+                  <>
+                    {/* 백오피스 어드민 기능은 아코디언 밖에 항상 노출 (지원 직무 핵심) */}
+                    {experience.aiAtlasOverview.backoffice && (
+                      <div className="mt-5 rounded-md border border-amber/30 bg-panel2 px-4 py-3">
+                        <p className="mb-2 font-mono text-xs tracking-[0.15em] text-amber">
+                          AI ATLAS <span className="text-mute">//</span> 운영·관리자 (백오피스 어드민)
+                        </p>
+                        <Markdown>{experience.aiAtlasOverview.backoffice}</Markdown>
+                      </div>
+                    )}
+                    {experience.aiAtlasOverview.main && (
+                      <details className="mt-3 rounded-md border border-line bg-panel2 px-4 py-3">
+                        <summary className="cursor-pointer font-mono text-xs tracking-[0.15em] text-amber">
+                          AI ATLAS <span className="text-mute">//</span> 프로젝트 개요 펼치기
+                        </summary>
+                        <div className="mt-3">
+                          <Markdown>{experience.aiAtlasOverview.main}</Markdown>
+                        </div>
+                      </details>
+                    )}
+                  </>
                 )}
               </div>
             </Reveal>
