@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import CursorGlow from "@/components/CursorGlow";
 import ParticleBackground from "@/components/ParticleBackground";
-import ThemeToggle from "@/components/ThemeToggle";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 
@@ -54,7 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="blob blob-3" aria-hidden />
         <ParticleBackground />
         <CursorGlow />
-        <ThemeToggle />
         {children}
       </body>
     </html>

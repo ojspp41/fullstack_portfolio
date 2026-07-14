@@ -244,7 +244,8 @@ export default function ArchitectureDiagram({
 }: {
   projectTitles: Record<string, string>;
 }) {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  // default-selected node: the interaction demos itself on first view
+  const [activeId, setActiveId] = useState<string | null>("api-metering");
   const activeNode = ALL_NODES.find((n) => n.id === activeId) ?? null;
 
   const openProject = (projectId: string) => {
@@ -344,7 +345,7 @@ export default function ArchitectureDiagram({
           </div>
         ) : (
           <p className="text-xs text-mute">
-            <span className="font-semibold text-accent">💡 READOUT</span> — 노드를 선택하면 담당 범위와
+            <span className="font-semibold text-accent">READOUT</span> — 노드를 선택하면 담당 범위와
             관련 심층분석이 표시됩니다.
           </p>
         )}

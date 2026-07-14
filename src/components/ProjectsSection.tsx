@@ -186,7 +186,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 ))}
               </div>
 
-              <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+              <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-4">
                 {p.stack.slice(0, 5).map((s) => (
                   <span key={s} className="rounded-md bg-bg/70 px-1.5 py-0.5 font-mono text-[10px] text-mute/90">
                     {s}
@@ -195,6 +195,9 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 {p.stack.length > 5 && (
                   <span className="font-mono text-[10px] text-mute/50">+{p.stack.length - 5}</span>
                 )}
+                <span className="ml-auto text-[11px] font-medium text-accent/70 transition-colors group-hover:text-accent">
+                  STAR 전문·측정 과정 →
+                </span>
               </div>
             </button>
             </TiltCard>

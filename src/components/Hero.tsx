@@ -17,14 +17,10 @@ const PILL_COLORS = [
 export default function Hero({ profile }: { profile: Profile }) {
   return (
     <section id="hero" className="relative overflow-hidden">
-      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-28 sm:pt-32">
-        {/* developer lottie — desktop, right of the intro text */}
-        <div
-          className="pointer-events-none absolute -right-8 top-14 hidden w-[24rem] opacity-90 lg:block xl:w-[28rem]"
-          aria-hidden
-        >
-          <HeroLottie />
-        </div>
+      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-24 sm:pt-28">
+        {/* two columns on desktop so the lottie can never overlap the copy */}
+        <div className="items-center gap-10 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] xl:grid-cols-[minmax(0,1fr)_22rem]">
+          <div>
         <Reveal>
           <p className="mb-3 text-lg font-medium text-accent">안녕하세요, 저는</p>
           <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
@@ -85,6 +81,13 @@ export default function Hero({ profile }: { profile: Profile }) {
             </MagneticButton>
           </div>
         </Reveal>
+          </div>
+
+          {/* developer lottie — desktop column */}
+          <div className="pointer-events-none hidden opacity-90 lg:block" aria-hidden>
+            <HeroLottie />
+          </div>
+        </div>
 
         {/* headline metrics */}
         <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">

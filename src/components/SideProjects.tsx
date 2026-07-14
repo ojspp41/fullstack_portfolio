@@ -21,7 +21,7 @@ export default function SideProjects({ content }: { content: SideProjectsContent
       {content.awards && (
         <Reveal>
           <div className="mt-6 rounded-2xl border border-line bg-gradient-to-br from-indigo-50/90 to-pink-50/60 p-5 shadow-sm dark:from-indigo-500/10 dark:to-pink-500/5 sm:p-6">
-            <p className="mb-3 text-sm font-bold text-accent">🏆 수상 내역</p>
+            <p className="mb-3 text-sm font-bold text-accent">Awards — 수상 내역</p>
             <Markdown>{content.awards}</Markdown>
           </div>
         </Reveal>
@@ -30,7 +30,7 @@ export default function SideProjects({ content }: { content: SideProjectsContent
       {content.aiExperience && (
         <Reveal>
           <div className="mt-4 rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur sm:p-6">
-            <p className="mb-3 text-sm font-bold text-accent">🤖 AI 활용 경험</p>
+            <p className="mb-3 text-sm font-bold text-accent">AI 활용 경험</p>
             <Markdown>{content.aiExperience}</Markdown>
           </div>
         </Reveal>

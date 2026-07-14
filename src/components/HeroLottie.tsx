@@ -15,6 +15,8 @@ export default function HeroLottie() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // hidden below lg — don't spend mobile bandwidth on it (helps LCP)
+    if (!window.matchMedia("(min-width: 1024px)").matches) return;
     const load = () =>
       fetch("/animation.json")
         .then((r) => r.json())

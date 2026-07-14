@@ -14,11 +14,14 @@ export default function Markdown({ children, className = "" }: { children: strin
               <table>{children}</table>
             </div>
           ),
-          a: ({ href, children }) => (
-            <a href={href} target="_blank" rel="noopener noreferrer">
-              {children}
-            </a>
-          ),
+          a: ({ href, children }) =>
+            href?.startsWith("#") ? (
+              <a href={href}>{children}</a>
+            ) : (
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                {children}
+              </a>
+            ),
         }}
       >
         {children}
