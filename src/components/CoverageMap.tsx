@@ -1,11 +1,19 @@
-import type { CoverageRow } from "@/lib/content";
+import type { CoverageRow, Locale } from "@/lib/content";
+import { UI } from "@/lib/i18n";
 
 /**
  * Full-Stack Coverage Map — one-glance matrix of what was built directly
  * vs. integrated with, per layer. Data comes from the table in
  * content/sections/profile.md.
  */
-export default function CoverageMap({ coverage }: { coverage: CoverageRow[] }) {
+export default function CoverageMap({
+  coverage,
+  locale = "ko",
+}: {
+  coverage: CoverageRow[];
+  locale?: Locale;
+}) {
+  const t = UI[locale].coverageMap;
   if (coverage.length === 0) return null;
 
   return (
@@ -13,15 +21,15 @@ export default function CoverageMap({ coverage }: { coverage: CoverageRow[] }) {
       {/* header */}
       <div className="grid grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,1fr)] gap-px bg-line sm:grid-cols-[9rem_minmax(0,1.4fr)_minmax(0,1fr)]">
         <div className="bg-panel2 px-3 py-2.5 text-[11px] font-bold text-mute sm:px-4">
-          Layer
+          {t.layer}
         </div>
         <div className="flex items-center gap-2 bg-panel2 px-3 py-2.5 text-[11px] font-bold text-accent sm:px-4">
           <span className="h-2 w-2 rounded-full bg-accent" />
-          직접 구현
+          {t.direct}
         </div>
         <div className="flex items-center gap-2 bg-panel2 px-3 py-2.5 text-[11px] font-bold text-sub sm:px-4">
           <span className="h-2 w-2 rounded-full bg-sub" />
-          설계 이해 · 연동
+          {t.integrated}
         </div>
 
         {/* rows */}

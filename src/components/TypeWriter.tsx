@@ -2,17 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-const TITLES = [
-  "풀스택 개발자",
-  "백오피스 어드민 빌더",
-  "AI / LLM 애플리케이션 개발자",
-  "측정으로 증명하는 엔지니어",
-];
-
 /** Looping typewriter (ported from the old portfolio). SSR shows the first
  *  title so crawlers/no-JS still see meaningful text; reduced-motion keeps
  *  it static. */
-export default function TypeWriter() {
+export default function TypeWriter({ titles }: { titles: readonly string[] }) {
+  const TITLES = titles;
   const [text, setText] = useState(TITLES[0]);
   const [enabled, setEnabled] = useState(false);
 

@@ -9,7 +9,14 @@ import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import SideProjects from "@/components/SideProjects";
 import Timeline from "@/components/Timeline";
-import { getExperience, getProfile, getProjects, getSideProjects } from "@/lib/content";
+import {
+  getExperience,
+  getProfile,
+  getProjects,
+  getSideProjects,
+  type Locale,
+} from "@/lib/content";
+import { UI } from "@/lib/i18n";
 
 const NAV_SECTIONS = [
   { id: "range", label: "Range" },
@@ -21,40 +28,46 @@ const NAV_SECTIONS = [
 
 const CARD = "h-full rounded-2xl border border-line bg-panel/80 p-5 shadow-sm backdrop-blur";
 
-export default function Home() {
-  const profile = getProfile();
-  const projects = getProjects();
-  const experience = getExperience();
-  const sideProjects = getSideProjects();
+export default function HomePage({ locale }: { locale: Locale }) {
+  const t = UI[locale];
+  const profile = getProfile(locale);
+  const projects = getProjects(locale);
+  const experience = getExperience(locale);
+  const sideProjects = getSideProjects(locale);
 
   const projectTitles = Object.fromEntries(projects.map((p) => [p.id, p.title]));
 
   return (
     <main className="relative">
-      <Header items={NAV_SECTIONS} email={profile.email} resumePdf={profile.resumePdf} />
+      <Header
+        items={NAV_SECTIONS}
+        email={profile.email}
+        resumePdf={profile.resumePdf}
+        locale={locale}
+      />
 
-      <Hero profile={profile} />
+      <Hero profile={profile} locale={locale} />
 
       {/* Full-Stack Range */}
       <section id="range">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
-              index="01"
-              label="Full-Stack Range"
-              title="화면부터 파이프라인까지, 담당 범위를 그대로"
-              sub="직접 구현한 것과 설계를 이해하고 연동한 것을 구분해서 보여드립니다. 노드를 선택하면 관련 심층분석으로 연결됩니다."
+              index={t.sections.range.index}
+              label={t.sections.range.label}
+              title={t.sections.range.title}
+              sub={t.sections.range.sub}
             />
           </Reveal>
           <Reveal delay={100}>
-            <ArchitectureDiagram projectTitles={projectTitles} />
+            <ArchitectureDiagram projectTitles={projectTitles} locale={locale} />
           </Reveal>
 
           {/* Coverage Map — per-layer direct vs. integrated matrix */}
           <Reveal>
             <div id="coverage" className="mt-14 scroll-mt-16">
-              <h3 className="mb-4 text-lg font-bold">Coverage Map — 레이어별 담당 범위</h3>
-              <CoverageMap coverage={profile.coverage} />
+              <h3 className="mb-4 text-lg font-bold">{t.sections.coverage}</h3>
+              <CoverageMap coverage={profile.coverage} locale={locale} />
             </div>
           </Reveal>
 
@@ -62,19 +75,19 @@ export default function Home() {
           <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
             <Reveal className="lg:col-span-1">
               <div className={CARD}>
-                <p className="mb-3 text-sm font-bold text-accent">About</p>
+                <p className="mb-3 text-sm font-bold text-accent">{t.sections.about}</p>
                 <Markdown>{profile.intro}</Markdown>
               </div>
             </Reveal>
             <Reveal delay={80} className="lg:col-span-1">
               <div className={CARD}>
-                <p className="mb-3 text-sm font-bold text-accent">Tech Stack</p>
+                <p className="mb-3 text-sm font-bold text-accent">{t.sections.stack}</p>
                 <Markdown>{profile.stack}</Markdown>
               </div>
             </Reveal>
             <Reveal delay={160} className="lg:col-span-1">
               <div className={CARD}>
-                <p className="mb-3 text-sm font-bold text-accent">Strengths</p>
+                <p className="mb-3 text-sm font-bold text-accent">{t.sections.strengths}</p>
                 <Markdown>{profile.strengths}</Markdown>
               </div>
             </Reveal>
@@ -87,13 +100,13 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
-              index="02"
-              label="Deep Dives"
-              title={`심층분석 ${projects.length}건 — 모든 결정을 수치로`}
-              sub="카드를 클릭하면 상황 → 과제 → 행동 → 결과(STAR) 전체와 측정 데이터를 볼 수 있습니다."
+              index={t.sections.deepDives.index}
+              label={t.sections.deepDives.label}
+              title={t.sections.deepDives.title(projects.length)}
+              sub={t.sections.deepDives.sub}
             />
           </Reveal>
-          <ProjectsSection projects={projects} />
+          <ProjectsSection projects={projects} locale={locale} />
         </div>
       </section>
 
@@ -101,9 +114,13 @@ export default function Home() {
       <section id="experience">
         <div className="mx-auto max-w-4xl px-6 py-20">
           <Reveal>
-            <SectionHeading index="03" label="Career" title="경력" />
+            <SectionHeading
+              index={t.sections.career.index}
+              label={t.sections.career.label}
+              title={t.sections.career.title}
+            />
           </Reveal>
-          <Timeline experience={experience} />
+          <Timeline experience={experience} locale={locale} />
         </div>
       </section>
 
@@ -111,9 +128,13 @@ export default function Home() {
       <section id="side-projects">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <Reveal>
-            <SectionHeading index="04" label="Open Source" title="오픈소스 & 사이드 프로젝트" />
+            <SectionHeading
+              index={t.sections.openSource.index}
+              label={t.sections.openSource.label}
+              title={t.sections.openSource.title}
+            />
           </Reveal>
-          <SideProjects content={sideProjects} />
+          <SideProjects content={sideProjects} locale={locale} />
         </div>
       </section>
 
@@ -121,7 +142,11 @@ export default function Home() {
       <footer id="contact" className="border-t border-line/60 bg-panel/40 backdrop-blur">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <Reveal>
-            <SectionHeading index="05" label="Contact" title="연락하기" />
+            <SectionHeading
+              index={t.sections.contact.index}
+              label={t.sections.contact.label}
+              title={t.sections.contact.title}
+            />
             <div className="flex flex-wrap gap-3 text-sm font-medium">
               <MagneticButton>
                 <a
@@ -137,7 +162,7 @@ export default function Home() {
                   download
                   className="rounded-xl border-2 border-line bg-panel px-6 py-3 text-ink shadow-md transition-all duration-300 hover:scale-105 hover:border-accent/50"
                 >
-                  풀스택 포트폴리오 PDF ↓
+                  {t.footer.pdf}
                 </a>
               )}
               <a
@@ -150,7 +175,7 @@ export default function Home() {
               </a>
             </div>
             <p className="mt-12 text-xs text-mute/70">
-              © {new Date().getFullYear()} {profile.name} — measured, not claimed.
+              © {new Date().getFullYear()} {profile.name} — {t.footer.note}
             </p>
           </Reveal>
         </div>

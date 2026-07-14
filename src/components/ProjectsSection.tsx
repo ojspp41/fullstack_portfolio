@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Project } from "@/lib/content";
+import type { Locale, Project } from "@/lib/content";
+import { UI } from "@/lib/i18n";
 import Markdown from "./Markdown";
 import Reveal from "./Reveal";
 import TiltCard from "./TiltCard";
 
 const FILTERS = [
-  { key: "all", label: "전체" },
+  { key: "all" },
   { key: "fullstack", label: "Full-Stack" },
   { key: "frontend", label: "Frontend" },
   { key: "infra", label: "Infra" },
@@ -22,9 +23,9 @@ const CATEGORY_LABEL: Record<Project["category"], string> = {
 };
 
 // same 2-color rule as the architecture diagram:
-// "…직접" → accent (direct build), 연동/이해/관점/협업 → sub (integrated)
+// direct build → accent, integration/understanding → sub (both locales)
 function layerChipClass(layer: string): string {
-  return /연동|이해|관점|협업/.test(layer)
+  return /연동|이해|관점|협업|integration|understanding|perspective|collaboration/i.test(layer)
     ? "bg-sub/10 text-sub"
     : "bg-accent/10 text-accent";
 }
@@ -43,7 +44,14 @@ function LayerChips({ layers, size = "sm" }: { layers: string[]; size?: "sm" | "
   );
 }
 
-export default function ProjectsSection({ projects }: { projects: Project[] }) {
+export default function ProjectsSection({
+  projects,
+  locale = "ko",
+}: {
+  projects: Project[];
+  locale?: Locale;
+}) {
+  const t = UI[locale].projects;
   const [filter, setFilter] = useState<FilterKey>("all");
   const [openId, setOpenId] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -89,7 +97,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
   useEffect(() => {
     if (!openProject) return;
     openerRef.current = document.activeElement;
-    panelRef.current?.querySelector<HTMLElement>("button[aria-label='닫기']")?.focus();
+    panelRef.current?.querySelector<HTMLElement>("button[data-modal-close]")?.focus();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -123,7 +131,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
   return (
     <div>
       {/* filter tabs */}
-      <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="프로젝트 카테고리 필터">
+      <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label={t.filterAria}>
         {FILTERS.map((f) => (
           <button
             key={f.key}
@@ -137,7 +145,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 : "border border-line bg-panel text-mute hover:scale-105 hover:text-ink"
             }`}
           >
-            {f.label}
+            {"label" in f ? f.label : t.filterAll}
             <span className="ml-2 text-xs opacity-60">
               {f.key === "all"
                 ? projects.length
@@ -196,7 +204,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                   <span className="font-mono text-[10px] text-mute/50">+{p.stack.length - 5}</span>
                 )}
                 <span className="ml-auto text-[11px] font-medium text-accent/70 transition-colors group-hover:text-accent">
-                  STAR 전문·측정 과정 →
+                  {t.cardHint}
                 </span>
               </div>
             </button>
@@ -232,8 +240,9 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
               </div>
               <button
                 type="button"
+                data-modal-close
                 onClick={close}
-                aria-label="닫기"
+                aria-label={t.close}
                 className="rounded-full border border-line px-3 py-1 text-sm text-mute transition-all hover:scale-105 hover:text-ink"
               >
                 ESC

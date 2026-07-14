@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Locale } from "@/lib/content";
+import { UI } from "@/lib/i18n";
 import ThemeToggle from "./ThemeToggle";
 
 export interface NavItem {
@@ -16,11 +18,14 @@ export default function Header({
   items,
   email,
   resumePdf,
+  locale = "ko",
 }: {
   items: NavItem[];
   email: string;
   resumePdf?: string;
+  locale?: Locale;
 }) {
+  const t = UI[locale].header;
   const [active, setActive] = useState("");
   const [progress, setProgress] = useState(0);
 
@@ -84,14 +89,21 @@ export default function Header({
               download
               className="grad-bg rounded-lg px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-indigo-500/30 transition-shadow hover:shadow-md hover:shadow-indigo-500/40"
             >
-              PDF ↓
+              {t.pdf}
             </a>
           )}
           <a
             href={`mailto:${email}`}
             className="hidden rounded-lg border border-line bg-panel px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-accent/50 hover:text-accent md:block"
           >
-            이메일
+            {t.email}
+          </a>
+          <a
+            href={t.langSwitchHref}
+            aria-label={t.langSwitchAria}
+            className="rounded-lg border border-line bg-panel px-2.5 py-1.5 text-xs font-semibold text-mute transition-colors hover:border-accent/50 hover:text-accent"
+          >
+            {t.langSwitch}
           </a>
           <ThemeToggle />
         </div>

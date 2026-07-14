@@ -1,8 +1,16 @@
-import type { ExperienceContent } from "@/lib/content";
+import type { ExperienceContent, Locale } from "@/lib/content";
+import { UI } from "@/lib/i18n";
 import Markdown from "./Markdown";
 import Reveal from "./Reveal";
 
-export default function Timeline({ experience }: { experience: ExperienceContent }) {
+export default function Timeline({
+  experience,
+  locale = "ko",
+}: {
+  experience: ExperienceContent;
+  locale?: Locale;
+}) {
+  const t = UI[locale].timeline;
   return (
     <div>
       <ol className="relative ml-1 border-l border-line pl-6 sm:pl-8">
@@ -23,16 +31,14 @@ export default function Timeline({ experience }: { experience: ExperienceContent
                     {/* 백오피스 어드민 기능은 아코디언 밖에 항상 노출 (지원 직무 핵심) */}
                     {experience.aiAtlasOverview.backoffice && (
                       <div className="mt-5 rounded-xl border border-accent/30 bg-panel/70 px-4 py-3">
-                        <p className="mb-2 text-xs font-bold text-accent">
-                          AI Atlas · 운영·관리자 (백오피스 어드민)
-                        </p>
+                        <p className="mb-2 text-xs font-bold text-accent">{t.backoffice}</p>
                         <Markdown>{experience.aiAtlasOverview.backoffice}</Markdown>
                       </div>
                     )}
                     {experience.aiAtlasOverview.main && (
                       <details className="mt-3 rounded-xl border border-line bg-panel/70 px-4 py-3">
                         <summary className="cursor-pointer text-xs font-bold text-accent">
-                          AI Atlas · 프로젝트 개요 펼치기
+                          {t.expandOverview}
                         </summary>
                         <div className="mt-3">
                           <Markdown>{experience.aiAtlasOverview.main}</Markdown>

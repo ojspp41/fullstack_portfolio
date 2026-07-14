@@ -1,4 +1,5 @@
-import type { Profile } from "@/lib/content";
+import type { Locale, Profile } from "@/lib/content";
+import { UI } from "@/lib/i18n";
 import HeroLottie from "./HeroLottie";
 import MetricCounter from "./MetricCounter";
 import MagneticButton from "./MagneticButton";
@@ -14,7 +15,8 @@ const PILL_COLORS = [
   "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200",
 ];
 
-export default function Hero({ profile }: { profile: Profile }) {
+export default function Hero({ profile, locale = "ko" }: { profile: Profile; locale?: Locale }) {
+  const t = UI[locale].hero;
   return (
     <section id="hero" className="relative overflow-hidden">
       <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-24 sm:pt-28">
@@ -22,12 +24,15 @@ export default function Hero({ profile }: { profile: Profile }) {
         <div className="items-center gap-10 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] xl:grid-cols-[minmax(0,1fr)_22rem]">
           <div>
         <Reveal>
-          <p className="mb-3 text-lg font-medium text-accent">안녕하세요, 저는</p>
+          <p className="mb-3 text-lg font-medium text-accent">{t.greeting}</p>
           <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-            오준석<span className="text-mute/70 text-2xl sm:text-4xl"> 입니다</span>
+            {t.name}
+            {t.nameSuffix && (
+              <span className="text-mute/70 text-2xl sm:text-4xl">{t.nameSuffix}</span>
+            )}
           </h1>
           <p className="mt-4 h-9 text-2xl sm:text-3xl">
-            <TypeWriter />
+            <TypeWriter titles={t.typewriter} />
           </p>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">
             {profile.tagline}. {profile.subtagline}.
@@ -58,7 +63,7 @@ export default function Hero({ profile }: { profile: Profile }) {
                 href="#projects"
                 className="grad-bg inline-flex items-center rounded-xl px-7 py-3 text-base font-medium text-white shadow-lg shadow-indigo-500/30 transition-shadow duration-300 hover:shadow-xl hover:shadow-indigo-500/40"
               >
-                프로젝트 보기
+                {t.ctaProjects}
               </a>
             </MagneticButton>
             <MagneticButton>
@@ -66,7 +71,7 @@ export default function Hero({ profile }: { profile: Profile }) {
                 href="#coverage"
                 className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-colors duration-300 hover:border-accent/50"
               >
-                Coverage Map
+                {t.ctaCoverage}
               </a>
             </MagneticButton>
             <MagneticButton>
