@@ -1,4 +1,5 @@
 import type { Profile } from "@/lib/content";
+import HeroLottie from "./HeroLottie";
 import MetricCounter from "./MetricCounter";
 import MagneticButton from "./MagneticButton";
 import Reveal from "./Reveal";
@@ -16,7 +17,14 @@ const PILL_COLORS = [
 export default function Hero({ profile }: { profile: Profile }) {
   return (
     <section id="hero" className="relative overflow-hidden">
-      <div className="mx-auto max-w-5xl px-6 pb-20 pt-28 sm:pt-32">
+      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-28 sm:pt-32">
+        {/* developer lottie — desktop, right of the intro text */}
+        <div
+          className="pointer-events-none absolute -right-8 top-14 hidden w-[24rem] opacity-90 lg:block xl:w-[28rem]"
+          aria-hidden
+        >
+          <HeroLottie />
+        </div>
         <Reveal>
           <p className="mb-3 text-lg font-medium text-accent">안녕하세요, 저는</p>
           <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
