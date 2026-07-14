@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/content";
 import Markdown from "./Markdown";
 import Reveal from "./Reveal";
@@ -46,6 +46,8 @@ function LayerChips({ layers, size = "sm" }: { layers: string[]; size?: "sm" | "
 export default function ProjectsSection({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [openId, setOpenId] = useState<string | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<Element | null>(null);
 
   const visible =
     filter === "all" ? projects : projects.filter((p) => p.category === filter);
@@ -65,15 +67,56 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
     return () => document.removeEventListener("open-project", onOpen);
   }, []);
 
-  // modal: ESC close + scroll lock
+  // deep link: ?p=<id> opens the project on load…
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("p");
+    if (id && projects.some((p) => p.id === id)) {
+      setOpenId(id);
+      document.getElementById("projects")?.scrollIntoView({ block: "start" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // …and the open modal is reflected back into the URL (shareable)
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (openId) url.searchParams.set("p", openId);
+    else url.searchParams.delete("p");
+    window.history.replaceState(null, "", url);
+  }, [openId]);
+
+  // modal: ESC close + scroll lock + focus trap
   useEffect(() => {
     if (!openProject) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    openerRef.current = document.activeElement;
+    panelRef.current?.querySelector<HTMLElement>("button[aria-label='닫기']")?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusables = panelRef.current?.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled]), summary, [tabindex]:not([tabindex='-1'])"
+      );
+      if (!focusables || focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      (openerRef.current as HTMLElement | null)?.focus?.();
     };
   }, [openProject, close]);
 
@@ -169,6 +212,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           onClick={close}
         >
           <div
+            ref={panelRef}
             className="my-4 w-full max-w-3xl rounded-2xl border border-line bg-panel shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >

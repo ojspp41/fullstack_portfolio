@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import CursorGlow from "@/components/CursorGlow";
 import ParticleBackground from "@/components/ParticleBackground";
 import ThemeToggle from "@/components/ThemeToggle";
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -46,12 +47,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" className={jetbrainsMono.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
-        <link
-          rel="stylesheet"
-          as="style"
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-        />
       </head>
       <body className="antialiased">
         <div className="blob blob-1" aria-hidden />
