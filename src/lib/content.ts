@@ -195,7 +195,22 @@ export interface AiAtlasOverview {
   backoffice: string | null;
 }
 
+const careerSummarySchema = z
+  .array(
+    z.object({
+      company: z.string(),
+      role: z.string(),
+      period: z.string(),
+      highlight: z.string(),
+    })
+  )
+  .default([]);
+
+export type CareerSummaryItem = z.infer<typeof careerSummarySchema>[number];
+
 export interface ExperienceContent {
+  /** 상단 요약 카드 — experience.md frontmatter의 summary */
+  summary: CareerSummaryItem[];
   jobs: string[]; // markdown blocks, one per position
   extra: string; // 학력 · 동아리
   /** AI Atlas 서비스 개요 (content/sections/ai-atlas-overview.md가 있을 때만) */
@@ -204,7 +219,8 @@ export interface ExperienceContent {
 
 export function getExperience(locale: Locale = "ko"): ExperienceContent {
   const raw = fs.readFileSync(contentPath(locale, "sections", "experience.md"), "utf8");
-  const { content } = matter(raw);
+  const { data, content } = matter(raw);
+  const summary = careerSummarySchema.parse(data.summary ?? []);
   const blocks = content
     .replace(/^#\s+[^\n]+\n/m, "")
     .split(/^---$/m)
@@ -227,7 +243,7 @@ export function getExperience(locale: Locale = "ko"): ExperienceContent {
     };
   }
 
-  return { jobs: blocks.slice(0, -1), extra: blocks.at(-1) ?? "", aiAtlasOverview };
+  return { summary, jobs: blocks.slice(0, -1), extra: blocks.at(-1) ?? "", aiAtlasOverview };
 }
 
 /* ---------- side projects ---------- */

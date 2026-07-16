@@ -26,9 +26,9 @@ export const UI = {
       ctaCoverage: "Coverage Map",
     },
     sections: {
-      range: {
-        index: "01",
-        label: "Full-Stack Range",
+      architecture: {
+        index: "02",
+        label: "Architecture",
         title: "화면부터 파이프라인까지, 담당 범위를 그대로",
         sub: "직접 구현한 것과 설계를 이해하고 연동한 것을 구분해서 보여드립니다. 노드를 선택하면 관련 심층분석으로 연결됩니다.",
       },
@@ -37,12 +37,12 @@ export const UI = {
       stack: "Tech Stack",
       strengths: "Strengths",
       deepDives: {
-        index: "02",
+        index: "03",
         label: "Deep Dives",
         title: (n: number) => `심층분석 ${n}건 — 모든 결정을 수치로`,
         sub: "카드를 클릭하면 상황 → 과제 → 행동 → 결과(STAR) 전체와 측정 데이터를 볼 수 있습니다.",
       },
-      career: { index: "03", label: "Career", title: "경력" },
+      career: { index: "01", label: "Career", title: "경력" },
       openSource: { index: "04", label: "Open Source", title: "오픈소스 & 사이드 프로젝트" },
       contact: { index: "05", label: "Contact", title: "연락하기" },
     },
@@ -89,9 +89,9 @@ export const UI = {
       ctaCoverage: "Coverage Map",
     },
     sections: {
-      range: {
-        index: "01",
-        label: "Full-Stack Range",
+      architecture: {
+        index: "02",
+        label: "Architecture",
         title: "From the screen to the pipeline — my exact scope",
         sub: "What I built directly vs. what I understood and integrated with, clearly separated. Select a node to jump to the related deep dive.",
       },
@@ -100,12 +100,12 @@ export const UI = {
       stack: "Tech Stack",
       strengths: "Strengths",
       deepDives: {
-        index: "02",
+        index: "03",
         label: "Deep Dives",
         title: (n: number) => `${n} deep dives — every decision, measured`,
         sub: "Click a card for the full Situation → Task → Action → Result write-up with measurement data.",
       },
-      career: { index: "03", label: "Career", title: "Experience" },
+      career: { index: "01", label: "Career", title: "Experience" },
       openSource: { index: "04", label: "Open Source", title: "Open Source & Side Projects" },
       contact: { index: "05", label: "Contact", title: "Get in Touch" },
     },

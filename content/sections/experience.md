@@ -1,6 +1,15 @@
 ---
 id: experience
 section: experience
+summary:
+  - company: 한솔 PNS
+    role: Full-Stack (단독)
+    period: 2025.10 — 재직 중
+    highlight: AI Atlas — 13개 계열사 1만 명 사내 LLM 서비스 런칭 리더 · FE 오너 + Go Gateway 일부 개발
+  - company: PTKOREA
+    role: Full-Stack 인턴
+    period: 2025.06 — 2025.09
+    highlight: 삼성 글로벌 사이트 QA 자동화 — 96개국 일괄 검증 · 초기 로딩 65% 단축
 ---
 
 # 경력 Work Experience

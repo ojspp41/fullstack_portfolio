@@ -1,6 +1,15 @@
 ---
 id: experience
 section: experience
+summary:
+  - company: Hansol PNS
+    role: Full-Stack (solo)
+    period: 2025.10 — Present
+    highlight: AI Atlas — led the launch of an internal LLM service for 10,000 users across 13 affiliates · FE owner + partial Go Gateway
+  - company: PTKOREA
+    role: Full-Stack Intern
+    period: 2025.06 — 2025.09
+    highlight: Samsung global-site QA automation — batch validation across 96 countries · initial load 65% faster
 ---
 
 # Work Experience

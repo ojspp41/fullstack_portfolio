@@ -227,7 +227,7 @@ export default function ProjectsSection({
             className="my-4 w-full max-w-3xl rounded-2xl border border-line bg-panel shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-2xl border-b border-line bg-panel px-6 py-4">
+            <div className="flex items-start justify-between gap-4 rounded-t-2xl border-b border-line bg-panel px-6 py-4">
               <div>
                 <p className="text-[11px] font-semibold tracking-wide text-accent">
                   {String(openProject.order).padStart(2, "0")} ·{" "}

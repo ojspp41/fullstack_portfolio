@@ -1,4 +1,5 @@
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
+import CareerSummary from "@/components/CareerSummary";
 import CoverageMap from "@/components/CoverageMap";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -19,9 +20,9 @@ import {
 import { UI } from "@/lib/i18n";
 
 const NAV_SECTIONS = [
-  { id: "range", label: "Range" },
-  { id: "projects", label: "Projects" },
   { id: "experience", label: "Career" },
+  { id: "architecture", label: "Architecture" },
+  { id: "projects", label: "Projects" },
   { id: "side-projects", label: "Open Source" },
   { id: "contact", label: "Contact" },
 ];
@@ -48,15 +49,30 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
       <Hero profile={profile} locale={locale} />
 
-      {/* Full-Stack Range */}
-      <section id="range">
+      {/* Experience */}
+      <section id="experience">
+        <div className="mx-auto max-w-4xl px-6 py-20">
+          <Reveal>
+            <SectionHeading
+              index={t.sections.career.index}
+              label={t.sections.career.label}
+              title={t.sections.career.title}
+            />
+          </Reveal>
+          <CareerSummary items={experience.summary} />
+          <Timeline experience={experience} locale={locale} />
+        </div>
+      </section>
+
+      {/* Architecture — full-stack scope */}
+      <section id="architecture">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
-              index={t.sections.range.index}
-              label={t.sections.range.label}
-              title={t.sections.range.title}
-              sub={t.sections.range.sub}
+              index={t.sections.architecture.index}
+              label={t.sections.architecture.label}
+              title={t.sections.architecture.title}
+              sub={t.sections.architecture.sub}
             />
           </Reveal>
           <Reveal delay={100}>
@@ -107,20 +123,6 @@ export default function HomePage({ locale }: { locale: Locale }) {
             />
           </Reveal>
           <ProjectsSection projects={projects} locale={locale} />
-        </div>
-      </section>
-
-      {/* Experience */}
-      <section id="experience">
-        <div className="mx-auto max-w-4xl px-6 py-20">
-          <Reveal>
-            <SectionHeading
-              index={t.sections.career.index}
-              label={t.sections.career.label}
-              title={t.sections.career.title}
-            />
-          </Reveal>
-          <Timeline experience={experience} locale={locale} />
         </div>
       </section>
 
