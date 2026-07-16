@@ -13,15 +13,9 @@ export default function Timeline({
   const t = UI[locale].timeline;
   return (
     <div>
-      <ol className="relative ml-1 border-l border-line pl-6 sm:pl-8">
+      <ol>
         {experience.jobs.map((job, i) => (
-          <li key={i} className="relative pb-10 last:pb-0">
-            <span
-              className={`absolute -left-[31px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-bg sm:-left-[39px] ${
-                i === 0 ? "bg-accent" : "bg-sub"
-              }`}
-              aria-hidden
-            />
+          <li key={i} className="pb-8 last:pb-0">
             <Reveal>
               <div className="rounded-2xl border-l-4 border-accent/60 bg-gradient-to-br from-indigo-50/90 to-purple-50/70 p-5 shadow-sm backdrop-blur dark:from-indigo-500/10 dark:to-purple-500/5 sm:p-6">
                 <Markdown>{job}</Markdown>

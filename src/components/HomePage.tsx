@@ -61,6 +61,26 @@ export default function HomePage({ locale }: { locale: Locale }) {
           </Reveal>
           <CareerSummary items={experience.summary} />
           <Timeline experience={experience} locale={locale} />
+
+          {/* awards + AI experience, straight after the career timeline */}
+          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {sideProjects.awards && (
+              <Reveal className="h-full">
+                <div className="h-full rounded-2xl border border-line bg-gradient-to-br from-indigo-50/90 to-pink-50/60 p-5 shadow-sm dark:from-indigo-500/10 dark:to-pink-500/5 sm:p-6">
+                  <p className="mb-3 text-sm font-bold text-accent">{t.sideProjects.awards}</p>
+                  <Markdown>{sideProjects.awards}</Markdown>
+                </div>
+              </Reveal>
+            )}
+            {sideProjects.aiExperience && (
+              <Reveal delay={80} className="h-full">
+                <div className="h-full rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur sm:p-6">
+                  <p className="mb-3 text-sm font-bold text-accent">{t.sideProjects.ai}</p>
+                  <Markdown>{sideProjects.aiExperience}</Markdown>
+                </div>
+              </Reveal>
+            )}
+          </div>
         </div>
       </section>
 
