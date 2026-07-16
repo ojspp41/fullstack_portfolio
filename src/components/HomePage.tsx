@@ -51,7 +51,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
       {/* Experience */}
       <section id="experience">
-        <div className="mx-auto max-w-4xl px-6 py-20">
+        <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
               index={t.sections.career.index}
