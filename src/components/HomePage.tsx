@@ -148,7 +148,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
       {/* Open Source & Side Projects */}
       <section id="side-projects">
-        <div className="mx-auto max-w-5xl px-6 py-20">
+        <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
               index={t.sections.openSource.index}
@@ -162,7 +162,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
       {/* Contact / Footer */}
       <footer id="contact" className="border-t border-line/60 bg-panel/40 backdrop-blur">
-        <div className="mx-auto max-w-5xl px-6 py-20">
+        <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
               index={t.sections.contact.index}
