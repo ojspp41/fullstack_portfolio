@@ -46,6 +46,7 @@ section: side-projects
 2. 🥈 **2025 Open Source Developer Contest Winner** — Professional Division · Favus (Go CLI · WebSocket)
 3. 🏅 **GGUM University Hackathon Excellence Award** — Library seat / empty classroom visualization (React, TS)
 4. 🏅 **University ICPC Excellence Award** — Algorithm competition
+5. 🏅 **Graduation Academic Excellence Award** — Catholic University of Korea · GPA 4.05 / 4.5
 
 ---
 
