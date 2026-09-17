@@ -28,6 +28,7 @@ export const metricSchema = z.object({
 export const projectSchema = z.object({
   id: z.string(),
   order: z.number(),
+  published: z.boolean().default(false),
   title: z.string(),
   category: z.enum(["fullstack", "frontend", "infra"]),
   badge: z.string(),
@@ -35,6 +36,7 @@ export const projectSchema = z.object({
   stack: z.array(z.string()),
   metrics: z.array(metricSchema),
   summary: z.string(),
+  measurement: z.string().optional(),
 });
 
 export type ProjectMeta = z.infer<typeof projectSchema>;
@@ -54,6 +56,7 @@ export function getProjects(locale: Locale = "ko"): Project[] {
       const meta = projectSchema.parse(data);
       return { ...meta, body: content.trim() };
     })
+    .filter((project) => project.published)
     .sort((a, b) => a.order - b.order);
 }
 
@@ -115,10 +118,10 @@ function parseTableRows(md: string): string[][] {
 }
 
 // The four headline stats shown as Hero counters (label match against profile.md table)
-// Full-stack first: metering API speedup → scale → render → docker image
+// Match the four headline metrics in the canonical portfolio MD.
 const HERO_STAT_LABELS: Record<Locale, string[]> = {
-  ko: ["조회 속도", "서비스 규모", "리렌더", "도커 이미지"],
-  en: ["Query speed", "Service scale", "Re-renders", "Docker image"],
+  ko: ["서비스 규모", "리렌더", "수상", "상용 서비스"],
+  en: ["Service scale", "Re-renders", "Awards", "Commercial service"],
 };
 
 // per-locale section headings used by the parsers below

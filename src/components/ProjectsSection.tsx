@@ -194,6 +194,10 @@ export default function ProjectsSection({
                 ))}
               </div>
 
+              {p.measurement && (
+                <p className="mt-3 text-[11px] leading-relaxed text-mute">{p.measurement}</p>
+              )}
+
               <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-4">
                 {p.stack.slice(0, 5).map((s) => (
                   <span key={s} className="rounded-md bg-bg/70 px-1.5 py-0.5 font-mono text-[10px] text-mute/90">
@@ -271,6 +275,11 @@ export default function ProjectsSection({
                 ))}
               </div>
 
+              {openProject.measurement && (
+                <p className="mb-6 border-l-2 border-accent/50 pl-3 text-sm leading-relaxed text-mute">
+                  {openProject.measurement}
+                </p>
+              )}
               <Markdown>{openProject.body}</Markdown>
             </div>
           </div>

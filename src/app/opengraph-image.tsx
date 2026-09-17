@@ -12,10 +12,10 @@ const MUTE = "#64748b";
 const ACCENT = "#4f46e5";
 
 const METRICS = [
-  { label: "조회 속도", value: "750배↑" },
   { label: "서비스 규모", value: "1만 명" },
   { label: "리렌더", value: "99.6%↓" },
-  { label: "도커 이미지", value: "50%↓" },
+  { label: "수상", value: "장관상" },
+  { label: "상용 서비스", value: "2,000명" },
 ];
 
 async function loadGoogleFont(family: string, weight: number, text: string) {
@@ -34,7 +34,7 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
 export default async function OgImage() {
   const text =
     "오준석 — Full-Stack Engineer · AI / LLM Application " +
-    "화면부터 서버 계약, 파이프라인 연동, 인프라까지 백오피스 어드민 풀스택 " +
+    "AI Atlas 프론트 오너 · Go Gateway 일부와 미터링 파이프라인 직접 구현 " +
     "SEC.01 // FULL-STACK ENGINEER measured, not claimed. " +
     METRICS.map((m) => `${m.label} ${m.value}`).join(" ");
 
@@ -90,7 +90,7 @@ export default async function OgImage() {
             오준석 — Full-Stack Engineer
           </div>
           <div style={{ marginTop: 16, fontSize: 28, color: MUTE }}>
-            화면부터 서버 계약, 파이프라인 연동, 인프라까지 — 백오피스 어드민 풀스택
+            AI Atlas 프론트 오너 · Go Gateway 일부와 미터링 파이프라인 직접 구현
           </div>
         </div>
 

@@ -143,6 +143,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
             />
           </Reveal>
           <ProjectsSection projects={projects} locale={locale} />
+          <p className="mt-6 text-xs leading-relaxed text-mute">{t.sections.disclosure}</p>
         </div>
       </section>
 

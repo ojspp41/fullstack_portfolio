@@ -1,77 +1,100 @@
 ---
-id: metering
-order: 1
-title: AI Usage & Cost Metering + Billing Back Office
-category: fullstack
-badge: Full-Stack Flagship · FE + BE Built Hands-On
-stack: [Go, Kafka, MongoDB, Redis, React Query, ExcelJS, REST API]
-metrics:
-  - { label: "Query latency p95", value: "1,970ms → 2.6ms", note: "~750x faster · daily-batch pre-aggregation" }
-  - { label: "Rows scanned", value: "3M → 1,440 rows", note: "~2,000x smaller, constant-size" }
-  - { label: "Excel export memory", value: "1,871MB → 8.2MB", note: "server-side streaming · ~230x lower" }
-  - { label: "Quota enforcement", value: "instant 429 block", note: "Redis counter · 100 calls/min" }
-layers: ["FE direct", "BE API direct", "Pipeline integration (Kafka·SCD-2)"]
-summary: A back office where I defined the data shape the UI needed first, then reverse-engineered the backend aggregation to produce exactly that shape. I built the metering query API and the usage quota control API myself.
+{
+  "id": "metering",
+  "order": 1,
+  "published": true,
+  "title": "AI Usage & Cost Metering — Pipeline to Back Office",
+  "category": "fullstack",
+  "badge": "Frontend, backend & metering pipeline built directly",
+  "stack": [
+    "Go",
+    "Kafka",
+    "MongoDB",
+    "Redis",
+    "React Query",
+    "ExcelJS"
+  ],
+  "metrics": [
+    {
+      "label": "User detail p95",
+      "value": "228.665ms → 0.383ms",
+      "note": "Local synthetic data · 10K user records vs. one daily summary"
+    },
+    {
+      "label": "Affiliate comparison requests",
+      "value": "~34 → 1",
+      "note": "Browser request count · ~97.1% reduction"
+    },
+    {
+      "label": "Settlement history",
+      "value": "Versioned price & FX",
+      "note": "Reproduce costs using the version valid at usage time"
+    }
+  ],
+  "layers": [
+    "Frontend built directly",
+    "Backend APIs built directly",
+    "Metering pipeline built directly"
+  ],
+  "summary": "Derived API contracts from dashboard requirements and connected pre-call quota checks, Kafka ingestion, daily aggregation, price/FX history, and browser-side Excel exports.",
+  "measurement": "Local measurements with real MongoDB and Redis. Kafka, HTTP/auth, browser rendering, and AI inference are excluded; these are not whole-system production improvements."
+}
 ---
 
-# AI Usage & Cost Metering + Billing Back Office
+# From an AI Call to Costs and Operational Metrics
 
-> **FE built hands-on** — dashboard · shared list-query hook · ExcelJS multi-sheet export · 6 filters synchronized to the URL
-> **BE built hands-on** — metering query API (6 filters · pagination · Excel export) · usage quota control API (per-plan quotas, real-time counter blocking)
-> **Design understanding & integration** — Go pipeline (Kafka ingestion · daily-batch pre-aggregation · idempotency · SCD-2 price/exchange-rate history)
+## Situation
 
-## S — Situation
+Administrators needed usage and costs by organization, user, Agent, and service. Recalculating millions of raw records on every request was expensive. Keeping only the current price could not reproduce past billing, and fixed service fields required frontend and backend changes for each new service.
 
-As the AI service grew, administrators needed a back office to see and control who was using how much and what they would be billed. This wasn't three features to bolt on separately — it was **one problem that had to flow through a single pipeline**.
+## Ownership
 
-- Call records arrive via Kafka, and with at-least-once delivery the same record can arrive more than once.
-- Recomputing millions of raw records on every query is slow and expensive.
-- Prices and exchange rates change over time; overwriting old values makes past invoices impossible to reproduce (no settlement, no audit).
-- Without quotas, unbounded calls make costs impossible to control.
+I directly implemented metering query and comparison APIs, quota controls, Kafka event ingestion and failure handling, daily aggregation with composite-key upserts, price/FX history, dashboard hooks, URL filters, and browser-side ExcelJS multi-sheet exports. This ownership covers the metering event path, not the entire shared Kafka infrastructure.
 
-## T — Task
+## Technical decisions
 
-1. Aggregate call records that arrive with duplicates mixed in, **safely even when processed twice (idempotent)**
-2. **Pre-aggregate into summary data** the dashboard can render directly, with no further transformation
-3. **Recompute and verify past invoices against the rates in effect at the time**, even after prices and exchange rates change
-4. When usage exceeds the plan quota, **block and warn in real time at the call path itself**
-
-## A — Action
-
-### Export end-to-end flow (built hands-on, from request to file)
-
-```
-[FE] Click export → [BE] Metering query API (6 filters · pagination)
-  → [BE] ExcelJS streaming (summary + detail sheets) → [FE] File download
+```text
+AI request → Redis quota check → AI usage record → Kafka
+→ daily summaries → usage-time price/FX → query/comparison API
+→ dashboard and browser-side ExcelJS export
 ```
 
-**BE**
-- Moved large Excel generation from the browser to **server-side streaming** — the ExcelJS streaming writer flushes rows as they arrive, and the data source reads page by page, so memory stays flat regardless of row count
-- Combined the 6 filters into a single query, producing summary + detail multi-sheet workbooks
-- Usage quota control: when a plan quota is exceeded, the gateway's **Redis counter blocks the call with an immediate 429 before it ever goes out, plus a warning**
+- Raw usage is stored in MongoDB. Redis keeps current user/organization charge counters for the next request's quota decision.
+- In-memory increments flush to MongoDB counters every 60 seconds, and daily reconciliation corrects drift.
+- Dashboard summaries use a user·organization·API-key·source·date composite key and upsert to converge safely on reruns.
+- Price and FX histories preserve validity intervals so past charges can be reproduced.
+- The comparison API combines current/previous periods, service and model distributions, active users, and top Agents. Browser requests fell from about 34 to one. Database calls are bounded to three aggregations plus at most one Agent-name lookup.
+- The dynamic `source_usages[{source,total_tokens,charge_amount}]` contract preserves API-only services and automatically drives filters, colors, charts, and Excel. A frontend normalization layer supports both legacy fields and the new array during staged deployment.
 
-**FE**
-- Persisted the 6 filters in the URL — refresh or share a link, and the same view comes back
-- A shared list-query hook reuses loading, error, and pagination handling
-- Export progress / completion / failure states handled in the UI
+## Verification
 
-**Pipeline (design understanding & integration)**
-- Upserts on a unique index over the aggregation key make **re-runs idempotent** — running twice yields the exact same 1,440 summary rows and identical cost totals
-- Prices and exchange rates are never deleted; they **accumulate as SCD-2 versions** — an invoice from months ago reproduces with the prices in effect back then
+The earlier 3M-record reproduction reported query p95 of 1,970ms → 2.6ms and 1,440 daily summaries. It is separate from the current-code local measurement below.
 
-## R — Results
+### Current-code local measurements — September 14, 2026
 
-| Metric | Before | After |
+Apple M5, 16 GiB RAM, macOS arm64, Go 1.24.5, MongoDB 8.0.28, Redis 8.8.1. One million synthetic records, 100 users, 10 organizations, and 20 Agents. Source hashes for 26 measured files matched the current code.
+
+| Measurement | Result | Scope |
 |---|---|---|
-| Query latency p95 | 1,970ms (on-the-fly aggregation) | **2.6ms** (daily-batch pre-aggregation · ~750x) |
-| Rows scanned | 3,000,000 raw records | **1,440** summary rows |
-| Idempotent aggregation | — | Row counts and cost totals unchanged across two runs |
-| Excel memory (200K rows) | 1,871MB (browser) | **8.2MB** (server streaming) · flat at 22.4MB even for 500K rows |
+| User detail calculated from raw data | 228.665ms p95 | 10,000 records for that user |
+| User detail from current summary query | 0.383ms p95 | One daily summary |
+| Total tokens/cost from raw data | 1969.781ms p95 | 1M records · comparison query |
+| Total tokens/cost from summaries | 0.226ms p95 | 100 summaries · comparison query |
+| Generate/store four daily summary types | 26.924s | One run |
+| Period-counter reconciliation | 29.764ms | One run |
+| Save record → Redis → in-memory increment | 0.366ms p95 | 1,000 CreateMetering calls |
+| Redis counter read | 0.093ms p95 | 50 calls |
+| Mongo counter flush calculation | 13.229ms | One run · 100 users/10 organizations |
+| First Mongo observation after 60s timer | 60.052s | From ticker start · 100ms observation uncertainty |
 
-- Manual settlement reports replaced by automated generation
-- Administrators can query and export directly → eliminated the recurring data-extraction requests (VOC)
+Queries used three warmups and 50 sequential runs with full cursor consumption. p95 is the 48th sorted sample. Batch, reconciliation, flush, and timer measurements were single runs. Expected real-time charges of ₩4,550 matched Redis and Mongo after the timer. Raw and summary tokens, costs, function counts, and API counts/costs matched.
 
-## Anticipated Questions
+Including all four summary-generation jobs and reconciliation, a calculated 100-query daily example is **144.288s → 26.972s (~5.3x)**, with a break-even near 19 total-sum queries per day. This is a sum of measured mean latencies, not a separately executed full workload, CPU metric, or throughput improvement.
 
-- **Q. Why pre-aggregation?** On-the-fly aggregation slows down linearly as raw data grows. By reading only a once-daily summary, query cost becomes a constant.
-- **Q. How do you handle Kafka duplicates?** Unique index on the aggregation key + upsert. Because re-running is inherently safe, disaster recovery is simply running it again.
+## Boundaries and next steps
+
+- The shared consumer's default redelivery policy is known; the metering consumer's actual wiring policy still needs confirmation.
+- Post-call cost finalization means concurrent calls and event delays can overshoot a quota slightly.
+- Daily summaries trade same-day freshness for cheap repeated queries; watermark-based incremental aggregation is a future extension.
+- Decimal arithmetic and a fixed rounding point are needed to tighten monetary accuracy.
+- New services appear automatically in the UI, but price policy and display-name validation still need operational monitoring.

@@ -1,50 +1,93 @@
 ---
-id: file-preview
-order: 2
-title: In-App File Preview — Split Paths & 3-Layer Defense
-category: fullstack
-badge: Full-Stack Flagship · Security
-stack: [Go, Gin, MinIO, DRM, Next.js 15, React 19, DOMPurify, iframe sandbox]
-metrics:
-  - { label: "Original file exposure", value: "0", note: "locked in by BE tests" }
-  - { label: "Malicious content defense", value: "3 layers", note: "1 server layer + 2 client layers" }
-  - { label: "Object URL leaks", value: "0", note: "locked in by FE tests" }
-  - { label: "Supported formats", value: "6 formats, single pipeline", note: "new format = one mapper line" }
-layers: ["FE direct", "BE endpoints direct", "Security design"]
-summary: A pipeline for previewing confidential internal files in-app without exposing originals or executing malicious content. The server splits the download and preview paths and serves only the DRM copy, with isolation policies enforced.
+{
+  "id": "file-preview",
+  "order": 3,
+  "published": true,
+  "title": "In-App File Previews — Separate Paths & Execution Defenses",
+  "category": "fullstack",
+  "badge": "Full-stack · security",
+  "stack": [
+    "Go",
+    "Gin",
+    "MinIO",
+    "DRM",
+    "Next.js 15",
+    "React 19",
+    "DOMPurify",
+    "iframe sandbox"
+  ],
+  "metrics": [
+    {
+      "label": "Execution defenses",
+      "value": "3 stages",
+      "note": "One server + two frontend active-content defenses"
+    },
+    {
+      "label": "10 MiB allocation/request",
+      "value": "~49.84 MiB → 229B",
+      "note": "Local Gateway processing benchmark"
+    },
+    {
+      "label": "Concurrent peak RSS",
+      "value": "~92.8%↓",
+      "note": "10 workers · local process 740.4 → 53.2 MiB"
+    },
+    {
+      "label": "Supported formats",
+      "value": "6",
+      "note": "Single pipeline · zero object-URL leaks"
+    }
+  ],
+  "layers": [
+    "Frontend built directly",
+    "Backend endpoint built directly",
+    "Security design"
+  ],
+  "summary": "Separated original downloads from DRM-copy previews. The Gateway validates and streams pre-generated PDFs while a single frontend pipeline renders and cleans up resources.",
+  "measurement": "Memory results compare local processes on the same machine. MinIO networking, permission lookup, and PDF generation are excluded; these are not production Pod or user-latency results."
+}
 ---
 
-# In-App File Preview — Full-Stack · Security
+# In-App File Previews
 
-> Leave the original untouched and show **only the DRM-processed copy**. Built the FE render stack's 3 layers (decide → transform → present) hands-on, plus the **BE preview endpoints and path separation hands-on**. The existing download flow was left alone — **zero breaking changes**.
+## Server boundary — built directly
 
-## BE — Path Separation & Server-Enforced Isolation (built hands-on)
+Downloads serve originals as attachments; preview endpoints serve only DRM-processed copies inline. The preview path does not reference original storage, and tests pin this boundary. The Gateway rechecks file read permissions, blocks path traversal, and streams bytes instead of buffering entire files.
 
-- **Symmetric split of download/preview endpoints** — download serves the original as attachment; preview serves only the DRM copy inline
-- The preview path is **designed to never even reference the original store** → "originals never leak through preview" is locked in by tests
-- **Streaming delivery** that never loads a whole file into memory, with download-permission re-verification and path-traversal blocking on every access
-- For active content (HTML·SVG·XML), the server **enforces an isolation policy (CSP sandbox + MIME-sniffing prevention)** → the effective trust boundary
+For HTML, SVG, and XML, server-enforced CSP sandbox and MIME-sniffing protection form the trust boundary. Client-side sanitization is defense in depth, not a replacement.
 
-## FE — Single Pipeline & Resource Cleanup (built hands-on)
+## Frontend pipeline — built directly
 
-- After format detection (extension → MIME fallback), **all 6 formats flow through one rendering pipeline**; unsupported formats get a download prompt automatically
-- Temporary preview data and in-flight requests are **cleaned up on every exit path (zero leaks)**
-- Active content gets **a second line of defense**: sanitization (DOMPurify) + an isolated frame (iframe sandbox); PDFs render with toolbar and download hidden
-- The preview module loads only when a preview is actually opened (code splitting)
+Format selection uses extension then MIME fallback. Six formats share a decide → transform → present pipeline. Unsupported files receive a download fallback. Temporary object URLs and pending requests are cleaned up on every exit path. DOMPurify and iframe sandbox provide two additional active-content defenses. PDF toolbar/download UI is hidden, and preview code loads only when opened.
 
-## Key Results
+Original exposure and temporary-resource leaks were zero in tests; existing download behavior was preserved without breaking changes.
 
-| Result | Evidence |
-|---|---|
-| Zero original exposure | Locked in by BE tests |
-| Zero temporary data leaks | Locked in by FE tests |
-| 3-layer malicious content defense | 1 server isolation layer + 2 client layers (sanitize · sandbox) |
-| Cost of adding a new format | One mapper line — no per-format bespoke builds |
+## Office-document flow and current limitations
 
-## Anticipated Questions
+PPTX, HWP, and HWPX conversion does not happen at preview-request time. The parsing engine pre-generates `{ObjectName}.pdf` in MinIO; the Gateway checks permissions and the four-byte `%PDF` signature before streaming it.
 
-- **Q. What is the effective trust boundary?** The server-enforced CSP sandbox plus DRM-copy serving. Client-side sanitization is defense in depth, not the boundary.
-- **Q. If format detection is extension-based, can it be bypassed?** Format detection only picks the renderer; it is not a security decision. Content goes through isolation and sanitization regardless.
-- **Q. When is the DRM copy created?** Previews must open instantly, so generating at upload time wins. If storage costs grow, the structure allows switching to on-request conversion.
+On overwrite, failure to remove an old derived PDF logs an error but does not fail a valid original upload. This cleanup failure is not currently persisted to a retry queue. If new parsing also fails, the old PDF can remain at the same key and be shown because the Gateway does not yet verify its processing generation.
 
-> BE splits the original/copy paths and the server enforces isolation; FE renders only safe copies through a single 6-format pipeline and cleans up its resources — applying **"protect the original, serve only safe copies, without mistakes, and lightweight"** consistently across the whole flow.
+The frontend selects preview entry by supported format and permission, not processing state. A missing PDF falls back to download; a surviving old PDF may display stale content. Manual retry exists, but no current client is connected.
+
+### Proposed hardening — not shipped results
+
+Connect processing/failed/PDF-ready states to frontend availability and retry actions. Persist derived-PDF cleanup as an Outbox job and compare processing-attempt IDs at the worker and Gateway. Generation-specific object keys and confirmed-ready selection would prevent old work from deleting or exposing newer output. This is a follow-up design, not a claim about existing implementation.
+
+## Local Gateway benchmark
+
+Apple M5, Go 1.24.5; medians of three runs using identical PDF bytes.
+
+| PDF size | Old full buffering | Validation + streaming |
+|---|---|---|
+| 1 MiB | 300µs · 5,241,208B allocated | 15.1µs · 228B |
+| 10 MiB | 1.59ms · 52,263,356B allocated | 154.5µs · 229B |
+| 50 MiB | 8.31ms · 314,628,741B allocated | 813.9µs · 234B |
+
+The current path restores the four inspected bytes using `io.MultiReader` and streams the object. Additional allocation remains approximately 228–234B rather than growing with PDF size.
+
+With a 10 MiB PDF, ten workers, ten seconds, and 50ms RSS sampling, old peak process RSS was **740.4 MiB**, compared with **53.2 MiB** for streaming (~92.8% reduction). Per-request allocation was approximately 49.84 MiB vs. 228B.
+
+## Measurement boundary
+
+RSS includes Go runtime, test code, and the shared input buffer. It is not an operational Pod metric. MinIO network time, authorization queries, and parsing-engine conversion are excluded. Browser p50/p95, object-store TTFB, PDF readiness, production RSS deltas, and seven-day error rates remain to be measured.

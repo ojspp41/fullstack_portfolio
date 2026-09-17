@@ -46,20 +46,17 @@ section: side-projects
 2. 🥈 **2025 Open Source Developer Contest Winner** — Professional Division · Favus (Go CLI · WebSocket)
 3. 🏅 **GGUM University Hackathon Excellence Award** — Library seat / empty classroom visualization (React, TS)
 4. 🏅 **University ICPC Excellence Award** — Algorithm competition
-5. 🏅 **Graduation Academic Excellence Award** — Catholic University of Korea · GPA 4.05 / 4.5
 
 ---
 
 # AI Experience
 
-- Designed a Generative UI processing pipeline — converting AI responses into safe UI
-- Visualized the RAG, chunking, and embedding process for users
-- Designed RBAC permission boundaries — a can() abstraction isolating the FE from unsettled role specs (understood & integrated the BE permission.go design)
-- Built a streaming markdown parser from scratch (Progressive Markdown Parser)
-- Built a VOC agent — auto-generating Jira tickets from a Generative UI form (driven by guide documents)
-- MES data analysis agent — natural language to SQL (Text-to-SQL) with chart visualization
-- Automated guidebook production combining playwright-mcp + Confluence MCP — screen captures and document generation with Claude Code
-- Usage/cost metering dashboard — translated screen requirements into backend aggregations (Kafka · SCD2 integration; built the FE hooks and ExcelJS export myself)
-- Full-stack in-app file preview — built the preview endpoint and separated delivery path myself + three layers of malware blocking
-- Automated QA sheet production with agent-browser — an AI workflow from scenario derivation to result compilation
-- Refactored to an FSD (Feature-Sliced Design) architecture based on the QA sheets — realigned responsibility boundaries and made dependencies unidirectional
+- Generative UI pipeline design: transform AI responses into safe UI.
+- RAG, chunking, and embedding process visualization.
+- Cross-org Agent sharing: organization-scoped paths, approval revalidation, five execution authorization paths, and Outbox convergence.
+- Progressive streaming markdown parser implementation.
+- VOC Agent: create Jira tickets from Generative UI forms based on guide documentation.
+- MES analysis Agent: convert natural language into SQL and visualize the results.
+- Guidebook automation using playwright-mcp and Confluence MCP with Claude Code.
+- Usage and cost metering: directly implemented Kafka ingestion, daily aggregation, price/FX history, frontend hooks, and ExcelJS exports.
+- Full-stack in-app file previews: separate preview endpoint and three-stage active-content execution defenses (one server + two frontend).

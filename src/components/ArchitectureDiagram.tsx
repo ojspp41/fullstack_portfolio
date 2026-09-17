@@ -26,159 +26,296 @@ interface DiagramColumn {
 
 const COLUMNS: DiagramColumn[] = [
   {
-    key: "client",
-    title: "CLIENT",
-    subtitle: { ko: "React 19 · Next.js 15 · TS strict", en: "React 19 · Next.js 15 · TS strict" },
-    nodes: [
+    "key": "client",
+    "title": "CLIENT",
+    "subtitle": {
+      "ko": "React 19 · Next.js 15 · TypeScript",
+      "en": "React 19 · Next.js 15 · TypeScript"
+    },
+    "nodes": [
       {
-        id: "fe-chat",
-        label: { ko: "채팅 · 스트리밍 UI", en: "Chat · streaming UI" },
-        detail: { ko: "WebSocket 6단계 방어 · 스트리밍 마크다운 파서", en: "6-stage WebSocket defense · streaming markdown parser" },
-        ownership: "direct",
-        projects: ["websocket", "markdown-parser"],
+        "id": "fe-chat",
+        "label": {
+          "ko": "채팅 · 스트리밍 UI",
+          "en": "Chat & streaming UI"
+        },
+        "detail": {
+          "ko": "세션 ID 검증 · 3ms debounce · 숨김 탭 5분 유예",
+          "en": "Session ID checks · 3ms debounce · hidden-tab five-minute grace"
+        },
+        "ownership": "direct",
+        "projects": [
+          "websocket"
+        ]
       },
       {
-        id: "fe-genui",
-        label: { ko: "Generative UI 파이프라인", en: "Generative UI pipeline" },
-        detail: { ko: "깨진 JSON 6단계 복구 · Error Boundary 격리", en: "6-stage broken-JSON recovery · Error Boundary isolation" },
-        ownership: "direct",
-        projects: ["generative-ui"],
+        "id": "fe-genui",
+        "label": {
+          "ko": "Generative UI",
+          "en": "Generative UI"
+        },
+        "detail": {
+          "ko": "6단계 정제 · 2겹 파싱 · 위젯별 예외 격리",
+          "en": "Six cleanup stages · two-pass parsing · widget isolation"
+        },
+        "ownership": "direct",
+        "projects": [
+          "generative-ui"
+        ]
       },
       {
-        id: "fe-file",
-        label: { ko: "파일 업로드 · 미리보기 렌더", en: "File upload · preview rendering" },
-        detail: { ko: "상태 머신 6단계 · 렌더 3층(판단→가공→표현)", en: "6-state machine · 3-layer rendering (decide→transform→present)" },
-        ownership: "direct",
-        projects: ["file-upload", "file-preview"],
+        "id": "fe-file",
+        "label": {
+          "ko": "파일 렌더 3층",
+          "en": "Three-layer file renderer"
+        },
+        "detail": {
+          "ko": "판단→가공→표현 · DOMPurify·iframe sandbox · 자원 정리",
+          "en": "Decide→transform→present · DOMPurify·iframe sandbox · cleanup"
+        },
+        "ownership": "direct",
+        "projects": [
+          "file-preview"
+        ]
       },
       {
-        id: "fe-rbac",
-        label: { ko: "RBAC can() 추상화", en: "RBAC can() abstraction" },
-        detail: { ko: "3-상태 렌더링 · 미확정 역할 스펙과 FE 격리", en: "3-state rendering · isolates FE from unsettled role specs" },
-        ownership: "direct",
-        projects: ["rbac"],
-      },
-    ],
+        "id": "fe-share",
+        "label": {
+          "ko": "조직별 Agent 공유 화면",
+          "en": "Organization-aware sharing UI"
+        },
+        "detail": {
+          "ko": "다중 소속 선택 · 즉시 공유/승인 대기 분리 · 오래된 응답 폐기",
+          "en": "Membership selection · immediate/pending states · stale-response discard"
+        },
+        "ownership": "direct",
+        "projects": [
+          "cross-org-sharing"
+        ]
+      }
+    ]
   },
   {
-    key: "contract",
-    title: "API CONTRACTS",
-    subtitle: { ko: "REST · 서버 계약 직접 설계", en: "REST · server contracts I designed" },
-    nodes: [
+    "key": "contract",
+    "title": "API CONTRACTS",
+    "subtitle": {
+      "ko": "화면 요구에서 역설계한 API",
+      "en": "APIs derived from UI requirements"
+    },
+    "nodes": [
       {
-        id: "api-metering",
-        label: { ko: "미터링 조회 API", en: "Metering query API" },
-        detail: { ko: "필터 6종 · 페이지네이션 · ExcelJS 서버 스트리밍", en: "6 filters · pagination · ExcelJS server streaming" },
-        ownership: "direct",
-        projects: ["metering"],
+        "id": "api-metering",
+        "label": {
+          "ko": "미터링 조회 · 비교",
+          "en": "Metering query & comparison"
+        },
+        "detail": {
+          "ko": "필터 6종 · 계열사 비교 약 34회→1회 · source_usages 계약",
+          "en": "Six filters · ~34→1 comparison requests · source_usages contract"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
       },
       {
-        id: "api-quota",
-        label: { ko: "사용 한도 제어 API", en: "Usage quota API" },
-        detail: { ko: "요금제별 쿼터 · Redis 카운터 429 즉시 차단", en: "Per-plan quotas · Redis counter with instant 429 blocking" },
-        ownership: "direct",
-        projects: ["metering"],
+        "id": "api-quota",
+        "label": {
+          "ko": "사용 한도 제어",
+          "en": "Usage limit control"
+        },
+        "detail": {
+          "ko": "Redis 누적 청구액 확인 · 조직/개인 한도 · 호출 전 차단",
+          "en": "Redis charge counters · organization/user limits · pre-call blocking"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
       },
       {
-        id: "api-preview",
-        label: { ko: "파일 미리보기 엔드포인트", en: "File preview endpoint" },
-        detail: { ko: "다운로드/미리보기 통로 분리 · DRM 사본 격리 서빙", en: "Separate download/preview paths · serves isolated DRM copies" },
-        ownership: "direct",
-        projects: ["file-preview"],
-      },
-      {
-        id: "api-pdf",
-        label: { ko: "서버사이드 PDF 캡처", en: "Server-side PDF capture" },
-        detail: { ko: "헤드리스 Chromium · DOM 1:1 캡처", en: "Headless Chromium · 1:1 DOM capture" },
-        ownership: "direct",
-        projects: ["pdf-invoice"],
-      },
-    ],
+        "id": "api-preview",
+        "label": {
+          "ko": "파일 미리보기 엔드포인트",
+          "en": "File preview endpoint"
+        },
+        "detail": {
+          "ko": "원본 다운로드/DRM 미리보기 분리 · 읽기 권한 재검증",
+          "en": "Original download/DRM preview separation · read authorization"
+        },
+        "ownership": "direct",
+        "projects": [
+          "file-preview"
+        ]
+      }
+    ]
   },
   {
-    key: "gateway",
-    title: "GO GATEWAY",
-    subtitle: { ko: "Go 1.24 · Gin · gRPC · Protobuf", en: "Go 1.24 · Gin · gRPC · Protobuf" },
-    nodes: [
+    "key": "gateway",
+    "title": "GO GATEWAY",
+    "subtitle": {
+      "ko": "직접 구현한 기능과 공통 기반 분리",
+      "en": "Feature ownership vs. shared infrastructure"
+    },
+    "nodes": [
       {
-        id: "gw-grpc",
-        label: { ko: "gRPC · Protobuf 게이트웨이", en: "gRPC · Protobuf gateway" },
-        detail: { ko: "중앙 API Gateway — 설계 의도를 이해하고 연동", en: "Central API gateway — integrated with full design understanding" },
-        ownership: "integrated",
-        projects: ["metering", "file-preview"],
+        "id": "gw-grpc",
+        "label": {
+          "ko": "공통 gRPC · Protobuf 기반",
+          "en": "Shared gRPC & Protobuf"
+        },
+        "detail": {
+          "ko": "중앙 Gateway 전체 구현이 아니라 공통 기반에 일부 기능 직접 구현",
+          "en": "Built selected features, not the entire central Gateway infrastructure"
+        },
+        "ownership": "integrated",
+        "projects": [
+          "metering",
+          "file-preview"
+        ]
       },
       {
-        id: "gw-perm",
-        label: { ko: "permission.go", en: "permission.go" },
-        detail: { ko: "멀티소스 SSOT · cascade — ownership-first 소비가 접점", en: "Multi-source SSOT · cascade — consumed ownership-first on the FE" },
-        ownership: "integrated",
-        projects: ["rbac"],
+        "id": "gw-share",
+        "label": {
+          "ko": "조직별 승인 · 실행 재인가",
+          "en": "Org approval & execution authorization"
+        },
+        "detail": {
+          "ko": "사용자×대상 조직×공유자 · 승인 재검증 · 5개 실행 경로",
+          "en": "User×target organization×sharer · approval rechecks · five execution paths"
+        },
+        "ownership": "direct",
+        "projects": [
+          "cross-org-sharing"
+        ]
       },
-    ],
+      {
+        "id": "gw-outbox",
+        "label": {
+          "ko": "공유 Outbox 수렴",
+          "en": "Sharing Outbox convergence"
+        },
+        "detail": {
+          "ko": "기존 세션 100개씩 반영 · 오래된 작업 무효화 · 최신 버전 보호",
+          "en": "100-session batches · obsolete-job invalidation · latest-version protection"
+        },
+        "ownership": "direct",
+        "projects": [
+          "cross-org-sharing"
+        ]
+      }
+    ]
   },
   {
-    key: "pipeline",
-    title: "DATA PIPELINE",
-    subtitle: { ko: "Kafka → 사전집계 → SCD-2", en: "Kafka → pre-aggregation → SCD-2" },
-    nodes: [
+    "key": "pipeline",
+    "title": "METERING PIPELINE",
+    "subtitle": {
+      "ko": "미터링 이벤트부터 정산까지 직접 구현",
+      "en": "Metering events through settlement built directly"
+    },
+    "nodes": [
       {
-        id: "pipe-kafka",
-        label: { ko: "Kafka 인입", en: "Kafka ingestion" },
-        detail: { ko: "at-least-once → 집계키 유니크 인덱스 upsert 멱등", en: "at-least-once → idempotent upserts on a unique aggregation key" },
-        ownership: "integrated",
-        projects: ["metering"],
+        "id": "pipe-kafka",
+        "label": {
+          "ko": "미터링 Kafka 인입",
+          "en": "Metering Kafka ingestion"
+        },
+        "detail": {
+          "ko": "미터링 이벤트 생산·소비·실패 처리 범위 직접 구현 · 소비 정책 확인 필요",
+          "en": "Metering production/consumption/failure handling · wiring policy needs verification"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
       },
       {
-        id: "pipe-agg",
-        label: { ko: "일배치 사전집계", en: "Daily pre-aggregation" },
-        detail: { ko: "300만 건 → 1,440건 · 조회 비용 상수화", en: "3M rows → 1,440 · query cost made constant" },
-        ownership: "integrated",
-        projects: ["metering"],
+        "id": "pipe-agg",
+        "label": {
+          "ko": "일배치 · 복합 키 upsert",
+          "en": "Daily batches & composite-key upsert"
+        },
+        "detail": {
+          "ko": "원본→요약 사전 계산 · 반복 실행 시 건수·비용 수렴",
+          "en": "Raw→summary precomputation · stable counts/costs on rerun"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
       },
       {
-        id: "pipe-scd2",
-        label: { ko: "SCD-2 가격 · 환율 이력", en: "SCD-2 price/FX history" },
-        detail: { ko: "과거 청구를 그 시점 기준으로 재현 · 정산 감사 대응", en: "Reproduces past invoices as-of date · settlement audits" },
-        ownership: "integrated",
-        projects: ["metering"],
-      },
-    ],
+        "id": "pipe-scd2",
+        "label": {
+          "ko": "가격 · 환율 이력",
+          "en": "Price & FX history"
+        },
+        "detail": {
+          "ko": "valid_from/valid_to 버전 관리 · 사용 시점 청구 재현",
+          "en": "valid_from/valid_to versioning · reproduce usage-time charges"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
+      }
+    ]
   },
   {
-    key: "storage",
-    title: "STORAGE",
-    subtitle: { ko: "Redis · MinIO · MongoDB · MySQL", en: "Redis · MinIO · MongoDB · MySQL" },
-    nodes: [
+    "key": "storage",
+    "title": "DATA & OBJECTS",
+    "subtitle": {
+      "ko": "구현한 데이터 흐름과 저장소 연동",
+      "en": "Implemented data paths & storage integration"
+    },
+    "nodes": [
       {
-        id: "st-redis",
-        label: { ko: "Redis 한도 카운터", en: "Redis quota counter" },
-        detail: { ko: "분당 100회 · 호출이 나가기 전 429 차단", en: "100 req/min · blocks with 429 before the call leaves" },
-        ownership: "integrated",
-        projects: ["metering"],
+        "id": "st-redis",
+        "label": {
+          "ko": "Redis 한도 카운터 로직",
+          "en": "Redis quota-counter logic"
+        },
+        "detail": {
+          "ko": "이벤트별 누적액 반영 · Mongo 60초 반영 · 일별 원본 대조",
+          "en": "Event-level charge updates · 60s Mongo flush · daily reconciliation"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
       },
       {
-        id: "st-minio",
-        label: { ko: "MinIO 오브젝트 스토리지", en: "MinIO object storage" },
-        detail: { ko: "원본/DRM 사본 분리 저장 · gRPC 게이트웨이 경유", en: "Separate original/DRM copies · via the gRPC gateway" },
-        ownership: "integrated",
-        projects: ["file-preview"],
+        "id": "st-mongo",
+        "label": {
+          "ko": "MongoDB 요약 · 카운터",
+          "en": "MongoDB summaries & counters"
+        },
+        "detail": {
+          "ko": "상세 원본·일별 요약 분리 · 미터링 집계·조회 직접 구현",
+          "en": "Raw/daily separation · metering aggregation and queries built directly"
+        },
+        "ownership": "direct",
+        "projects": [
+          "metering"
+        ]
       },
       {
-        id: "st-mongo",
-        label: { ko: "MongoDB 집계 저장소", en: "MongoDB aggregation store" },
-        detail: { ko: "미터링 요약 1,440건 · 멱등 upsert 대상", en: "1,440 metering summaries · idempotent upsert target" },
-        ownership: "integrated",
-        projects: ["metering"],
-      },
-      {
-        id: "st-mysql",
-        label: { ko: "MySQL", en: "MySQL" },
-        detail: { ko: "운영 데이터 — COMAtching에서는 스키마·조인·인덱스 직접 설계", en: "Operational data — designed schema/joins/indexes myself on COMAtching" },
-        ownership: "integrated",
-        projects: [],
-      },
-    ],
-  },
+        "id": "st-minio",
+        "label": {
+          "ko": "MinIO · 파생 PDF",
+          "en": "MinIO & derived PDFs"
+        },
+        "detail": {
+          "ko": "파싱엔진 PDF 선생성 연동 · Gateway 유효성 검증·스트리밍",
+          "en": "Parsing-engine PDF generation integration · Gateway validation/streaming"
+        },
+        "ownership": "integrated",
+        "projects": [
+          "file-preview"
+        ]
+      }
+    ]
+  }
 ];
 
 // full-width runtime strip under the 5 columns
@@ -263,6 +400,10 @@ export default function ArchitectureDiagram({
           {t.direct}
         </span>
         <span className="hidden text-mute/60 sm:inline">{t.legendHint}</span>
+        <span className="flex items-center gap-2 text-mute">
+          <span className={`h-2 w-2 rounded-full ${OWNERSHIP_META.integrated.dot}`} />
+          {t.integrated}
+        </span>
       </div>
 
       {/* 5-tier diagram */}
@@ -334,7 +475,7 @@ export default function ArchitectureDiagram({
             </div>
             {activeNode.projects.length > 0 && (
               <div className="flex shrink-0 flex-wrap gap-2">
-                {activeNode.projects.map((pid) => (
+                {activeNode.projects.filter((pid) => pid in projectTitles).map((pid) => (
                   <button
                     key={pid}
                     type="button"

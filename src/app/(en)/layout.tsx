@@ -3,7 +3,7 @@ import RootShell from "@/components/RootShell";
 
 const TITLE = "Junseok Oh — Full-Stack Engineer · AI / LLM Application";
 const DESCRIPTION =
-  "Back-office admin full-stack — from the screen to server contracts, pipeline integration, and infra. Designed and built the RESTful metering/billing APIs for an internal AI (LLM) service serving 10,000 users across 13 Hansol Group affiliates. Queries 750x faster · re-renders down 99.6% · Docker image halved.";
+  "Frontend owner of AI Atlas, an internal LLM service for 10,000 users across 13 Hansol Group affiliates. Selected Go Gateway features and metering pipeline built directly. Six verified cases: metering, cross-org sharing, file previews, Generative UI, WebSocket, and Docker.";
 
 export const metadata: Metadata = {
   title: TITLE,

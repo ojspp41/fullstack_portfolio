@@ -31,7 +31,7 @@ export default function Hero({ profile, locale = "ko" }: { profile: Profile; loc
               <span className="text-mute/70 text-2xl sm:text-4xl">{t.nameSuffix}</span>
             )}
           </h1>
-          <p className="mt-4 h-9 text-2xl sm:text-3xl">
+          <p className="mt-4 min-h-16 text-xl leading-snug sm:min-h-10 sm:text-3xl">
             <TypeWriter titles={t.typewriter} />
           </p>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">

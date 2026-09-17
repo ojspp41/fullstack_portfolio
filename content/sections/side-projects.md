@@ -46,20 +46,17 @@ section: side-projects
 2. 🥈 **2025 오픈소스 개발자 대회 우수작** — 직장인 부문 · Favus (Go CLI · WebSocket)
 3. 🏅 **GGUM 교내 해커톤 우수상** — 도서관 좌석/빈 강의실 시각화 (React, TS)
 4. 🏅 **교내 ICPC 우수상** — 알고리즘 대회
-5. 🏅 **교내 졸업 학점 우수상** — 가톨릭대학교 · 학점 4.05 / 4.5
 
 ---
 
-# AI 활용 경험 (AI Experience 섹션용)
+# AI 활용 경험
 
-- 생성형 UI 처리 흐름 (Pipeline) 설계 — AI 응답을 안전한 UI로 변환
-- 검색 증강 (RAG) · Chunking · 임베딩 과정 시각화
-- RBAC 권한 경계 설계 — can() 추상화로 미확정 역할 스펙과 FE 격리 (BE permission.go 설계 이해·연동)
-- 스트리밍 마크다운 파서 직접 설계 (Progressive Markdown Parser)
-- VOC 에이전트 직접 개발 — 생성형 UI 폼으로 Jira 티켓 자동 생성 (가이드 문서 기반)
-- MES 데이터 분석 에이전트 — 자연어를 SQL로 변환(Text-to-SQL)한 차트 시각화
-- playwright-mcp + Confluence MCP 결합 가이드북 자동화 — Claude Code로 화면 캡처·문서 자동 생성
-- 사용량·비용 미터링 대시보드 — 화면 요구를 백엔드 집계로 정의 (Kafka·SCD2 연동, FE 훅·ExcelJS 직접 구현)
-- 파일 인앱 미리보기 풀스택 — 미리보기 엔드포인트·통로 분리 직접 구현 + 악성코드 차단 3겹
-- agent-browser 기반 QA 시트 자동 제작 — 시나리오 도출부터 결과 정리까지 AI 처리 흐름
-- QA 시트를 토대로 FSD(Feature-Sliced Design) 구조 리팩토링 — 책임 경계 재정렬 및 의존성 단방향화
+- 생성형 UI 처리 흐름(Pipeline) 설계 — AI 응답을 안전한 UI로 변환
+- 검색 증강(RAG) · Chunking · 임베딩 과정 시각화
+- 타 조직 Agent 공유 승인 — 조직별 권한 경로·승인 재검증·5개 실행 경로 재인가·Outbox 수렴 설계
+- 스트리밍 마크다운 파서 직접 설계(Progressive Markdown Parser)
+- VOC 에이전트 직접 개발 — 생성형 UI 폼으로 Jira 티켓 자동 생성(가이드 문서 기반)
+- MES 데이터 분석 에이전트 — 자연어를 SQL로 변환한 뒤 차트 시각화
+- playwright-mcp + Confluence MCP 결합 가이드북 자동화 — Claude Code로 화면 영역 캡처 및 문서 자동 생성
+- 사용량·비용 미터링 대시보드 — Kafka 인입·일배치 집계·가격·환율 이력 관리부터 FE 훅·ExcelJS까지 직접 구현
+- 파일 인앱 미리보기 풀스택 — 미리보기 엔드포인트·통로 분리 직접 구현 + 능동형 콘텐츠 실행 방어 3단계(서버 1 + 화면 2)

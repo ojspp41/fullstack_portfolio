@@ -1,45 +1,69 @@
-# 오준석 — 풀스택 개발자 포트폴리오
+# 오준석 — Full-Stack Engineer · AI / LLM Application
 
-문제를 직접 정의하고 끝까지 푸는 풀스택 개발자. 이 사이트 자체가 기술 증명입니다.
+한국어·영어 원페이지 포트폴리오입니다. 콘텐츠는 `content/`의 Markdown에서 빌드 타임에 읽고, gray-matter와 Zod로 검증합니다.
 
-원페이지 포트폴리오로, 모든 콘텐츠는 `content/`의 마크다운에서 빌드 타임에 읽어옵니다. 마크다운만 추가하면 프로젝트가 늘어나는 구조입니다.
+## 내용 기준
 
-## 기술 스택
+`portfolio_fullstack_v4_extracted_pdf_aligned.md`의 2026-09-14 수정본을 기준으로 정렬했습니다. 한국어 상세 본문은 기준 MD의 해당 페이지를 반영하고, 영어 상세는 같은 담당 범위·수치·측정 경계·한계를 번역·요약했습니다. 사내 실제 UI·데이터·내부 코드는 공개하지 않으며 로컬 원자료 경로도 공개 콘텐츠에서 제외합니다.
 
-- **Next.js 15** (App Router) · **TypeScript** (strict) · **Tailwind v4**
-- 콘텐츠: gray-matter frontmatter 파싱 + **zod** 스키마 검증, 서버 컴포넌트에서 빌드 타임 로드
-- 마크다운 렌더: react-markdown + remark-gfm (표·코드블록 지원)
-- 전 페이지 정적 프리렌더 (SSG), First Load JS 약 151kB
+| 순서 | 대표 사례 | 기준 페이지 |
+|---|---|---|
+| 1 | 사용량·비용 미터링 | 5–6 |
+| 2 | 타 조직 Agent 공유 | 7–8 |
+| 3 | 파일 인앱 미리보기 | 9–10 |
+| 4 | Generative UI | 11–12 |
+| 5 | WebSocket 안정화 | 13–14 |
+| 6 | Dockerfile 고도화 | 15–16 |
 
-## 섹션 구성
+- 미터링 Kafka 인입·집계·가격/환율 이력은 **직접 구현** 범위입니다. 공통 Kafka 기반 전체 구현과는 구분합니다.
+- ExcelJS는 브라우저에서 요약·상세 시트를 생성합니다. 이전 서버 스트리밍·메모리 수치는 현재 페이지에서 제외했습니다.
+- Generative UI는 40개 fixture의 **파싱 실패 16건 → 1건**입니다. 렌더 예외 격리는 별도의 결과입니다.
+- Docker cold pull은 **로컬 중앙값 8.13s → 3.93s**, 각 3회 실측입니다.
+- 로컬 메모리·조회 벤치와 운영 응답시간·Pod 지표를 구분합니다.
+- PDF 정리 영속 재시도와 세대 검증은 후속 보강 설계이며 구현 완료로 표시하지 않습니다.
 
-1. **Hero** — 핵심 지표 4개 뷰포트 진입 시 카운트업
-2. **Full-Stack Range** — FE ↔ Go API Gateway ↔ Data Pipeline 인터랙티브 아키텍처 다이어그램. 노드별 "직접 구현 / 설계 이해·연동" 구분, 관련 심층분석으로 연결
-3. **Deep Dives** — 프로젝트 9건, 카테고리 필터 + STAR 상세 모달
-4. **Experience** — 한솔 PNS · PTKOREA 타임라인
-5. **Open Source & Side Projects** — Githru · Favus · COMAtching · 부천FC + 수상
-6. **Contact**
-
-## 디자인
-
-계기판/오실로스코프 무드 — 어두운 청회색 바탕 + 헤어라인 그리드, 포인트 컬러 앰버 1색, 지표 숫자는 JetBrains Mono, 본문은 Pretendard. '측정으로 증명한다'는 정체성.
-
-## 로컬 실행
+## 로컬 실행·검증
 
 ```bash
-npm install
-npm run dev        # 개발 서버 (http://localhost:3000)
-npm run build      # 프로덕션 빌드
-npm start          # 프로덕션 서버
+npm ci
+npm test
+npm run build
+npm run dev
 ```
 
-## 콘텐츠 수정
+`npm test`는 Node.js 22.18 이상(TypeScript 타입 제거 지원)이 필요합니다. 별도 테스트 의존성을 설치하지 않습니다.
 
-- `content/sections/profile.md` — 히어로·About·스택·강점 (Hero 카운터의 데이터 소스)
-- `content/sections/experience.md` — 경력·학력·활동
-- `content/sections/side-projects.md` — 오픈소스·사이드 프로젝트·수상
-- `content/projects/*.md` — 심층분석 (frontmatter: `id, order, title, category, badge, stack[], metrics[], summary`)
+- 콘텐츠 테스트: 한국어/영어 6개 사례·순서·범주, Hero 지표, 경력, 수상 4개, 측정 수치, 공개 링크, 아키텍처 사례 연결을 검사합니다.
+- 빌드: Next.js TypeScript 검사 및 두 언어 페이지 정적 생성.
+- 브라우저 확인: 필터, 상세 모달, ESC 닫기, `?p=cross-org-sharing` / `?p=file-preview` 딥링크, 390px 모바일 상세.
 
-## 배포
+## 콘텐츠 관리
 
-Vercel에 그대로 배포 가능합니다.
+- `content/sections/profile.md`: 프로필·Hero 지표·담당 범위·스택·강점
+- `content/sections/experience.md`: 경력·학력·활동
+- `content/sections/ai-atlas-overview.md`: AI Atlas 개요
+- `content/sections/side-projects.md`: 오픈소스·사이드 프로젝트·수상·AI 경험
+- `content/projects/*.md`: 한국어 사례
+- `content/en/`: 동일 콘텐츠의 영어판
+
+프로젝트는 frontmatter의 `published: true`일 때만 표시됩니다. 기존 PDF 인보이스·RBAC·마크다운 파서·파일 업로드 상세 파일은 삭제하지 않고 비공개 보관 상태로 두었습니다. 새 사례를 표시하려면 두 언어 파일의 ID·순서·published를 함께 맞추고 테스트의 기준 목록을 검토합니다.
+
+`measurement`는 카드와 상세에 함께 노출되는 측정 조건입니다. 개선 수치와 한계를 함께 적습니다.
+
+## PDF 다운로드
+
+기존 `public/junseok-oh-fullstack-portfolio.pdf`는 보존했지만 최신 MD와의 일치가 확인되지 않아 두 언어 프로필의 `resumePdf` 선언을 제거했습니다. 최신 PDF로 교체한 뒤 두 프로필에 아래 항목을 복원하면 다운로드 버튼이 표시됩니다.
+
+```yaml
+resumePdf: /junseok-oh-fullstack-portfolio.pdf
+```
+
+파일 보존 상태이므로 이전 PDF의 직접 URL은 여전히 접근 가능합니다.
+
+## 화면·배포
+
+기존 파스텔·인디고 테마, Pretendard 본문, 모노스페이스 데이터, Lottie 및 reduced-motion 지원을 유지했습니다. 카드에 측정 경계를 표시하고 아키텍처에서 직접 구현과 공통 기반 연동을 구분합니다.
+
+Vercel 배포를 지원합니다. GitHub 반영 후 운영 배포 상태는 호스팅 환경에서 별도로 확인합니다. `output: standalone` 설정에서 자체 호스팅할 경우 Next.js standalone 서버와 정적 자산 배치가 필요합니다.
+
+2026-09-17 검증 시 기존 lockfile에 `npm audit` 취약점 5개(critical 1, high 4)가 보고됐습니다. 이번 변경에서는 의존성을 수정하지 않았으며 배포 전 별도 보안 업데이트와 재검증이 필요합니다.
