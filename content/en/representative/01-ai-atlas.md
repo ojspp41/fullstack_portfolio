@@ -3,7 +3,7 @@ id: ai-atlas
 order: 1
 eyebrow: Enterprise AI · Hansol PNS AI Development Team
 title: AI Atlas — Enterprise AI Platform for 10,000 Users
-summary: An internal LLM and RAG platform used by approximately 10,000 people across 13 affiliates. I expanded my scope from AI UX to selected APIs, permissions, metering, files, deployment, and operations.
+summary: An internal LLM and RAG platform used by approximately 10,000 people across 13 affiliates. I expanded my scope from AI UX to selected APIs, permissions, metering, files, testing, deployment, and operations.
 stack: [React, TypeScript, Python / FastAPI, Go, Kafka, Redis, MongoDB, Docker]
 metrics:
   - label: Platform scale

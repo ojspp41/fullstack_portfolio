@@ -11,7 +11,7 @@ metrics:
   - label: Output
     value: Summary + HTML Report
 decision: The Agent selects purpose-defined, read-only MCP query tools.
-steps: [User Request, On-Prem sLLM, MES MCP, Production / Quality / Equipment / LOT Queries, Current vs Previous Period, Investigate Unusual Changes, Summary + HTML Report]
+steps: [Natural-language request, On-Prem sLLM, Select MES MCP tool, Production / Quality / Equipment / LOT queries, Current vs previous equivalent period, Follow up on unusual changes, Summarize key findings, On-screen response + HTML report]
 ---
 
 ### Apply a model to an enterprise system
@@ -24,6 +24,6 @@ This is experience applying an on-premise model to an Agent and MCP—not traini
 
 - Restrict numerical claims to MCP query results.
 - Separate observed facts from possible causes and bound query ranges.
-- Verify error retries and defenses against requests to fabricate figures.
+- Verify MCP tool error retries and defenses against requests to fabricate production figures.
 - Distinguish model, prompt, MCP, and infrastructure failures during diagnosis.
-- Include normal, exceptional, and adversarial requests in QA.
+- Include normal requests, out-of-scope queries, fabricated-data requests, and infrastructure failures in normal, exceptional, and adversarial QA.

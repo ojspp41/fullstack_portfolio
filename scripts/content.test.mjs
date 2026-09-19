@@ -80,7 +80,11 @@ for (const locale of ["ko", "en"]) {
     assert.match(representative[1].decision, /결정론적|Deterministic/i);
     assert.match(representative[2].title, /On-Prem sLLM × MES MCP/);
     assert.match(representative[2].decision, /읽기 전용|read-only/);
-    assert.equal(representative[2].steps.length, 7);
+    assert.equal(representative[2].steps.length, 8);
+    assert.match(representative[0].summary, /테스트|testing/i);
+    assert.ok(representative[1].stack.includes("Human-in-the-loop"));
+    assert.match(representative[1].body, /결과\/이력 API|results\/history APIs/);
+    assert.match(representative[2].body, /인프라 장애|infrastructure failures/i);
     assert.equal(workflow[0].steps.length, 9);
     assert.equal(workflow[1].metrics[0].value, locale === "ko" ? "36개" : "36");
     assert.match(JSON.stringify(workflow[2]), /93/);
@@ -90,7 +94,7 @@ for (const locale of ["ko", "en"]) {
 }
 
 test("public copy is company-neutral and corrected claims cannot regress", () => {
-  const forbidden = /Full-Stack\s*\(단독\)|입사 2개월|2개월 만에|런칭 리더|Traffic Light Agent|AX 우수상|Text-to-SQL|within two months|Led the launch of a 10,000-user service|NICE평가정보|삼성SDS|LG CNS|현대자동차|금융권에 기여/i;
+  const forbidden = /Full-Stack\s*\(단독\)|입사 2개월|2개월 만에|2개월 내|런칭 리더|Traffic Light Agent|AX 우수상|Text-to-SQL|Text to SQL|within two months|Led the launch of a 10,000-user service|NICE평가정보|삼성SDS|LG CNS|현대자동차|금융권에 기여/i;
   for (const locale of ["ko", "en"]) {
     const profile = getProfile(locale);
     const content = {

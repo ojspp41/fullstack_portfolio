@@ -3,7 +3,7 @@ id: ai-atlas
 order: 1
 eyebrow: Enterprise AI · 한솔PNS AI개발팀
 title: AI Atlas — 1만 명 엔터프라이즈 AI 플랫폼
-summary: 13개 계열사 약 1만 명이 사용하는 사내 LLM·RAG 플랫폼에서 AI UX부터 API·권한·미터링·파일·배포·운영까지 담당 범위를 확장한 Full-Stack 경험입니다.
+summary: 13개 계열사 약 1만 명이 사용하는 사내 LLM·RAG 플랫폼에서 AI UX부터 API·권한·미터링·파일·테스트·배포·운영까지 담당 범위를 확장한 Full-Stack 경험입니다.
 stack: [React, TypeScript, Python / FastAPI, Go, Kafka, Redis, MongoDB, Docker]
 metrics:
   - label: 사용자 규모
