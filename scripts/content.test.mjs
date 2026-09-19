@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import matter from "gray-matter";
-import { getExperience, getProfile, getProjects, getSideProjects } from "../src/lib/content.ts";
+import { getExperience, getExperienceFeatures, getProfile, getProjects, getSideProjects } from "../src/lib/content.ts";
 
 const EXPECTED = ["metering", "cross-org-sharing", "file-preview", "generative-ui", "websocket", "dockerfile"];
 
@@ -33,8 +33,9 @@ for (const locale of ["ko", "en"]) {
     const profile = getProfile(locale);
     assert.equal(profile.heroStats.length, 4);
     assert.deepEqual(profile.heroStats.map((s) => s.value), locale === "ko"
-      ? ["1만 명", "99.6%↓", "장관상", "2,000명"]
-      : ["10,000", "99.6%↓", "Ministerial Prize", "2,000 users"]);
+      ? ["1만 명", "750×", "장관상", "2,000명"]
+      : ["10,000", "750×", "Ministerial Prize", "2,000 users"]);
+    assert.equal(profile.role, "AI Product / Full-Stack Engineer");
     assert.equal(profile.resumePdf, undefined);
     const data = profile.coverage.find((row) => /데이터|Data/.test(row.layer));
     assert.ok(data.direct.some((s) => /Kafka/.test(s)));
@@ -52,8 +53,79 @@ for (const locale of ["ko", "en"]) {
     assert.equal(side.cards.length, 4);
     assert.equal(side.awards.split("\n").filter((l) => /^\d+\./.test(l)).length, 4);
     assert.match(side.aiExperience, /Outbox/);
+    assert.match(side.cards[0], /COMAtching/);
+    assert.match(side.cards[0], /601 → 2/);
+    assert.match(side.cards[0], /261\.1ms → 18\.8ms/);
+  });
+
+  test(`${locale}: representative experiences and workflow have explicit translations`, () => {
+    const expected = {
+      representative: ["ai-atlas", "signal-agent", "slp-manufacturing", "ai-development"],
+      workflow: ["development-loop", "reusable-skills", "content-automation", "operation-report"],
+    };
+    for (const [section, ids] of Object.entries(expected)) {
+      const items = getExperienceFeatures(section, locale);
+      assert.deepEqual(items.map((item) => item.id), ids);
+      const dir = path.join("content", locale === "en" ? "en" : "", section);
+      assert.equal(fs.readdirSync(dir).filter((file) => file.endsWith(".md")).length, 4);
+      for (const item of items) {
+        assert.ok(item.summary.length > 40, item.id);
+        assert.ok(item.body.length > 100, item.id);
+        assert.doesNotMatch(JSON.stringify(item), /\/Users\/|file:\/\//);
+      }
+    }
+    const representative = getExperienceFeatures("representative", locale);
+    const workflow = getExperienceFeatures("workflow", locale);
+    assert.match(representative[1].title, /신호등 에이전트/);
+    assert.match(representative[1].decision, /결정론적|Deterministic/i);
+    assert.match(representative[2].title, /On-Prem sLLM × MES MCP/);
+    assert.match(representative[2].decision, /읽기 전용|read-only/);
+    assert.equal(representative[2].steps.length, 7);
+    assert.equal(workflow[0].steps.length, 9);
+    assert.equal(workflow[1].metrics[0].value, locale === "ko" ? "36개" : "36");
+    assert.match(JSON.stringify(workflow[2]), /93/);
+    assert.match(JSON.stringify(workflow[2]), locale === "ko" ? /약 3일 → 4시간/ : /~3 days → 4 hours/);
+    assert.match(workflow[3].decision, /AI가 숫자를 계산하지|AI does not calculate/);
   });
 }
+
+test("public copy is company-neutral and corrected claims cannot regress", () => {
+  const forbidden = /Full-Stack\s*\(단독\)|입사 2개월|2개월 만에|런칭 리더|Traffic Light Agent|AX 우수상|Text-to-SQL|within two months|Led the launch of a 10,000-user service|NICE평가정보|삼성SDS|LG CNS|현대자동차|금융권에 기여/i;
+  for (const locale of ["ko", "en"]) {
+    const profile = getProfile(locale);
+    const content = {
+      profile, career: getExperience(locale), side: getSideProjects(locale),
+      projects: getProjects(locale),
+      representative: getExperienceFeatures("representative", locale),
+      workflow: getExperienceFeatures("workflow", locale),
+    };
+    assert.doesNotMatch(JSON.stringify(content), forbidden);
+    assert.doesNotMatch(JSON.stringify(profile.heroStats), /p95/i);
+    for (const project of content.projects) {
+      assert.doesNotMatch(JSON.stringify({ metrics: project.metrics, summary: project.summary, measurement: project.measurement }), /p95/i);
+    }
+    assert.match(JSON.stringify(content.career), /6개월|six months/);
+    assert.equal(content.projects[0].metrics[0].value, "1,970ms → 2.6ms");
+    assert.doesNotMatch(JSON.stringify(content.representative[1]), /우수상|수상작|award/i);
+  }
+  for (const file of ["src/lib/i18n.ts", "src/app/(ko)/layout.tsx", "src/app/(en)/layout.tsx", "src/app/opengraph-image.tsx"]) {
+    assert.doesNotMatch(fs.readFileSync(file, "utf8"), forbidden, file);
+  }
+});
+
+test("both languages expose equivalent evidence and process topology", () => {
+  for (const section of ["representative", "workflow"]) {
+    const ko = getExperienceFeatures(section, "ko");
+    const en = getExperienceFeatures(section, "en");
+    for (let i = 0; i < ko.length; i++) {
+      assert.equal(ko[i].id, en[i].id);
+      assert.equal(ko[i].order, en[i].order);
+      assert.equal(ko[i].steps.length, en[i].steps.length);
+      assert.equal(ko[i].metrics.length, en[i].metrics.length);
+      assert.equal(ko[i].link?.href, en[i].link?.href);
+    }
+  }
+});
 
 test("corrected benchmark values and honest limitations are present", () => {
   for (const locale of ["ko", "en"]) {

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "오준석 — Full-Stack Engineer · AI / LLM Application";
+export const alt = "오준석 — AI Product / Full-Stack Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -13,7 +13,7 @@ const ACCENT = "#4f46e5";
 
 const METRICS = [
   { label: "서비스 규모", value: "1만 명" },
-  { label: "리렌더", value: "99.6%↓" },
+  { label: "미터링 조회", value: "750×" },
   { label: "수상", value: "장관상" },
   { label: "상용 서비스", value: "2,000명" },
 ];
@@ -33,8 +33,8 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
 
 export default async function OgImage() {
   const text =
-    "오준석 — Full-Stack Engineer · AI / LLM Application " +
-    "AI Atlas 프론트 오너 · Go Gateway 일부와 미터링 파이프라인 직접 구현 " +
+    "오준석 — AI Product / Full-Stack Engineer " +
+    "AI Atlas · Agent 안전성 · MES MCP · 개발·운영 자동화 " +
     "SEC.01 // FULL-STACK ENGINEER measured, not claimed. " +
     METRICS.map((m) => `${m.label} ${m.value}`).join(" ");
 
@@ -76,7 +76,7 @@ export default async function OgImage() {
               color: ACCENT,
             }}
           >
-            FULL-STACK ENGINEER · AI / LLM APPLICATION
+            AI PRODUCT / FULL-STACK ENGINEER
           </div>
           <div
             style={{
@@ -87,15 +87,15 @@ export default async function OgImage() {
               lineHeight: 1.25,
             }}
           >
-            오준석 — Full-Stack Engineer
+            오준석 — AI Product Engineer
           </div>
           <div style={{ marginTop: 16, fontSize: 28, color: MUTE }}>
-            AI Atlas 프론트 오너 · Go Gateway 일부와 미터링 파이프라인 직접 구현
+            AI Atlas · Agent 안전성 · MES MCP · 개발·운영 자동화
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 16 }}>
-          {METRICS.map((m, i) => (
+          {METRICS.map((m) => (
             <div
               key={m.label}
               style={{

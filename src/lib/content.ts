@@ -60,6 +60,37 @@ export function getProjects(locale: Locale = "ko"): Project[] {
     .sort((a, b) => a.order - b.order);
 }
 
+/* ---------- representative experience & AI development workflow ---------- */
+
+const experienceFeatureSchema = z.object({
+  id: z.string(),
+  order: z.number(),
+  eyebrow: z.string(),
+  title: z.string(),
+  summary: z.string(),
+  stack: z.array(z.string()).default([]),
+  metrics: z.array(metricSchema).default([]),
+  decision: z.string().optional(),
+  steps: z.array(z.string()).default([]),
+  link: z.object({ label: z.string(), href: z.string().startsWith("#") }).optional(),
+});
+
+export type ExperienceFeature = z.infer<typeof experienceFeatureSchema> & { body: string };
+
+export function getExperienceFeatures(
+  section: "representative" | "workflow",
+  locale: Locale = "ko"
+): ExperienceFeature[] {
+  const dir = path.join(CONTENT_DIR, section);
+  return fs.readdirSync(dir)
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => {
+      const { data, content } = matter(fs.readFileSync(contentPath(locale, section, file), "utf8"));
+      return { ...experienceFeatureSchema.parse(data), body: content.trim() };
+    })
+    .sort((a, b) => a.order - b.order);
+}
+
 /* ---------- profile ---------- */
 
 const profileSchema = z.object({
@@ -118,10 +149,10 @@ function parseTableRows(md: string): string[][] {
 }
 
 // The four headline stats shown as Hero counters (label match against profile.md table)
-// Match the four headline metrics in the canonical portfolio MD.
+// Balance enterprise AI, backend performance, open source, and product operation.
 const HERO_STAT_LABELS: Record<Locale, string[]> = {
-  ko: ["서비스 규모", "리렌더", "수상", "상용 서비스"],
-  en: ["Service scale", "Re-renders", "Awards", "Commercial service"],
+  ko: ["서비스 규모", "미터링 조회", "수상", "상용 서비스"],
+  en: ["Service scale", "Metering query", "Awards", "Commercial service"],
 };
 
 // per-locale section headings used by the parsers below
@@ -235,7 +266,7 @@ export function getExperience(locale: Locale = "ko"): ExperienceContent {
   if (fs.existsSync(overviewPath)) {
     const body = matter(fs.readFileSync(overviewPath, "utf8")).content.trim();
     // pull the 운영·관리자(백오피스 어드민) heading section out of the accordion
-    // so it is always visible (the target role is a back-office position);
+    // so operational ownership stays visible without expanding the overview;
     // matches the heading at h2 or h3 level
     const sections = body.split(/(?=^###?\s)/m);
     const isBackoffice = (s: string) =>

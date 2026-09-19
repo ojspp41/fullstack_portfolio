@@ -1,6 +1,7 @@
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import CareerSummary from "@/components/CareerSummary";
 import CoverageMap from "@/components/CoverageMap";
+import ExperienceFeatures from "@/components/ExperienceFeatures";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import MagneticButton from "@/components/MagneticButton";
@@ -12,6 +13,7 @@ import SideProjects from "@/components/SideProjects";
 import Timeline from "@/components/Timeline";
 import {
   getExperience,
+  getExperienceFeatures,
   getProfile,
   getProjects,
   getSideProjects,
@@ -20,9 +22,11 @@ import {
 import { UI } from "@/lib/i18n";
 
 const NAV_SECTIONS = [
+  { id: "representative", label: "Experience" },
   { id: "experience", label: "Career" },
   { id: "architecture", label: "Architecture" },
-  { id: "projects", label: "Projects" },
+  { id: "projects", label: "Deep Dives" },
+  { id: "ai-workflow", label: "AI Workflow" },
   { id: "side-projects", label: "Open Source" },
   { id: "contact", label: "Contact" },
 ];
@@ -35,6 +39,8 @@ export default function HomePage({ locale }: { locale: Locale }) {
   const projects = getProjects(locale);
   const experience = getExperience(locale);
   const sideProjects = getSideProjects(locale);
+  const representative = getExperienceFeatures("representative", locale);
+  const workflow = getExperienceFeatures("workflow", locale);
 
   const projectTitles = Object.fromEntries(projects.map((p) => [p.id, p.title]));
 
@@ -49,6 +55,19 @@ export default function HomePage({ locale }: { locale: Locale }) {
 
       <Hero profile={profile} locale={locale} />
 
+      <section id="representative">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <Reveal>
+            <SectionHeading {...t.sections.representative} />
+            <div className="mb-8 max-w-4xl border-l-2 border-accent/30 pl-5">
+              <p className="mb-3 text-sm font-bold text-accent">{t.sections.about}</p>
+              <Markdown>{profile.intro}</Markdown>
+            </div>
+          </Reveal>
+          <ExperienceFeatures items={representative} locale={locale} />
+        </div>
+      </section>
+
       {/* Experience */}
       <section id="experience">
         <div className="mx-auto max-w-6xl px-6 py-20">
@@ -62,21 +81,13 @@ export default function HomePage({ locale }: { locale: Locale }) {
           <CareerSummary items={experience.summary} />
           <Timeline experience={experience} locale={locale} />
 
-          {/* awards + AI experience, straight after the career timeline */}
-          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {/* Existing verified awards remain separate from Agent project experience. */}
+          <div className="mt-4">
             {sideProjects.awards && (
               <Reveal className="h-full">
                 <div className="h-full rounded-2xl border border-line bg-gradient-to-br from-indigo-50/90 to-pink-50/60 p-5 shadow-sm dark:from-indigo-500/10 dark:to-pink-500/5 sm:p-6">
                   <p className="mb-3 text-sm font-bold text-accent">{t.sideProjects.awards}</p>
                   <Markdown>{sideProjects.awards}</Markdown>
-                </div>
-              </Reveal>
-            )}
-            {sideProjects.aiExperience && (
-              <Reveal delay={80} className="h-full">
-                <div className="h-full rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur sm:p-6">
-                  <p className="mb-3 text-sm font-bold text-accent">{t.sideProjects.ai}</p>
-                  <Markdown>{sideProjects.aiExperience}</Markdown>
                 </div>
               </Reveal>
             )}
@@ -107,21 +118,15 @@ export default function HomePage({ locale }: { locale: Locale }) {
             </div>
           </Reveal>
 
-          {/* About — intro / stack / strengths from profile.md */}
-          <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
-            <Reveal className="lg:col-span-1">
-              <div className={CARD}>
-                <p className="mb-3 text-sm font-bold text-accent">{t.sections.about}</p>
-                <Markdown>{profile.intro}</Markdown>
-              </div>
-            </Reveal>
-            <Reveal delay={80} className="lg:col-span-1">
+          {/* About is now near the top; stack and scope remain beside the architecture. */}
+          <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <Reveal delay={80}>
               <div className={CARD}>
                 <p className="mb-3 text-sm font-bold text-accent">{t.sections.stack}</p>
                 <Markdown>{profile.stack}</Markdown>
               </div>
             </Reveal>
-            <Reveal delay={160} className="lg:col-span-1">
+            <Reveal delay={160}>
               <div className={CARD}>
                 <p className="mb-3 text-sm font-bold text-accent">{t.sections.strengths}</p>
                 <Markdown>{profile.strengths}</Markdown>
@@ -144,6 +149,18 @@ export default function HomePage({ locale }: { locale: Locale }) {
           </Reveal>
           <ProjectsSection projects={projects} locale={locale} />
           <p className="mt-6 text-xs leading-relaxed text-mute">{t.sections.disclosure}</p>
+        </div>
+      </section>
+
+      <section id="ai-workflow">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <Reveal>
+            <SectionHeading {...t.sections.workflow} />
+            <p className="mb-8 max-w-3xl border-l-2 border-accent/50 pl-4 text-sm leading-relaxed text-ink">
+              {t.sections.workflowPrinciple}
+            </p>
+          </Reveal>
+          <ExperienceFeatures items={workflow} locale={locale} />
         </div>
       </section>
 

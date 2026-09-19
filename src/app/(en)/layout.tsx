@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import RootShell from "@/components/RootShell";
+import { siteUrl } from "@/lib/site-url";
 
-const TITLE = "Junseok Oh — Full-Stack Engineer · AI / LLM Application";
+const TITLE = "Junseok Oh — AI Product / Full-Stack Engineer";
 const DESCRIPTION =
-  "Frontend owner of AI Atlas, an internal LLM service for 10,000 users across 13 Hansol Group affiliates. Selected Go Gateway features and metering pipeline built directly. Six verified cases: metering, cross-org sharing, file previews, Generative UI, WebSocket, and Docker.";
+  "AI Product / Full-Stack Engineer turning generative AI into working products. AI Atlas for ~10,000 people across 13 affiliates, enterprise Agent safety validation, On-Prem sLLM × MES MCP production reporting, an AI development workflow, and six technical deep dives.";
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: TITLE,
   description: DESCRIPTION,
   alternates: { languages: { ko: "/", en: "/en" } },

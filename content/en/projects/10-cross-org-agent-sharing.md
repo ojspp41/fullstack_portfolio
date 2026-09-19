@@ -37,7 +37,7 @@
     "Outbox convergence design"
   ],
   "summary": "Identified grants by user, target organization, and sharer. Revalidated approval and five execution paths, then converged existing sessions in bounded Outbox batches.",
-  "measurement": "Tests establish authorization correctness, idempotent re-execution, and latest-version protection. Production p50/p95 and large-scale convergence time are unmeasured."
+  "measurement": "Tests establish authorization correctness, idempotent re-execution, and latest-version protection. Production latency distributions and large-scale convergence time are unmeasured."
 }
 ---
 

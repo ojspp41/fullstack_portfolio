@@ -41,7 +41,7 @@ export default function TypeWriter({ titles }: { titles: readonly string[] }) {
     };
     timer = setTimeout(tick, 1600);
     return () => clearTimeout(timer);
-  }, []);
+  }, [TITLES]);
 
   return (
     <span className="grad-text font-bold">

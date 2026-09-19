@@ -31,11 +31,14 @@ export default function Hero({ profile, locale = "ko" }: { profile: Profile; loc
               <span className="text-mute/70 text-2xl sm:text-4xl">{t.nameSuffix}</span>
             )}
           </h1>
+          <p className="mt-4 text-lg font-semibold leading-snug text-accent sm:text-2xl">
+            {profile.role}
+          </p>
           <p className="mt-4 min-h-16 text-xl leading-snug sm:min-h-10 sm:text-3xl">
             <TypeWriter titles={t.typewriter} />
           </p>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">
-            {profile.tagline}. {profile.subtagline}.
+            {profile.tagline}{profile.subtagline && <>. {profile.subtagline}</>}.
           </p>
         </Reveal>
 
@@ -60,7 +63,7 @@ export default function Hero({ profile, locale = "ko" }: { profile: Profile; loc
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <MagneticButton>
               <a
-                href="#projects"
+                href="#representative"
                 className="grad-bg inline-flex items-center rounded-xl px-7 py-3 text-base font-medium text-white shadow-lg shadow-indigo-500/30 transition-shadow duration-300 hover:shadow-xl hover:shadow-indigo-500/40"
               >
                 {t.ctaProjects}

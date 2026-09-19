@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import RootShell from "@/components/RootShell";
+import { siteUrl } from "@/lib/site-url";
 
-const TITLE = "오준석 — Full-Stack Engineer · AI / LLM Application";
+const TITLE = "오준석 — AI Product / Full-Stack Engineer";
 const DESCRIPTION =
-  "한솔그룹 13개 계열사·1만 명 사내 LLM 서비스 AI Atlas의 프론트 오너. Go Gateway 일부와 미터링 파이프라인 직접 구현. 미터링·타 조직 Agent 공유·파일 미리보기·Generative UI·WebSocket·Docker의 여섯 기술 사례와 검증 결과.";
+  "생성형 AI를 실제 서비스로 제품화하는 AI Product / Full-Stack Engineer. 13개 계열사 약 1만 명의 AI Atlas, 신호등 에이전트 안전성 검증, On-Prem sLLM × MES MCP 생산 리포팅, AI 개발·검증·배포 폐루프와 여섯 기술 심층 분석.";
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: TITLE,
   description: DESCRIPTION,
   alternates: { languages: { ko: "/", en: "/en" } },

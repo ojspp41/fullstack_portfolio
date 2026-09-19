@@ -11,13 +11,13 @@ role: Full-Stack · Frontend Owner
 
 ## From user problems to launch
 
-Without a product manager or designer, I defined user problems and led planning, development, testing, and operations to launch within two months of joining. I owned the frontend and directly built selected Go Gateway features and the metering pipeline.
+Within six months of joining, I worked with the team on the first release for approximately 10,000 people across 13 affiliates. Without a product manager or designer, I defined user problems, owned the frontend, and directly implemented selected Go Gateway features and the metering pipeline.
 
 ## AI / LLM product development
 
 - Generative UI JSON recovery and widget isolation
 - Streaming markdown parsing and WebSocket client defenses
-- RAG, chunking, and embedding visualization
+- User-facing visualization of RAG processing and chunking/embedding status—not development of algorithms, models, or a Vector DB
 - Cross-organization Agent approval, execution, and revocation
 - In-app file previews and isolated serving of DRM-processed copies
 

@@ -5,7 +5,7 @@ summary:
   - company: Hansol PNS IT
     role: Full-Stack · Frontend Owner
     period: Oct 2025 — Present
-    highlight: AI Atlas — 13 affiliates, 10,000 users · Frontend ownership, selected Go Gateway features, and the metering pipeline
+    highlight: AI platform development for ~10,000 people across 13 affiliates · Frontend ownership, selected APIs and metering · Agent safety and manufacturing AX
   - company: PTKOREA
     role: Full-Stack Intern
     period: Jun 2025 — Sep 2025
@@ -19,9 +19,13 @@ summary:
 
 Frontend owner of **AI Atlas**, an internal LLM service for 13 Hansol Group affiliates and 10,000 users.
 
-With key contributors absent, I led planning, implementation, testing, and operations to launch within two months of joining. Without a product manager or designer, I visualized AI-domain processes including parsing, chunking, and embedding, and published a Smart Tooltip module to npm.
+Within six months of joining, I worked with the team on the first release for approximately 10,000 people across 13 affiliates. Without a product manager or designer, I built user-facing visualizations of RAG processing and chunking/embedding status, and published a Smart Tooltip module to npm. This is not development of RAG algorithms or embedding models.
 
 I directly built the frontend, selected Go Gateway features (metering queries, comparison, usage limits, cross-org sharing, file previews), and the metering pipeline (Kafka ingestion, daily aggregation, price and FX history).
+
+- **신호등 에이전트** — Enterprise Agent safety validation in a Hansol Group AX project, separating rule-based final decisions from LLM scenario expansion.
+- **SLP Manufacturing AX** — Read-only production-reporting Agent connecting an on-premise sLLM with MES MCP.
+- **AI-assisted development system** — Development/validation/deployment loop, 36 reusable AI Skills, and usage-content/weekly-report automation.
 
 > Actual internal service UI, data, and source code are not public. This portfolio reconstructs technical structures, ownership, and reproducible measurements in accordance with company security policies.
 

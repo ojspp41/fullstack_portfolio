@@ -6,23 +6,28 @@
 
 ## 프롬프트 (복사해서 사용)
 
-Next.js 15 (App Router) + TypeScript(strict) + Tailwind v4로 **원페이지 풀스택 개발자 포트폴리오**를 만들어줘. 나는 오준석, "문제를 직접 정의하고 끝까지 푸는 풀스택 개발자"이고, 이 사이트 자체가 내 기술 증명이 되어야 해.
+Next.js 15 (App Router) + TypeScript(strict) + Tailwind v4의 기존 **AI Product / Full-Stack Engineer 원페이지 포트폴리오**를 유지·확장한다. 화면·API·권한·Agent·데이터·테스트·배포·운영까지 AI를 실제 서비스로 제품화한 경험을 보여준다. 특정 기업 지원용 문구를 넣지 않고 기존 색상·타이포그래피·모션·상세 UI를 유지한다.
 
 ### 콘텐츠 소스 (중요)
 - 모든 내용은 `content/` 폴더의 마크다운 파일에서 읽는다. 하드코딩 금지.
 - `content/sections/profile.md` — 히어로·About·스택·강점
 - `content/sections/experience.md` — 경력(한솔 PNS·PTKOREA)·학력·활동
-- `content/projects/*.md` — 심층분석 9개. frontmatter에 `id, order, title, category(fullstack|frontend|infra), badge, stack[], metrics[], summary`가 있다.
+- `content/projects/*.md` — 공개 심층분석 6개. frontmatter에 `id, order, published, title, category(fullstack|frontend|infra), badge, stack[], metrics[], summary, measurement`가 있다. 비공개 파일은 보관한다.
+- `content/representative/*.md` — AI Atlas·신호등 에이전트·SLP 제조 AX·AI 활용 개발 시스템.
+- `content/workflow/*.md` — 개발·검증·배포 폐루프, 재사용 AI Skill 36개, 활용 콘텐츠, 운영 주간보고 자동화.
+- `content/en/` — 동일한 사실관계·담당 범위·측정 경계를 유지한 영어판.
 - `content/sections/side-projects.md` — 오픈소스·사이드 프로젝트·수상
 - gray-matter로 frontmatter 파싱 + 서버 컴포넌트에서 빌드 타임에 읽고, 본문은 마크다운 렌더러(react-markdown + remark-gfm, 표 지원 필수)로 렌더.
 
 ### 페이지 구조 (원페이지, 스크롤 내비)
-1. **Hero** — 이름·태그라인·핵심 지표 4개(1만 명 / 리렌더 99.6%↓ / 장관상 / 조회 750배↑). 지표는 뷰포트 진입 시 카운트업.
-2. **Full-Stack Range** — 이 사이트의 시그니처 섹션. FE ↔ API Gateway(Go) ↔ Pipeline(Kafka·Redis·MinIO·MongoDB)를 잇는 인터랙티브 아키텍처 다이어그램. 각 노드 hover 시 "직접 구현 / 설계 이해·연동" 배지와 관련 프로젝트로 앵커 링크. 풀스택 포지셔닝을 한눈에 증명하는 게 목적.
-3. **Deep Dives (프로젝트 9개)** — 카테고리 필터 탭: `전체 / Full-Stack / Frontend / Infra`. 카드에는 title·badge·metrics 칩·summary. 카드 클릭 시 모달 또는 인라인 확장으로 md 본문 전체(STAR·표·코드블록) 렌더. **fullstack 3개(미터링·파일 미리보기·PDF 인보이스)가 기본 정렬 상단**에 오게.
-4. **Experience** — 한솔 PNS(담당 범위 표 포함) → PTKOREA 인턴 타임라인.
-5. **Open Source & Side Projects** — Githru·Favus·COMAtching·부천FC 카드 + 수상 배지.
-6. **Contact / Footer** — 이메일·GitHub·기존 포트폴리오 링크.
+1. **Hero** — 이름·AI Product / Full-Stack Engineer·태그라인·지표 4개(1만 명 / 미터링 조회 750× / 장관상 / 상용 서비스 2,000명). 기존 카운트업 유지.
+2. **Representative Experience** — About과 대표 경험 4개. 요약 → 핵심 수치 → 접힌 상세 순서. 신호등 에이전트는 규칙 기반 판정, SLP는 읽기 전용 MES MCP 기반 생산 리포팅으로 표현.
+3. **Career** — 한솔PNS → PTKOREA 타임라인과 기존 수상 4개. 팀과 함께 입사 후 6개월 안에 첫 출시한 범위로 표현.
+4. **Architecture / Coverage** — 기존 인터랙티브 다이어그램과 담당 범위 표. 직접 구현 / 설계 이해·연동 구분. RAG는 처리 상태 UX, 공통 인프라는 연동 범위임을 명확히 한다.
+5. **Technical Deep Dive** — 미터링 → 다중 조직 Agent 공유 → 파일 인앱 미리보기 → Generative UI → WebSocket → Docker. 필터·모달·딥링크·측정 조건·한계 유지.
+6. **AI-Native Development Workflow** — 네 가지 축의 요약·성과·상세. 코드가 계산·검증하고 AI는 분석·설명을 작성하는 역할 구분.
+7. **Product & Open Source** — COMAtching → Githru → Favus → 부천FC. 상용 서비스·외부 코드베이스 협업·장애 복구 등 개발 기본기 유지.
+8. **Contact / Footer** — 이메일·GitHub. 최신 일치가 확인되지 않은 PDF 다운로드 버튼은 숨긴 상태 유지.
 
 ### 인터랙션 & 모션
 - 스크롤 진행 인디케이터 + 우측 고정 섹션 도트 내비
@@ -33,15 +38,15 @@ Next.js 15 (App Router) + TypeScript(strict) + Tailwind v4로 **원페이지 풀
 
 ### 디자인 방향
 - 흔한 AI 생성 룩(크림 배경 + 세리프 + 테라코타 / 검정 배경 + 형광 그린) 피할 것.
-- 소재가 "폐쇄망 사내 시스템·파이프라인·측정"이므로, **계기판/오실로스코프 같은 엔지니어링 계측 무드**를 제안: 어두운 청회색 바탕에 데이터 시각화용 포인트 컬러 1개, 지표 숫자는 모노스페이스(예: JetBrains Mono / IBM Plex Mono), 본문은 Pretendard. 헤어라인 그리드와 수치 라벨로 '측정으로 증명한다'는 정체성을 시각화.
+- 기존 파스텔 배경·인디고 포인트·둥근 카드·Pretendard·JetBrains Mono·Lottie를 유지한다. 기본은 라이트이며 다크 전환을 지원한다. 대표 경험은 기존 카드와 native details로 추가하고, 동작 흐름은 줄바꿈 가능한 작은 Flow UI로 보여준다.
 - 시그니처는 2번 섹션의 아키텍처 다이어그램 하나에 집중하고 나머지는 절제.
 
 ### 기술 요건
 - 컴포넌트: `Hero, ArchitectureDiagram, ProjectFilter, ProjectCard, ProjectDetail(모달), Timeline, MetricCounter, SectionNav`
 - md 추가만으로 프로젝트가 늘어나는 구조 (frontmatter 스키마 zod 검증이면 더 좋음)
-- 다크 기본, SEO 메타 + OG 태그, Vercel 배포 가능하게
+- 라이트 기본 / 다크 전환, SEO 메타 + OG 태그, Vercel 배포 가능하게
 
-먼저 디자인 토큰(팔레트 4~6색 hex, 타입 2~3종, 레이아웃 컨셉, 시그니처 요소)을 짧게 제안하고 내 확인 후 구현해줘.
+기존 디자인 토큰과 인터랙티브 아키텍처를 유지한다. 변경 후 `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`를 실행하고 한국어·영어, 데스크톱·모바일, 필터·펼치기·모달·딥링크를 검증한다.
 
 ---
 
@@ -54,6 +59,9 @@ project-root/
 │  │  ├─ profile.md
 │  │  ├─ experience.md
 │  │  └─ side-projects.md
+│  ├─ representative/            (대표 경험 4개)
+│  ├─ workflow/                  (개발·QA·문서·운영 4개)
+│  ├─ en/                        (한국어와 같은 구조의 영어판)
 │  └─ projects/
 │     ├─ 01-metering-backoffice.md   (fullstack)
 │     ├─ 02-file-preview.md          (fullstack)
@@ -70,5 +78,6 @@ project-root/
 ## 팁
 
 - frontmatter의 `metrics` 배열이 카드 칩과 Hero 카운터의 데이터 소스가 되도록 하면 md만 고쳐도 수치가 반영됩니다.
-- 면접관 동선: Hero(15초) → 아키텍처 다이어그램(풀스택 증명) → fullstack 3개 심층 → 나머지. 필터 기본값을 '전체'로 두되 정렬은 order 순(풀스택 우선)으로.
+- 공개 프로젝트는 `published: true`만 표시하며 타 조직 Agent 공유 파일 `10-cross-org-agent-sharing.md`를 포함한다. 기존 PDF 인보이스·RBAC·마크다운 파서·업로드 상세는 비공개 보관한다.
+- 방문자 동선: Hero → 대표 경험 → 관심 있는 기술 상세 / AI 개발 방식. 필터 기본값은 '전체', 정렬은 기존 심층 분석 순서를 유지한다.
 - "직접 구현 / 설계 이해·연동" 구분을 시각 요소(배지 2색)로 일관되게 노출하면 정직함 자체가 강점이 됩니다.

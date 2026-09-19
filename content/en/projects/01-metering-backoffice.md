@@ -16,9 +16,9 @@
   ],
   "metrics": [
     {
-      "label": "User detail p95",
-      "value": "228.665ms → 0.383ms",
-      "note": "Local synthetic data · 10K user records vs. one daily summary"
+      "label": "Query time",
+      "value": "1,970ms → 2.6ms",
+      "note": "3M-record reproduction → 1,440 daily summaries · ~750×"
     },
     {
       "label": "Affiliate comparison requests",
@@ -37,7 +37,7 @@
     "Metering pipeline built directly"
   ],
   "summary": "Derived API contracts from dashboard requirements and connected pre-call quota checks, Kafka ingestion, daily aggregation, price/FX history, and browser-side Excel exports.",
-  "measurement": "Local measurements with real MongoDB and Redis. Kafka, HTTP/auth, browser rendering, and AI inference are excluded; these are not whole-system production improvements."
+  "measurement": "Headline query time is from a 3M-record reproduction with real MongoDB aggregation. Separate current-code local measurements use 1M records with MongoDB and Redis; neither is a whole-system production improvement."
 }
 ---
 
@@ -68,7 +68,7 @@ AI request → Redis quota check → AI usage record → Kafka
 
 ## Verification
 
-The earlier 3M-record reproduction reported query p95 of 1,970ms → 2.6ms and 1,440 daily summaries. It is separate from the current-code local measurement below.
+The earlier 3M-record reproduction reported query time of 1,970ms → 2.6ms (~750×) and 1,440 daily summaries. It is separate from the current-code local measurement below.
 
 ### Current-code local measurements — September 14, 2026
 

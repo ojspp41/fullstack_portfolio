@@ -5,6 +5,15 @@ section: side-projects
 
 # 오픈소스 & 사이드 프로젝트
 
+## COMAtching v1 ~ v4 (팀장) — 제품 개발·운영
+**2023.06 — 2025.05 · 약 2년 · 누적 사용자 약 2,000명 · 매출 약 800만원**
+
+`Java / Spring Boot` `React` `Recoil` `SockJS/STOMP` `Node.js` `MySQL` `Docker/Jenkins`
+
+- 팀과 함께 제품을 만들고 운영하며 사용자 피드백·성능 데이터를 바탕으로 v1~v4를 개선했습니다. 팀장으로 프론트를 주도하고 MySQL 스키마·조인·인덱스, 백엔드 매칭 로직 일부, 운영·배포를 담당했습니다.
+- **매칭 조회 개선** — 후보 약 5만 명 규모의 요구를 다루고, 5,000명 표본에서 SQL 점수 계산으로 DB Query **601 → 2**, SQL 수행시간 **261.1ms → 18.8ms**를 확인했습니다. 표본 SQL 측정과 전체 서비스 응답시간을 구분합니다.
+- Toss Payments SDK + **Idempotency-Key 기반 중복 결제 방지**, **Docker·Jenkins CI/CD 파이프라인 구축**.
+
 ## Githru (VSCode Extension) — 컨트리뷰션
 **2025.06 ~ · 🏆 2025 오픈소스 컨트리뷰션 아카데미 우수상 — 과학기술정보통신부 장관상**
 
@@ -20,15 +29,6 @@ section: side-projects
 
 - Go 기반 **병렬 청킹 + 상태 저장 메커니즘** — 네트워크 중단 시 자동 재개, 대용량 파일 전송 **실패율 90% 감소**
 - WebSocket 3계층 모니터링 (CLI → Python Server → React UI) — 업로드 진행률·파트별 상태 실시간 시각화
-
-## COMAtching v3 ~ v4 (팀장) — 풀스택 사이드 프로젝트
-**2023.06 — 2025.05 · 서비스 상용화 · 누적 사용자 2,000명 · 매출 800만원**
-
-`React` `Recoil` `SockJS/STOMP` `Node.js` `MySQL` `Docker/Jenkins`
-
-- 팀장 — 기획·개발·운영 전 과정 책임(프론트 주도), **MySQL 스키마·조인·인덱스 직접 설계**(매칭 조회 user–match 조인 + status 인덱스), 백엔드 매칭 로직 일부 구현
-- Toss Payments SDK + **Idempotency-Key 기반 중복 결제 방지(결제 멱등성)** 시스템 구축
-- **Docker·Jenkins CI/CD 파이프라인 직접 구축** — 빌드·배포 자동화
 
 ## 부천 FC | AI 응원 매칭 — 기업 협업 프로젝트
 **2024.09 — 2024.10 · 부천 FC 경기장 실서비스 배포 · 700명 참여**
@@ -52,11 +52,15 @@ section: side-projects
 # AI 활용 경험
 
 - 생성형 UI 처리 흐름(Pipeline) 설계 — AI 응답을 안전한 UI로 변환
-- 검색 증강(RAG) · Chunking · 임베딩 과정 시각화
+- RAG 처리 과정 및 청킹·임베딩 상태를 사용자 화면에 시각화
 - 타 조직 Agent 공유 승인 — 조직별 권한 경로·승인 재검증·5개 실행 경로 재인가·Outbox 수렴 설계
 - 스트리밍 마크다운 파서 직접 설계(Progressive Markdown Parser)
 - VOC 에이전트 직접 개발 — 생성형 UI 폼으로 Jira 티켓 자동 생성(가이드 문서 기반)
-- MES 데이터 분석 에이전트 — 자연어를 SQL로 변환한 뒤 차트 시각화
+- SLP 제조 AX — 온프레미스 sLLM과 MES MCP의 목적별 읽기 전용 도구를 연결한 생산 리포팅 Agent
+- 신호등 에이전트 — 결정론적 규칙으로 최종 판정하는 기업용 AI Agent 안전성 검증
+- AI 개발·검증·배포 폐루프와 재사용 AI Skill 36개
+- 활용 가이드 5개·실제 화면 이미지 93개 · 서비스 활용 영상 제작 약 3일 → 4시간
+- 운영 주간보고 약 2~3시간 → 10분 이내 — 계산·검증은 코드, 변화 설명은 AI
 - playwright-mcp + Confluence MCP 결합 가이드북 자동화 — Claude Code로 화면 영역 캡처 및 문서 자동 생성
 - 사용량·비용 미터링 대시보드 — Kafka 인입·일배치 집계·가격·환율 이력 관리부터 FE 훅·ExcelJS까지 직접 구현
 - 파일 인앱 미리보기 풀스택 — 미리보기 엔드포인트·통로 분리 직접 구현 + 능동형 콘텐츠 실행 방어 3단계(서버 1 + 화면 2)

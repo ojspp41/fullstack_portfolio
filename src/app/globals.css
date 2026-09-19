@@ -134,6 +134,12 @@ footer {
   background: color-mix(in srgb, var(--c-accent) 25%, transparent);
 }
 
+:where(a, button, summary):focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 4px;
+  border-radius: 0.375rem;
+}
+
 /* ===== indigo gradient scrollbar (ported from Portfolio_nextjs) ===== */
 ::-webkit-scrollbar {
   width: 10px;

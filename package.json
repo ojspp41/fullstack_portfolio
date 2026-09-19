@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "test": "node --test scripts/content.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src scripts --max-warnings 0",
     "prebuild": "node scripts/check-public-assets.mjs",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "next": "^15.3.5",
+    "next": "15.5.25",
     "pretendard": "^1.3.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -20,11 +22,17 @@
     "remark-gfm": "^4.0.1",
     "zod": "^3.25.0"
   },
+  "overrides": {
+    "postcss": "^8.5.23"
+  },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "15.5.25",
     "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }
