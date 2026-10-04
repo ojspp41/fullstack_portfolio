@@ -1,16 +1,23 @@
 ---
-id: reusable-skills
-order: 2
-eyebrow: B · Reusable Work Procedures
-title: AI Skills with execution conditions, inputs, and verification criteria
-summary: Replace a new prompt for every recurring task with procedures defining when to run, which inputs are needed, and how to verify the result.
-metrics:
-  - label: Reusable AI Skills
-    value: "36"
-    note: Development, QA, documentation, and operations
-decision: Store not just prompt wording, but execution conditions and completion checks.
+{
+  "id": "screen-design",
+  "order": 4,
+  "eyebrow": "04 · AI & automation",
+  "title": "AI-assisted screen specifications & test cases",
+  "summary": "Used AI to organize screen IDs, descriptions, and images for HWP specifications. After drafting test cases, I executed tests and checked duplication, omissions, screen consistency, and final wording.",
+  "steps": [
+    "Screen ID",
+    "Description / Image",
+    "HWP Assembly",
+    "Test Case",
+    "Execution",
+    "Review"
+  ],
+  "metrics": [],
+  "decision": "Document generation is followed by real test execution and screen-consistency checks."
+}
 ---
 
-Skills cover Jira requirement analysis, impact analysis, test-scenario generation, MR checks, deployment status, screenshots, guide creation, and QA-result organization.
+Connected screen IDs, descriptions, and images to support semi-automated HWP assembly. Reviewed document order, duplicates, and omissions, then used AI for test-case drafting and executed actual functions.
 
-Defined inputs, outputs, and verification criteria reduce repeated context-setting and checking instructions. Thirty-six is the number of documented Skills—not a feature count or performance metric.
+Completed the screen specification and final HWP while checking screen consistency and wording personally. Authoring assistance is separate from execution; this does not claim full test automation.

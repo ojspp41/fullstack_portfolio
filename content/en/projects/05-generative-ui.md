@@ -1,78 +1,59 @@
 ---
 {
   "id": "generative-ui",
-  "order": 4,
+  "order": 5,
   "published": true,
-  "title": "Generative UI — Recovering Broken JSON",
+  "title": "Malformed AI response recovery & widget isolation",
   "category": "frontend",
-  "badge": "AI / LLM",
+  "badge": "Implementation · verification",
+  "layers": [
+    "Parser / error isolation implementation"
+  ],
   "stack": [
     "TypeScript",
-    "JSON sanitize",
-    "Error Boundary",
-    "EventBus",
-    "fixture benchmark"
+    "JSON",
+    "React Error Boundary",
+    "Jest"
   ],
   "metrics": [
     {
-      "label": "JSON recovery",
-      "value": "60% → 97.5%",
-      "note": "40-fixture benchmark"
+      "label": "40 fixed inputs",
+      "value": "24/40 → 39/40"
     },
     {
-      "label": "Parse failures",
-      "value": "16 → 1",
-      "note": "~94% reduction · not render-failure count"
-    },
-    {
-      "label": "Failure scope",
-      "value": "Whole session → one widget",
-      "note": "Error Boundary isolation"
+      "label": "Recovery rate",
+      "value": "60% → 97.5%"
     }
   ],
-  "layers": [
-    "Frontend built directly",
-    "Model-output contract design"
-  ],
-  "summary": "Built six cleanup stages and two-pass parsing for untrusted model output. Per-widget Error Boundaries isolate render failures, and EventBus avoids rerendering unrelated messages.",
-  "measurement": "Recovery is measured on 40 parsing fixtures. Render errors are isolated separately; async and event-handler exceptions require try/catch."
+  "summary": "Parsed original responses first and repaired only failed inputs. Synchronous and asynchronous widget errors are isolated to preserve the chat screen.",
+  "measurement": "Before/after comparison on the same 40 fixed inputs. This does not establish a success rate across all model responses or a production-incident reduction."
 }
 ---
 
-# Recovering Broken Model Output
+## Architecture
 
-## Problem and solution
+![Malformed AI response recovery & widget isolation — architecture](/diagrams/genui.png)
 
-LLM output is not trusted JSON. I implemented two-pass parsing: try `JSON.parse`, then sanitize and retry on failure. Unrecoverable input is rejected.
+*Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
 
-Cleanup order is important:
+> **My scope:** Built original-first parsing, failed-input repair, structure checks, widget-error isolation, and regression tests.
 
-1. Remove code fences.
-2. Repair malformed boolean quotes.
-3. Remove trailing commas.
-4. Insert missing separators.
-5. Normalize special characters.
-6. Check structural balance.
+## Problem · goal (S·T)
 
-An early balance check misclassified malformed quotes and rejected repairable input. Moving normalization ahead of validation fixed this, with regression fixtures pinning the order.
+- **Situation:** Malformed AI JSON prevented widgets from appearing, and widget failures affected the chat screen.
+- **Task:** Preserve valid input, recover malformed responses where possible, and keep chat usable when a widget cannot recover.
 
-## Widget isolation and interactions
+## Solution (A)
 
-Invalid widget data could unmount the entire chat tree. A per-widget `GenUIErrorBoundary` now renders a local fallback while retaining the conversation.
+1. Parse the original response first. Apply six repair steps for code fences, quotation marks, commas, and related defects only after parsing fails.
+2. Check structure and bracket balance after character-level repair, then parse again. Parsing recovery and widget rendering are separate failure boundaries.
+3. Use Error Boundary for synchronous rendering failures and explicit guards for asynchronous operations. Compare the same 40 fixtures before/after and retain failures as regression cases.
 
-Interactions use typed EventBus pub/sub instead of changing React Context values for every message. `EventMap` prevents event-name mistakes, and `useBusEvent` cleans up subscriptions. Unrelated message rerenders were zero in this interaction path.
+## Results (R)
 
-Error Boundaries do not catch asynchronous or event-handler exceptions; those paths use explicit try/catch handling.
+- **Successful inputs:** 24/40 → 39/40; recovery rate 60% → 97.5%.
+- **Parsing failures:** 16 → 1. Widget failures do not take down the chat screen.
 
-## Streaming UX
+### Verification conditions · current limits
 
-Partial JSON stays in a skeleton/typing-dots state instead of repeatedly mounting incomplete widgets. A complete validated payload mounts the real widget once; unrecoverable output shows a fallback.
-
-## Measurement
-
-| Metric | Before | After |
-|---|---|---|
-| Parsing success | 60% | 97.5% |
-| Failed payloads | 16 | 1 |
-
-Forty fixtures cover fences, malformed boolean quotes, trailing commas, unbalanced braces, and combined defects. Parse failures decreased by **~94%**. These are parsing results, not a 47-to-1 render-failure measurement. Widget render exceptions are a separate isolation concern.
+Results cover the same 40 fixed fixtures. They verify valid-JSON preservation and repair-rule regressions, not universal recovery across models or malformed JSON. The remaining failed input retains an error fallback.

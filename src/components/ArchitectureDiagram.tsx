@@ -210,8 +210,8 @@ const COLUMNS: DiagramColumn[] = [
     "key": "pipeline",
     "title": "METERING PIPELINE",
     "subtitle": {
-      "ko": "미터링 이벤트부터 정산까지 직접 구현",
-      "en": "Metering events through settlement built directly"
+      "ko": "공통 인입·집계·정산 기반과 연동",
+      "en": "Integration with shared ingestion, aggregation, and billing"
     },
     "nodes": [
       {
@@ -221,10 +221,10 @@ const COLUMNS: DiagramColumn[] = [
           "en": "Metering Kafka ingestion"
         },
         "detail": {
-          "ko": "미터링 이벤트 생산·소비·실패 처리 범위 직접 구현 · 소비 정책 확인 필요",
-          "en": "Metering production/consumption/failure handling · wiring policy needs verification"
+          "ko": "공통 이벤트 인입·실패 처리 정책을 이해하고 조회·한도 기능과 연동",
+          "en": "Shared ingestion/failure policy integrated with query and quota features"
         },
-        "ownership": "direct",
+        "ownership": "integrated",
         "projects": [
           "metering"
         ]
@@ -239,7 +239,7 @@ const COLUMNS: DiagramColumn[] = [
           "ko": "원본→요약 사전 계산 · 반복 실행 시 건수·비용 수렴",
           "en": "Raw→summary precomputation · stable counts/costs on rerun"
         },
-        "ownership": "direct",
+        "ownership": "integrated",
         "projects": [
           "metering"
         ]
@@ -254,7 +254,7 @@ const COLUMNS: DiagramColumn[] = [
           "ko": "valid_from/valid_to 버전 관리 · 사용 시점 청구 재현",
           "en": "valid_from/valid_to versioning · reproduce usage-time charges"
         },
-        "ownership": "direct",
+        "ownership": "integrated",
         "projects": [
           "metering"
         ]
@@ -276,8 +276,8 @@ const COLUMNS: DiagramColumn[] = [
           "en": "Redis quota-counter logic"
         },
         "detail": {
-          "ko": "이벤트별 누적액 반영 · Mongo 60초 반영 · 일별 원본 대조",
-          "en": "Event-level charge updates · 60s Mongo flush · daily reconciliation"
+          "ko": "Redis 누적액을 활용한 한도 조회·초과 차단 API",
+          "en": "Quota query and blocking APIs using Redis accumulated charges"
         },
         "ownership": "direct",
         "projects": [
@@ -291,8 +291,8 @@ const COLUMNS: DiagramColumn[] = [
           "en": "MongoDB summaries & counters"
         },
         "detail": {
-          "ko": "상세 원본·일별 요약 분리 · 미터링 집계·조회 직접 구현",
-          "en": "Raw/daily separation · metering aggregation and queries built directly"
+          "ko": "원본·일별 요약 구조를 활용한 조회 계약·필터·비교 API 구현",
+          "en": "Query contracts, filters, and comparison APIs using raw/daily summaries"
         },
         "ownership": "direct",
         "projects": [

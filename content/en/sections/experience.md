@@ -1,15 +1,22 @@
 ---
-id: experience
-section: experience
-summary:
-  - company: Hansol PNS IT
-    role: Full-Stack · Frontend Owner
-    period: Oct 2025 — Present
-    highlight: AI platform development for ~10,000 people across 13 affiliates · Frontend ownership, selected APIs and metering · Agent safety and manufacturing AX
-  - company: PTKOREA
-    role: Full-Stack Intern
-    period: Jun 2025 — Sep 2025
-    highlight: Samsung global-site QA automation · 96-country validation · Initial loading time reduced by 65%
+{
+  "id": "experience",
+  "section": "experience",
+  "summary": [
+    {
+      "company": "Hansol PNS IT",
+      "role": "Full-Stack · Frontend Owner",
+      "period": "Oct 2025 — Present",
+      "highlight": "AI platform development for ~10,000 people across 13 affiliates · Frontend ownership, selected APIs and metering · Agent safety and manufacturing AX"
+    },
+    {
+      "company": "PTKOREA · Pengtai Greater China",
+      "role": "Full-Stack Intern",
+      "period": "Jun 23, 2025 — Oct 1, 2025",
+      "highlight": "Samsung global-site QA automation · 96-country validation · Initial loading time reduced by 65%"
+    }
+  ]
+}
 ---
 
 # Work Experience
@@ -17,22 +24,22 @@ summary:
 ## Hansol PNS IT · AI Development Team — Full-Stack · Frontend Owner
 **Oct 2025 — Present · On-Premise**
 
-Frontend owner of **AI Atlas**, an internal LLM service for 13 Hansol Group affiliates and 10,000 users.
+Frontend owner of **AI Atlas**, an internal LLM service for 13 Hansol Group affiliates and approximately 10,000 eligible people.
 
 Within six months of joining, I worked with the team on the first release for approximately 10,000 people across 13 affiliates. Without a product manager or designer, I built user-facing visualizations of RAG processing and chunking/embedding status, and published a Smart Tooltip module to npm. This is not development of RAG algorithms or embedding models.
 
-I directly built the frontend, selected Go Gateway features (metering queries, comparison, usage limits, cross-org sharing, file previews), and the metering pipeline (Kafka ingestion, daily aggregation, price and FX history).
+I directly built the frontend, selected Go Gateway features (metering queries, comparison, usage limits, cross-org sharing, file previews), and integrated these contracts with shared Kafka ingestion, daily aggregation, and price/FX infrastructure.
 
 - **신호등 에이전트** — Enterprise Agent safety validation in a Hansol Group AX project, separating rule-based final decisions from LLM scenario expansion.
 - **SLP Manufacturing AX** — Read-only production-reporting Agent connecting an on-premise sLLM with MES MCP.
-- **AI-assisted development system** — Development/validation/deployment loop, 36 reusable AI Skills, and usage-content/weekly-report automation.
+- **AI-assisted development system** — Development/validation/deployment loop, loop and harness engineering, documentation/test-case support, and weekly-report automation.
 
 > Actual internal service UI, data, and source code are not public. This portfolio reconstructs technical structures, ownership, and reproducible measurements in accordance with company security policies.
 
 ---
 
-## PTKOREA — Full-Stack Internship
-**Jun 2025 — Sep 2025 · Global-site QA automation**
+## PTKOREA (Pengtai Greater China) — Full-Stack Internship
+**Jun 23, 2025 — Oct 1, 2025 · Global-site QA automation**
 
 `TypeScript` `Django` `React` `Zustand` `Python` `AEM` `Jira`
 
@@ -47,7 +54,7 @@ I directly built the frontend, selected Go Gateway features (metering queries, c
 
 - **The Catholic University of Korea** — Computer Science and Information Engineering, Mar 2020 — Feb 2026 · GPA 4.05 / 4.5
 - **Gwangmyeongbuk High School** — Mar 2017 — Feb 2020
-- OPIc IH (Aug 2025) · Engineer, Information Processing (Sep 2025) · Computer Utilization Level 2 (Dec 2023) · Class 1 ordinary driver's license
+- OPIc IH (2025.08.28) · Engineer, Information Processing (2025.09.12) · Computer Utilization Level 2 (2021.04.09) · Class 1 ordinary driver's license (2023.12.04)
 - International student support (Mar 2023 — Jun 2025): English dormitory support and Excel administration
 
 ## Clubs · Activities

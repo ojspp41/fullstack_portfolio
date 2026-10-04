@@ -1,0 +1,26 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Apple SD Gothic Neo, Noto Sans KR, sans-serif","fontSize":"22px","lineColor":"#64748B","clusterBkg":"#FFFFFF","clusterBorder":"#CBD5E1"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":32,"padding":14,"wrappingWidth":280,"subGraphTitleMargin":{"top":12,"bottom":12}}}}%%
+flowchart TB
+ subgraph DATA["입력 파싱 · 복구"]
+ direction LR
+ A["LLM 응답<br>원본 파싱"] --> B{"파싱 성공"}
+ B -->|예| C["위젯 데이터"]
+ B -->|아니오| D["6단계 정제<br>구조 검사·재파싱"]
+ D -->|성공| C
+ D -->|실패| F["해당 위젯만 안내<br>채팅 유지"]
+ end
+ subgraph VIEW["렌더링 · 오류 격리"]
+ direction LR
+ G["위젯 렌더링"] --> H{"표시 성공"}
+ H -->|예| I["채팅 유지"]
+ H -->|아니오| J["Error Boundary<br>위젯 오류 격리"]
+ J --> I
+ end
+ DATA -->|복구된 데이터| VIEW
+ class A,B,C,D,G,H blue;
+ class F,J red;
+ class I green;
+ classDef normal fill:#F8FAFC,stroke:#94A3B8,color:#334155;
+ classDef blue fill:#EFF6FF,stroke:#60A5FA,color:#1E3A8A;
+ classDef green fill:#ECFDF5,stroke:#34D399,color:#065F46;
+ classDef purple fill:#F5F3FF,stroke:#A78BFA,color:#5B21B6;
+ classDef red fill:#FFF1F2,stroke:#FB7185,color:#9F1239;

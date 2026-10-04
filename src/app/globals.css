@@ -447,3 +447,48 @@ footer {
   border-top: 1px solid var(--c-line);
   margin: 1.5rem 0;
 }
+
+/* Case pages follow the PDF: architecture → situation/task → actions → results. */
+.md-body .md-diagram {
+  display: block;
+  overflow: hidden;
+  margin: 1.25rem 0;
+  padding: 1rem;
+  border: 1px solid var(--c-line);
+  border-radius: 0.75rem;
+  background: #fff;
+  cursor: zoom-in;
+}
+.md-body .md-diagram:focus-visible {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 4px;
+}
+.case-study {
+  font-size: 1rem;
+  line-height: 1.9;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.case-study h2 {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  font-size: 1.25rem;
+}
+.case-study li {
+  margin: 0.8rem 0;
+  padding-left: 0.15rem;
+}
+.case-study blockquote {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.1rem;
+  line-height: 1.8;
+}
+.case-study p > em:only-child {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--c-mute);
+}
+@media (max-width: 640px) {
+  .md-body .md-diagram { padding: 0.5rem; }
+  .case-study { font-size: 0.9375rem; }
+}

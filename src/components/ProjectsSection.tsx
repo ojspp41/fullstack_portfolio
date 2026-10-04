@@ -174,7 +174,7 @@ export default function ProjectsSection({
                   {p.badge}
                 </span>
               </div>
-              <h3 className="mt-3 text-base font-bold leading-snug">{p.title}</h3>
+              <h3 className="mt-3 break-keep text-base font-bold leading-snug">{p.title}</h3>
               <div className="mt-2.5">
                 <LayerChips layers={p.layers} />
               </div>
@@ -228,16 +228,16 @@ export default function ProjectsSection({
         >
           <div
             ref={panelRef}
-            className="my-4 w-full max-w-3xl rounded-2xl border border-line bg-panel shadow-2xl"
+            className="my-4 w-full max-w-4xl rounded-2xl border border-line bg-panel shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between gap-4 rounded-t-2xl border-b border-line bg-panel px-6 py-4">
+            <div className="flex items-start justify-between gap-4 rounded-t-2xl border-b border-line bg-panel px-5 py-5 sm:px-10">
               <div>
                 <p className="text-[11px] font-semibold tracking-wide text-accent">
                   {String(openProject.order).padStart(2, "0")} ·{" "}
                   {CATEGORY_LABEL[openProject.category]} · {openProject.badge}
                 </p>
-                <h3 className="mt-1 text-lg font-bold leading-snug">{openProject.title}</h3>
+                <h3 className="mt-1 break-keep text-lg font-bold leading-snug">{openProject.title}</h3>
                 <div className="mt-2">
                   <LayerChips layers={openProject.layers} size="md" />
                 </div>
@@ -253,17 +253,8 @@ export default function ProjectsSection({
               </button>
             </div>
 
-            <div className="px-6 py-5">
-              <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {openProject.metrics.map((m) => (
-                  <div key={m.label} className="rounded-xl bg-panel2 p-3">
-                    <p className="text-[10px] font-semibold tracking-wide text-mute">{m.label}</p>
-                    <p className="mt-1 font-mono text-sm font-bold text-accent">{m.value}</p>
-                    {m.note && <p className="mt-1 text-[11px] text-mute">{m.note}</p>}
-                  </div>
-                ))}
-              </div>
-
+            <div className="px-5 py-7 sm:px-10 sm:py-9">
+              <p className="mb-6 max-w-[68ch] break-keep text-sm leading-7 text-mute">{openProject.summary}</p>
               <div className="mb-5 flex flex-wrap gap-1.5">
                 {openProject.stack.map((s) => (
                   <span
@@ -275,12 +266,7 @@ export default function ProjectsSection({
                 ))}
               </div>
 
-              {openProject.measurement && (
-                <p className="mb-6 border-l-2 border-accent/50 pl-3 text-sm leading-relaxed text-mute">
-                  {openProject.measurement}
-                </p>
-              )}
-              <Markdown>{openProject.body}</Markdown>
+              <Markdown className="case-study">{openProject.body}</Markdown>
             </div>
           </div>
         </div>

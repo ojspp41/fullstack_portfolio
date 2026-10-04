@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import RootShell from "@/components/RootShell";
 import { siteUrl } from "@/lib/site-url";
 
-const TITLE = "Junseok Oh — AI Product / Full-Stack Engineer";
+const TITLE = "Junseok Oh — Full-Stack Developer";
 const DESCRIPTION =
-  "AI Product / Full-Stack Engineer turning generative AI into working products. AI Atlas for ~10,000 people across 13 affiliates, enterprise Agent safety validation, On-Prem sLLM × MES MCP production reporting, an AI development workflow, and six technical deep dives.";
+  "Full-Stack Developer turning generative AI into working products. AI Atlas for ~10,000 people across 13 affiliates, enterprise Agent safety validation, On-Prem sLLM × MES MCP production reporting, an AI development workflow, and eight technical case studies and loop/harness engineering.";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,

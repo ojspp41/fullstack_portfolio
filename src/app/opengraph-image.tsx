@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "오준석 — AI Product / Full-Stack Engineer";
+export const alt = "오준석 — Full-Stack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -33,7 +33,7 @@ async function loadGoogleFont(family: string, weight: number, text: string) {
 
 export default async function OgImage() {
   const text =
-    "오준석 — AI Product / Full-Stack Engineer " +
+    "오준석 — Full-Stack Developer " +
     "AI Atlas · Agent 안전성 · MES MCP · 개발·운영 자동화 " +
     "SEC.01 // FULL-STACK ENGINEER measured, not claimed. " +
     METRICS.map((m) => `${m.label} ${m.value}`).join(" ");
@@ -76,7 +76,7 @@ export default async function OgImage() {
               color: ACCENT,
             }}
           >
-            AI PRODUCT / FULL-STACK ENGINEER
+            FULL-STACK DEVELOPER
           </div>
           <div
             style={{
@@ -87,7 +87,7 @@ export default async function OgImage() {
               lineHeight: 1.25,
             }}
           >
-            오준석 — AI Product Engineer
+            오준석 — 풀스택 개발자
           </div>
           <div style={{ marginTop: 16, fontSize: 28, color: MUTE }}>
             AI Atlas · Agent 안전성 · MES MCP · 개발·운영 자동화

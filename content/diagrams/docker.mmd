@@ -1,0 +1,24 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Apple SD Gothic Neo, Noto Sans KR, sans-serif","fontSize":"22px","lineColor":"#64748B","clusterBkg":"#FFFFFF","clusterBorder":"#CBD5E1"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":32,"padding":14,"wrappingWidth":280,"subGraphTitleMargin":{"top":12,"bottom":12}}}}%%
+flowchart TB
+ subgraph FIND["원인 측정"]
+ direction LR
+ A["이미지 3.63GB"] --> B["레이어별 용량 분석"] --> C["APM 설치가<br>개발 의존성 재설치"]
+ end
+ subgraph FIX["실행 환경 경량화"]
+ direction LR
+ D["WhaTap 격리 설치"] --> E["실행 결과만 복사<br>Chromium·폰트 유지"] --> F["Non-root<br>로그 권한 설정"]
+ end
+ subgraph RUN["실제 부팅 검증"]
+ direction LR
+ G["Next 표준 서버"] --> H["APM 로드·실제 부팅"] --> I["이미지 1.82GB"]
+ end
+ FIND --> FIX
+ FIX --> RUN
+ class A,B,C red;
+ class D,E,F blue;
+ class G,H,I green;
+ classDef normal fill:#F8FAFC,stroke:#94A3B8,color:#334155;
+ classDef blue fill:#EFF6FF,stroke:#60A5FA,color:#1E3A8A;
+ classDef green fill:#ECFDF5,stroke:#34D399,color:#065F46;
+ classDef purple fill:#F5F3FF,stroke:#A78BFA,color:#5B21B6;
+ classDef red fill:#FFF1F2,stroke:#FB7185,color:#9F1239;

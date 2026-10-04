@@ -1,14 +1,26 @@
 ---
-id: development-loop
-order: 1
-eyebrow: A · AI Development, Validation & Deployment Loop
-title: Failure evidence becomes input for the next development cycle
-summary: Model requirements and state first, then feed tests, browser validation, reviews, and deployment results back into the next task.
-stack: [Jira, Jest, Go Test, Playwright, GitLab MR, CI/CD, Smoke Test]
-steps: [Requirement, State Modeling, Implementation, Unit Test, Browser Validation, MR, Deploy, Smoke Test, Feedback Loop]
-decision: Classify test failures, browser differences, review findings, and QA defects by cause; update prompts, tests, and validation rules.
+{
+  "id": "development-loop",
+  "order": 1,
+  "eyebrow": "01 · AI & automation",
+  "title": "Development quality · loop & harness engineering",
+  "summary": "Used AI for analysis, implementation, and test authoring, then checked actual screens, reviews, and deployments. Reusable procedures fix inputs, completion criteria, and verification rules; failures feed the next iteration.",
+  "steps": [
+    "Requirement",
+    "State Modeling",
+    "Implementation",
+    "Unit Test",
+    "Browser Validation",
+    "MR",
+    "Deploy",
+    "Smoke Test",
+    "Feedback Loop"
+  ],
+  "metrics": [],
+  "decision": "Completion is checked with tests, actual screens, reviews, and deployment evidence."
+}
 ---
 
-Start with Jira requirements, state, and impact analysis, then implement and unit-test. Validate actual browser behavior with Playwright, review the GitLab MR, deploy through CI/CD, and run Smoke Tests.
+Loop engineering connects implementation, verification, observed failure, and revision. Harness engineering provides the inputs, tools, completion criteria, and checking procedures for AI-assisted work.
 
-Record evidence and causes when validation fails. Separate code defects, environment differences, and missing requirements, then revise the next task's prompts, tests, and checks. Using AI does not replace review or deployment validation.
+After defining states and impact, I used AI for implementation and test authoring, then checked unit tests, screen QA, GitLab MR, deployment pipelines, and smoke behavior. Failures became regression tests and updated checking rules. This does not claim every stage runs automatically for every task.

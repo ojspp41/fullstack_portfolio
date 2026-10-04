@@ -3,15 +3,15 @@ id: ai-atlas-overview
 section: ai-atlas
 title: AI Atlas — Project Overview
 period: Oct 2025 — Present
-scope: 13 Hansol Group affiliates · 10,000 users
+scope: 13 Hansol Group affiliates · ~10,000 eligible people
 role: Full-Stack · Frontend Owner
 ---
 
-# AI Atlas — Internal LLM Service for 13 Affiliates and 10,000 Users
+# AI Atlas — Internal LLM Service for 13 Affiliates and ~10,000 Eligible People
 
 ## From user problems to launch
 
-Within six months of joining, I worked with the team on the first release for approximately 10,000 people across 13 affiliates. Without a product manager or designer, I defined user problems, owned the frontend, and directly implemented selected Go Gateway features and the metering pipeline.
+Within six months of joining, I worked with the team on the first release for approximately 10,000 people across 13 affiliates. Without a product manager or designer, I defined user problems, owned the frontend, and implemented selected Go Gateway query/quota/sharing/preview features and integrated them with the shared metering infrastructure.
 
 ## AI / LLM product development
 
@@ -23,7 +23,7 @@ Within six months of joining, I worked with the team on the first release for ap
 
 ### Operations & Admin — Usage and Cost Metering
 
-I derived aggregation contracts from dashboard requirements and connected query/comparison APIs, usage limits, Kafka ingestion, daily batches, price/FX history, query hooks, and browser-side ExcelJS exports. The `source_usages` array contract automatically carries new services into filters, colors, charts, and Excel.
+I built query/comparison APIs, usage limits, query hooks, and browser-side ExcelJS exports for dashboard requirements, integrating them with shared Kafka ingestion, daily aggregation, and price/FX infrastructure. The `source_usages` array contract automatically carries new services into filters, colors, charts, and Excel.
 
 ## Public scope
 

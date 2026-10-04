@@ -1,0 +1,24 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Apple SD Gothic Neo, Noto Sans KR, sans-serif","fontSize":"22px","lineColor":"#64748B","clusterBkg":"#FFFFFF","clusterBorder":"#CBD5E1"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":32,"padding":14,"wrappingWidth":280,"subGraphTitleMargin":{"top":12,"bottom":12}}}}%%
+flowchart TB
+ subgraph CONNECT["연결을 유지하는 방어"]
+ direction LR
+ A["Heartbeat<br>끊김 감지"] ~~~ B["Backoff + Jitter<br>재연결 분산"] ~~~ C["단일 연결<br>이전 소켓 이벤트 차단"]
+ end
+ subgraph LIFE["상태에 맞춘 연결 관리"]
+ direction LR
+ D["숨김 탭<br>유휴 종료·스트리밍 유지"] ~~~ E["토큰 자동 갱신<br>인증 실패 시<br>재연결 중단"] ~~~ F["세션 전환<br>설정 중복 송신 방지"]
+ end
+ subgraph UI["응답을 화면에 반영"]
+ direction LR
+ G["첫 3개 청크<br>즉시 반영"] --> H["4번째부터<br>3ms 단위로 묶음"] --> I["완료 시<br>남은 응답 반영"]
+ end
+ CONNECT ~~~ LIFE
+ LIFE ~~~ UI
+ class A,B,C blue;
+ class D,E,F purple;
+ class G,H,I green;
+ classDef normal fill:#F8FAFC,stroke:#94A3B8,color:#334155;
+ classDef blue fill:#EFF6FF,stroke:#60A5FA,color:#1E3A8A;
+ classDef green fill:#ECFDF5,stroke:#34D399,color:#065F46;
+ classDef purple fill:#F5F3FF,stroke:#A78BFA,color:#5B21B6;
+ classDef red fill:#FFF1F2,stroke:#FB7185,color:#9F1239;

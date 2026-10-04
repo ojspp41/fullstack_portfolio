@@ -1,75 +1,60 @@
 ---
 {
   "id": "dockerfile",
-  "order": 6,
+  "order": 7,
   "published": true,
-  "title": "Dockerfile Optimization — Catching a Hidden 1.56GB Regression",
+  "title": "Smaller Docker image with runtime functions preserved",
   "category": "infra",
-  "badge": "Infrastructure · operations",
+  "badge": "Implementation · verification",
+  "layers": [
+    "Docker / boot verification implementation",
+    "Kubernetes operations collaboration"
+  ],
   "stack": [
     "Docker Multi-stage",
     "Next.js standalone",
-    "Non-root",
     "WhaTap",
-    "스모크 테스트"
+    "Non-root"
   ],
   "metrics": [
     {
       "label": "Uncompressed image",
-      "value": "3.63GB → 1.82GB",
-      "note": "50% reduction · built and measured"
+      "value": "3.63GB → 1.82GB"
     },
     {
-      "label": "Hidden regression",
-      "value": "1.56GB removed",
-      "note": "APM installation revived dev dependencies"
-    },
-    {
-      "label": "Local cold-pull median",
-      "value": "8.13s → 3.93s",
-      "note": "~51.7% reduction · three runs per image"
+      "label": "Local cold pull",
+      "value": "8.13s → 3.93s"
     }
   ],
-  "layers": [
-    "Infrastructure built directly",
-    "Kubernetes operations collaboration"
-  ],
-  "summary": "Measured layers to find dev dependencies revived after standalone slimming. Fixed non-root APM permissions in the image and caught boot regressions with smoke tests.",
-  "measurement": "Docker 29.7.0 + Colima/Linux arm64, caches removed, three interleaved runs per image. These are not internal-registry or production Kubernetes deployment times."
+  "summary": "Layer analysis exposed development dependencies reintroduced by APM installation. Chromium, Korean fonts, APM, and non-root execution were retained and checked through actual startup.",
+  "measurement": "Uncompressed build sizes and local cold-pull medians on Docker 29.7.0 / Colima Linux arm64, three runs per variant. This is not production deployment time."
 }
 ---
 
-# A Slimmed Image Grew Back
+## Architecture
 
-## Situation
+![Smaller Docker image with runtime functions preserved — architecture](/diagrams/docker.png)
 
-Operations rejected the image twice: it was too large, non-root policy conflicted with WhaTap log-write permissions, and missing public environment variables failed only at runtime. After initial slimming, invoice PDF support was added and the image measured 3.63GB again.
+*Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
 
-## Decisions and implementation
+> **My scope:** Updated the Dockerfile, startup path, APM log permissions, and build/boot smoke checks. Shared Kubernetes operations are a collaboration scope.
 
-Multi-stage base/deps/builder/runner separation and Next.js standalone kept build-only dependencies out of runtime. Log-directory ownership resolved the APM/non-root conflict, and missing required environment variables fail at build time.
+## Problem · goal (S·T)
 
-Layer measurements separated legitimate costs from regressions:
+- **Situation:** Adding PDF support grew the image to 3.63GB. APM installation reintroduced development dependencies even after adopting multi-stage builds.
+- **Task:** Reduce image size while preserving PDF, APM, and non-root operation, then verify the actual runtime.
 
-| Layer | Size | Judgment |
-|---|---|---|
-| APM runtime installation | 1.56GB | Defect: npm install revived stripped dev dependencies |
-| Chromium + Korean fonts | 0.89GB | Required PDF rendering cost |
-| App/runtime | Remaining size | Expected |
+## Solution (A)
 
-Isolating APM installation exposed a boot failure: the custom server required the full Next package, absent from the slim tree. A smoke test caught it. Since that server only delegated to the default handler, I replaced it with the standard Next server and loaded APM through execution options.
+1. Apply standalone/multi-stage packaging and measure individual layers. Find **1.56GB** of development dependencies recreated by APM installation.
+2. Isolate WhaTap installation and copy only necessary artifacts. Retain Chromium and Korean fonts required for PDFs.
+3. Use the standard Next.js server. Check non-root log permissions, configuration, actual boot, HTTP/PDF/APM smoke behavior, and local cold pulls.
 
-## Measurements
+## Results (R)
 
-| Metric | Before | After | Change |
-|---|---|---|---|
-| Uncompressed image | 3.63GB | 1.82GB | -50% |
-| Compressed image | 901MB | 540MB | -40% |
-| Local cold-pull median | 8.13s | 3.93s | -4.20s / -51.7% |
-| Hidden dev-dependency regression | 1.56GB | Removed | — |
+- **Uncompressed image:** 3.63GB → 1.82GB, approximately 50% smaller. Compressed size: 901MB → 540MB.
+- **Local cold-pull median:** 8.13s → 3.93s, approximately 51.7% shorter.
 
-Cold pulls were measured with Docker 29.7.0 and Colima/Linux arm64. Images and caches were removed; old/new runs were interleaved, three per image. These are local results, not production registry, network, or Kubernetes-node deployment times.
+### Verification conditions · current limits
 
-## Next step, not an implemented result
-
-Moving Chromium to a sidecar and switching PDF capture from launch to connect could reduce the app image below 1GB. It would not necessarily reduce total Pod resources and remains a backlog decision with operations.
+Sizes come from direct builds. Cold pulls used Docker 29.7.0 / Colima Linux arm64, cleared caches, and three alternating runs per variant. They are distinct from production deployment time with different registry/network conditions. Build success was followed by actual startup and function checks.

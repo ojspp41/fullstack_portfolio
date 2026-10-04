@@ -1,0 +1,16 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Apple SD Gothic Neo, Noto Sans KR, sans-serif","fontSize":"22px","lineColor":"#64748B","clusterBkg":"#FFFFFF","clusterBorder":"#CBD5E1"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":32,"padding":14,"wrappingWidth":280,"subGraphTitleMargin":{"top":12,"bottom":12}}}}%%
+flowchart TB
+ P["같은 조직 · 즉시 공유<br>타 조직 · 승인 후 공유"] --> A["Agent"]
+ A --> X["사용자 A<br>조직 X · 공유자 S"]
+ A --> Y["사용자 A<br>조직 Y · 공유자 S"]
+ X --> RX["조직 X 권한 유지"]
+ Y --> RY["조직 Y 경로만 회수"]
+ class A,P blue;
+ class X,RX green;
+ class Y purple;
+ class RY red;
+ classDef normal fill:#F8FAFC,stroke:#94A3B8,color:#334155;
+ classDef blue fill:#EFF6FF,stroke:#60A5FA,color:#1E3A8A;
+ classDef green fill:#ECFDF5,stroke:#34D399,color:#065F46;
+ classDef purple fill:#F5F3FF,stroke:#A78BFA,color:#5B21B6;
+ classDef red fill:#FFF1F2,stroke:#FB7185,color:#9F1239;

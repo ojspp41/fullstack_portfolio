@@ -1,0 +1,24 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Apple SD Gothic Neo, Noto Sans KR, sans-serif","fontSize":"22px","lineColor":"#64748B","clusterBkg":"#FFFFFF","clusterBorder":"#CBD5E1"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":32,"padding":14,"wrappingWidth":280,"subGraphTitleMargin":{"top":12,"bottom":12}}}}%%
+flowchart TB
+ subgraph DOWNLOAD["원본 다운로드"]
+ direction LR
+ A["원본 파일"] --> B["다운로드 API"] --> C["사용자 저장"]
+ end
+ subgraph READY["미리보기 파일 준비"]
+ direction LR
+ D["DRM 처리 사본"] --> E["PDF 선생성<br>PPTX · HWP · HWPX"] --> F["MinIO<br>처리 세대별 저장"]
+ end
+ subgraph PREVIEW["미리보기 요청"]
+ direction LR
+ G["읽기 권한 확인<br>현재 세대만 선택"] --> H["PDF 접두부 확인<br>스트리밍"] --> I["형식별 뷰어<br>정제·출처 격리"]
+ end
+ DOWNLOAD ~~~ READY
+ READY --> PREVIEW
+ class A,B,C normal;
+ class D,E,F blue;
+ class G,H,I green;
+ classDef normal fill:#F8FAFC,stroke:#94A3B8,color:#334155;
+ classDef blue fill:#EFF6FF,stroke:#60A5FA,color:#1E3A8A;
+ classDef green fill:#ECFDF5,stroke:#34D399,color:#065F46;
+ classDef purple fill:#F5F3FF,stroke:#A78BFA,color:#5B21B6;
+ classDef red fill:#FFF1F2,stroke:#FB7185,color:#9F1239;

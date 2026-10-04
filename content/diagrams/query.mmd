@@ -1,0 +1,24 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Apple SD Gothic Neo, Noto Sans KR, sans-serif","fontSize":"22px","lineColor":"#64748B","clusterBkg":"#FFFFFF","clusterBorder":"#CBD5E1"},"flowchart":{"curve":"linear","nodeSpacing":24,"rankSpacing":32,"padding":14,"wrappingWidth":280,"subGraphTitleMargin":{"top":12,"bottom":12}}}}%%
+flowchart TB
+ subgraph BEFORE["개선 전"]
+ direction LR
+ A["전체 세션의<br>소유권·권한 수집"] --> B["허용 ID 전체 구성"] --> C["목록 조회"]
+ end
+ subgraph AFTER["개선 후"]
+ direction LR
+ D["필요한 필드만 읽기"] --> E["읽기 제외 후보만<br>유효 권한 재검증"] --> F["복합 인덱스로<br>목록 조회"]
+ end
+ subgraph UI["프론트엔드"]
+ direction LR
+ G["내 채팅·공유 채팅<br>로딩 상태 분리"] --> H["현재 조회 완료 후<br>빈 결과 표시"]
+ end
+ BEFORE ~~~ AFTER
+ AFTER ~~~ UI
+ class A,B,C normal;
+ class D,E,F blue;
+ class G,H green;
+ classDef normal fill:#F8FAFC,stroke:#94A3B8,color:#334155;
+ classDef blue fill:#EFF6FF,stroke:#60A5FA,color:#1E3A8A;
+ classDef green fill:#ECFDF5,stroke:#34D399,color:#065F46;
+ classDef purple fill:#F5F3FF,stroke:#A78BFA,color:#5B21B6;
+ classDef red fill:#FFF1F2,stroke:#FB7185,color:#9F1239;

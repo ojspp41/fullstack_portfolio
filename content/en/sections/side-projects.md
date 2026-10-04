@@ -1,6 +1,8 @@
 ---
-id: side-projects
-section: side-projects
+{
+  "id": "side-projects",
+  "section": "side-projects"
+}
 ---
 
 # Open Source & Side Projects
@@ -15,7 +17,7 @@ section: side-projects
 - Toss Payments SDK with **Idempotency-Key-based duplicate-payment prevention**, and **Docker/Jenkins CI/CD setup**.
 
 ## Githru (VSCode Extension) — Contributor
-**2025.06 ~ · 🏆 2025 Open Source Contribution Academy Excellence Award — Ministerial Prize, Ministry of Science and ICT**
+**2025.06 — 2025.12 · 🏆 2025 Open Source Contribution Academy Excellence Award — Ministerial Prize, Ministry of Science and ICT**
 
 `TypeScript` `React` `Zustand` `D3.js` `Tailwind`
 
@@ -42,25 +44,19 @@ section: side-projects
 
 # Awards
 
-1. 🥇 **2025 Open Source Contribution Academy Excellence Award** — Ministerial Prize, Ministry of Science and ICT · Githru
-2. 🥈 **2025 Open Source Developer Contest Winner** — Professional Division · Favus (Go CLI · WebSocket)
-3. 🏅 **GGUM University Hackathon Excellence Award** — Library seat / empty classroom visualization (React, TS)
-4. 🏅 **University ICPC Excellence Award** — Algorithm competition
+1. **Academic Honors Award** — The Catholic University of Korea · 2026.02.11
+2. **Open Source Developer Contest — Outstanding Project** — Favus · 2025.12.21
+3. **Open Source Contribution Academy — Excellence Award / Ministerial Prize** — Ministry of Science and ICT · Githru · 2025.12.05
+4. **Programming Contest — Silver Prize** — The Catholic University of Korea · 2024.10.26
+5. **GGUM Hackathon — Excellence Award** — Classroom/library-seat visualization · 2024.10.21
 
 ---
 
 # AI Experience
 
-- Generative UI pipeline design: transform AI responses into safe UI.
-- User-facing visualization of RAG processing and chunking/embedding status.
-- Cross-org Agent sharing: organization-scoped paths, approval revalidation, five execution authorization paths, and Outbox convergence.
-- Progressive streaming markdown parser implementation.
-- VOC Agent: create Jira tickets from Generative UI forms based on guide documentation.
-- SLP Manufacturing AX: production reporting connecting an on-premise sLLM to purpose-defined read-only MES MCP tools.
-- 신호등 에이전트: enterprise Agent safety validation with deterministic final classifications.
-- AI development/validation/deployment loop and 36 reusable AI Skills.
-- Five usage guides and 93 actual screen images; usage-video production ~3 days → 4 hours.
-- Weekly operations report ~2–3 hours → within 10 minutes; code calculates and validates, AI explains changes.
-- Guidebook automation using playwright-mcp and Confluence MCP with Claude Code.
-- Usage and cost metering: directly implemented Kafka ingestion, daily aggregation, price/FX history, frontend hooks, and ExcelJS exports.
-- Full-stack in-app file previews: separate preview endpoint and three-stage active-content execution defenses (one server + two frontend).
+- Loop and harness engineering: explicit inputs and verification criteria; test, review, and deployment failures feed the next iteration.
+- Weekly reports: code validates periods/totals; AI explains verified changes.
+- Real-screen guides linked to AX Campus contents, indexes, and image references.
+- HWP screen specifications and test-case authoring with actual execution/review.
+- Excel processing and analysis support with code-generated outputs and direct review.
+- Product development: MES MCP reporting, Agent safety checks, Generative UI, organization-scoped sharing and Outbox, and metering/preview API integration.
