@@ -39,18 +39,18 @@
 
 > **My scope:** Built purpose-specific MES MCP tools and Agent behavior, integrating the existing MES/MS-SQL system and on-premise sLLM. This is application development, not model training or full MES construction.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Production reports required repeated SQL queries, Excel consolidation, and document editing.
 - **Task:** Connect natural-language requests to MES queries, period comparisons, and evidence-based reporting without allowing the model to invent values.
 
-## Solution (A)
+## Solution
 
 1. Connected read-only, purpose-specific MCP tools accepting period, line, and LOT parameters rather than arbitrary SQL.
 2. Compared the current period with the previous equivalent period and queried unusual changes again. Tool-returned facts stay separate from AI interpretations.
 3. Connected results to on-screen summaries and HTML reports. Tool retries, missing results, and report-file failures were checked separately from the normal path.
 
-## Results (R)
+## Results
 
 - Connected querying, comparison, summaries, and HTML reporting across **four domains: production, quality, equipment, and LOT**.
 - **Five scenarios:** three passed, one conditional success, one infrastructure-blocked. Identified five quality improvements.

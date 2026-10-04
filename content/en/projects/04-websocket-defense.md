@@ -38,18 +38,18 @@
 
 > **My scope:** Built client connection lifecycle, session state, and response application. This does not claim ownership of the complete server transmission protocol.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Duplicate connections, stale-socket events, and hidden-tab teardown interrupted responses. Per-chunk state updates increased rendering load during bursts.
 - **Task:** Prevent duplicate sends and streaming loss while reducing unnecessary burst commits without changing normal-paced behavior.
 
-## Solution (A)
+## Solution
 
 1. Apply heartbeat, exponential backoff, and jitter. Connection guards and generation checks reject duplicate connections and stale-socket events; authentication failures stop reconnecting.
 2. Close only idle connections after a **five-minute hidden-tab interval**, retaining connections during streaming. Suppress repeated active-session configuration sends.
 3. Batch chunks over short 3ms windows and flush the final response. Measure burst, mixed, and normal-paced patterns separately.
 
-## Results (R)
+## Results
 
 | React Profiler pattern | Before | After |
 |---|---|---|

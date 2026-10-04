@@ -40,18 +40,18 @@
 
 > **My scope:** Built the frontend viewer, Go preview API, read-permission checks, current-generation selection, and streaming. DRM processing and PDF conversion engines are existing-system integrations.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Users downloaded files to inspect them. Converting and buffering PDFs on each request increased processing cost; an old PDF could remain after an overwrite.
 - **Task:** Separate original downloads from processed previews, select the PDF corresponding to the current source generation, and reduce per-request processing and memory cost.
 
-## Solution (A)
+## Solution
 
 1. Split original-download and DRM-processed-preview API paths, checking file-read permission on the server.
 2. PPTX/HWP/HWPX PDFs are generated during parsing. The Gateway selects the object using the current file ID and `processing_attempt_id`, checks the `%PDF` prefix, and streams with `io.Copy`. A pending generation does not fall back to a stale PDF. Completed legacy files retain a limited old-key fallback for rolling-deployment compatibility.
 3. Implemented format-specific rendering, sanitization, iframe origin isolation, request cancellation, and Blob/temporary-resource cleanup.
 
-## Results (R)
+## Results
 
 | Local measurement | Before | After |
 |---|---|---|

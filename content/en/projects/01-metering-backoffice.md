@@ -41,18 +41,18 @@
 
 > **My scope:** Built back-office UI, query/comparison/quota APIs, Excel exports, and invoices. Kafka ingestion, daily batches, and price/FX infrastructure are understood and integrated scope.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Repeatedly aggregating raw usage slowed queries. New services required coordinated changes to requests, UI, and billing rules.
 - **Task:** Connect real-time quota checks and dashboards while preserving historical billing criteria and reducing repetitive comparison requests.
 
-## Solution (A)
+## Solution
 
 1. Connected Redis-based quota checks to quota APIs, while dashboards read daily summaries. Raw detail and summary reads serve separate purposes.
 2. Implemented query/comparison filters, pagination, and the `source_usages` response contract. One response supplies current/previous periods and affiliate comparisons.
 3. Reused the contract in dashboards, ExcelJS exports, and invoices. Invoice preview and PDF use the same data and amount calculations.
 
-## Results (R)
+## Results
 
 - **3M-record reproduction:** query time 1,970ms → 2.6ms, approximately 750× improvement in the recorded comparison.
 - **Affiliate comparison requests:** approximately 34 → 1. Preview, Excel, and PDF follow the same query and calculation criteria.

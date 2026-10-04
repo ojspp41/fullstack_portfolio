@@ -15,7 +15,7 @@ summary: One dialog, three contexts unified into a single upload screen — with
 
 # File Upload System — One UI, Policies Injected
 
-## S/T — Why a Shared Component
+## Why a Shared Component
 
 The same dialog, but a different policy in every context.
 
@@ -27,7 +27,7 @@ The same dialog, but a different policy in every context.
 
 A single upload function couldn't cover it — **upload timing, duplicate policy, and session dependency** differed per mode, while the UI had to stay one dialog. The core problem was satisfying UI consistency and domain branching at the same time.
 
-## A — Two Key Design Decisions
+## Two Key Design Decisions
 
 **1. Shared component + externally injected policy**
 The dialog, tabs, footer, and status display live in one component. The parts that vary per mode (endpoint, duplicate handling, upload timing) are **injected by the parent as a mode and callbacks**. Responsibilities split across 5 layers: types · utils · manager · UI · service.
@@ -54,6 +54,6 @@ A duplicate check is not an error — it is **the result of a fact lookup**. The
 **2. Closing the dialog mid-upload**
 In-flight requests are canceled via AbortController, and the upload queue and state are cleaned up. Guards ensure callbacks arriving after close never touch a screen that no longer exists. → **Early exit treated as a normal flow**.
 
-## R — Results
+## Results
 
 3 contexts → 1 component · 4-branch duplicate handling · 6-state machine with partial-failure recovery

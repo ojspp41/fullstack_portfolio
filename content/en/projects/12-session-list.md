@@ -39,18 +39,18 @@
 
 > **My scope:** Improved Go list queries, permission checks, compound indexes, and frontend loading states. Performance was measured on local query operations.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Rendering eight items required reading all allowed IDs and message bodies first. The UI could show an empty state before the request completed.
 - **Task:** Preserve permissions and returned results while lowering query cost and delaying empty-state feedback until the current request finishes.
 
-## Solution (A)
+## Solution
 
 1. Project only fields needed by the list, excluding message bodies. Replace collecting every allowed ID with effective-permission rechecks for read-exclusion candidates.
 2. Add compound indexes for user/organization/latest-first reads and exclusion-candidate queries. Include a same-index control to separate query-structure changes from index changes.
 3. Separate owned/shared-chat loading and show empty results only after the current request completes. Compare returned IDs, totals, and filter outputs independently of latency.
 
-## Results (R)
+## Results
 
 - **~14K local records, list + filter p95:** 378.36ms → 18.72ms, approximately 95.1% lower.
 - **200 response comparisons:** identical result digests and unchanged fixture documents.

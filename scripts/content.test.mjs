@@ -17,7 +17,7 @@ for (const locale of ["ko", "en"]) {
       assert.ok(p.body.length > 500, p.id);
       assert.ok(p.measurement?.length > 30, p.id);
       assert.equal(p.published, true);
-      assert.match(p.body, locale === "ko" ? /전체적인 아키텍처[\s\S]*문제 원인 · 해결 목표[\s\S]*해결 과정[\s\S]*결과 \(R\)/ : /Architecture[\s\S]*Problem · goal[\s\S]*Solution[\s\S]*Results/);
+      assert.match(p.body, locale === "ko" ? /전체적인 아키텍처[\s\S]*문제 원인 · 해결 목표[\s\S]*해결 과정[\s\S]*결과/ : /Architecture[\s\S]*Problem · goal[\s\S]*Solution[\s\S]*Results/);
       const asset = /!\[[^\]]+\]\((\/diagrams\/[^)]+)\)/.exec(p.body)?.[1];
       assert.ok(asset && fs.existsSync(path.join("public", asset)), p.id + " diagram");
       assert.doesNotMatch(p.body, /\/Users\/|file:\/\/|1,871MB|47건|24s → 13s/);

@@ -4,7 +4,7 @@
 
 **[포트폴리오 웹사이트](https://fullstack-portfolio-omega-one.vercel.app/)** · **[English](https://fullstack-portfolio-omega-one.vercel.app/en)** · **[GitHub](https://github.com/ojspp41)**
 
-상세 사례는 제출용 포트폴리오 PDF의 **아키텍처 → 문제·목표(S·T) → 해결 과정(A) → 결과(R)** 순서로 작성했습니다. 각 페이지에 담당 범위·측정 조건·현재 한계를 함께 표시합니다. 구조 그림을 선택하면 원본 크기로 열 수 있습니다.
+상세 사례는 제출용 포트폴리오 PDF의 **아키텍처 → 문제·목표 → 해결 과정 → 결과** 순서로 작성했습니다. 각 페이지에 담당 범위·측정 조건·현재 한계를 함께 표시합니다. 구조 그림을 선택하면 원본 크기로 열 수 있습니다.
 
 ## 기술 사례 8개
 

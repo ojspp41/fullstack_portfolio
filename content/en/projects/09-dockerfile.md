@@ -39,18 +39,18 @@
 
 > **My scope:** Updated the Dockerfile, startup path, APM log permissions, and build/boot smoke checks. Shared Kubernetes operations are a collaboration scope.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Adding PDF support grew the image to 3.63GB. APM installation reintroduced development dependencies even after adopting multi-stage builds.
 - **Task:** Reduce image size while preserving PDF, APM, and non-root operation, then verify the actual runtime.
 
-## Solution (A)
+## Solution
 
 1. Apply standalone/multi-stage packaging and measure individual layers. Find **1.56GB** of development dependencies recreated by APM installation.
 2. Isolate WhaTap installation and copy only necessary artifacts. Retain Chromium and Korean fonts required for PDFs.
 3. Use the standard Next.js server. Check non-root log permissions, configuration, actual boot, HTTP/PDF/APM smoke behavior, and local cold pulls.
 
-## Results (R)
+## Results
 
 - **Uncompressed image:** 3.63GB → 1.82GB, approximately 50% smaller. Compressed size: 901MB → 540MB.
 - **Local cold-pull median:** 8.13s → 3.93s, approximately 51.7% shorter.

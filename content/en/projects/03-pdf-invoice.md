@@ -15,19 +15,19 @@ summary: Per-affiliate token settlement invoices downloaded as PDF. Capturing th
 
 # Server-Side PDF Invoices — A Settlement Document Where Preview and PDF Must Never Diverge
 
-## S — Situation
+## Situation
 
 - **Settlement trust**: per-affiliate token usage settlement invoices — the preview and the actual PDF cannot differ by a single character
 - **Broken Korean text** is unacceptable; **tables cut off at page boundaries** are unacceptable
 - Ultimately, "the content is identical" had to be **proven structurally**, not by human eyes
 
-## T — Task
+## Task
 
 1. Guarantee preview–PDF fidelity by construction
 2. Secure print quality — Korean fonts, logos, page breaks — in an **air-gapped container (musl) environment**
 3. Decompose "it's heavy" through measurement and pin the next optimization target to a number
 
-## A — Action
+## Action
 
 ### 1. Technology choice — evaluated every candidate, landed on Chromium
 
@@ -63,7 +63,7 @@ Initially, when the server generated a PDF it re-entered its own preview page, r
 | PDF capture | 2.4s | 32% |
 | **Total** | **7.4s** | — |
 
-## R — Results
+## Results
 
 - **Fidelity**: same-DOM capture means preview = PDF content · Korean text, logos, and page breaks all correct (verified with a real container run)
 - **Simplification & security**: removed self-reference and token injection; disabling JS execution shrank the attack surface

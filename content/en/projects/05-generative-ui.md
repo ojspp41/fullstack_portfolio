@@ -38,18 +38,18 @@
 
 > **My scope:** Built original-first parsing, failed-input repair, structure checks, widget-error isolation, and regression tests.
 
-## Problem · goal (S·T)
+## Problem · goal
 
 - **Situation:** Malformed AI JSON prevented widgets from appearing, and widget failures affected the chat screen.
 - **Task:** Preserve valid input, recover malformed responses where possible, and keep chat usable when a widget cannot recover.
 
-## Solution (A)
+## Solution
 
 1. Parse the original response first. Apply six repair steps for code fences, quotation marks, commas, and related defects only after parsing fails.
 2. Check structure and bracket balance after character-level repair, then parse again. Parsing recovery and widget rendering are separate failure boundaries.
 3. Use Error Boundary for synchronous rendering failures and explicit guards for asynchronous operations. Compare the same 40 fixtures before/after and retain failures as regression cases.
 
-## Results (R)
+## Results
 
 - **Successful inputs:** 24/40 → 39/40; recovery rate 60% → 97.5%.
 - **Parsing failures:** 16 → 1. Widget failures do not take down the chat screen.
