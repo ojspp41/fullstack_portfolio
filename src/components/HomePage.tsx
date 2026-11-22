@@ -74,7 +74,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
               <Markdown>{profile.intro}</Markdown>
             </div>
           </Reveal>
-          <ExperienceFeatures items={representative} locale={locale} />
+          <ExperienceFeatures items={representative} locale={locale} featured />
         </div>
       </section>
 

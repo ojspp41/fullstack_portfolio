@@ -3,22 +3,38 @@ import { UI } from "@/lib/i18n";
 import Markdown from "./Markdown";
 import Reveal from "./Reveal";
 
+function FeatureSteps({ steps, label }: { steps: string[]; label: string }) {
+  if (!steps.length) return null;
+  return (
+    <ol aria-label={label} className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2">
+      {steps.map((step, stepIndex) => (
+        <li key={step} className="flex min-w-0 items-center gap-2 text-xs">
+          {stepIndex > 0 && <span aria-hidden="true" className="text-accent/60">→</span>}
+          <span className="rounded-lg border border-line bg-bg/60 px-2.5 py-1.5 leading-relaxed">{step}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 /** Summary → evidence → optional implementation details, using the existing card language. */
 export default function ExperienceFeatures({
   items,
   locale,
+  featured = false,
 }: {
   items: ExperienceFeature[];
   locale: Locale;
+  featured?: boolean;
 }) {
   const t = UI[locale].features;
   return (
-    <div className={`grid grid-cols-1 items-start gap-4 md:grid-cols-2 ${items.length === 3 ? "xl:grid-cols-3" : ""}`}>
+    <div className={`grid grid-cols-1 gap-4 md:grid-cols-2 ${featured ? "items-stretch xl:grid-cols-3" : "items-start"}`}>
       {items.map((item, i) => (
-        <Reveal key={item.id} delay={(i % 2) * 80} className="min-w-0">
+        <Reveal key={item.id} delay={(i % 2) * 80} className={featured ? "grid min-w-0" : "min-w-0"}>
           <article
             id={item.id}
-            className="scroll-mt-20 rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur sm:p-6"
+            className={`scroll-mt-20 rounded-2xl border border-line bg-panel/85 p-5 shadow-sm backdrop-blur sm:p-6 ${featured ? "flex flex-col" : ""}`}
           >
             <p className="text-xs font-semibold tracking-wide text-accent">{item.eyebrow}</p>
             <h3 className="mt-2 text-lg font-bold leading-snug">{item.title}</h3>
@@ -42,16 +58,9 @@ export default function ExperienceFeatures({
               </p>
             )}
 
-            {item.steps.length > 0 && (
-              <ol aria-label={t.flow} className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2">
-                {item.steps.map((step, stepIndex) => (
-                  <li key={step} className="flex min-w-0 items-center gap-2 text-xs">
-                    {stepIndex > 0 && <span aria-hidden="true" className="text-accent/60">→</span>}
-                    <span className="rounded-lg border border-line bg-bg/60 px-2.5 py-1.5 leading-relaxed">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            )}
+            {!featured && <FeatureSteps steps={item.steps} label={t.flow} />}
+
+            {featured && <div aria-hidden="true" className="grow" />}
 
             {item.stack.length > 0 && (
               <ul aria-label={t.stack} className="mt-5 flex flex-wrap gap-1.5">
@@ -61,10 +70,11 @@ export default function ExperienceFeatures({
               </ul>
             )}
 
-            {item.body && (
+            {(item.body || (featured && item.steps.length > 0)) && (
               <details className="mt-5 border-t border-line pt-4">
                 <summary className="cursor-pointer text-sm font-medium text-accent">{t.details}</summary>
-                <Markdown className="mt-4">{item.body}</Markdown>
+                {featured && <FeatureSteps steps={item.steps} label={t.flow} />}
+                {item.body && <Markdown className="mt-4">{item.body}</Markdown>}
               </details>
             )}
             {item.link && (
