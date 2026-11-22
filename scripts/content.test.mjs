@@ -46,16 +46,24 @@ for (const locale of ["ko", "en"]) {
     assert.ok(data.integrated.some((s) => /환율|FX/.test(s)));
   });
 
-  test(`${locale}: career, side projects, and five corrected awards load`, () => {
+  test(`${locale}: career, side projects, and four awards load`, () => {
     const career = getExperience(locale);
     assert.equal(career.summary.length, 2);
     assert.equal(career.jobs.length, 2);
+    const period = locale === "ko" ? "2025.06.23 — 2025.09.30" : "Jun 23, 2025 — Sep 30, 2025";
+    assert.equal(career.summary.find((job) => job.company.includes("PTKOREA"))?.period, period);
+    assert.ok(career.jobs.find((job) => job.includes("PTKOREA"))?.includes(period));
     assert.ok(career.extra.length > 100);
     assert.ok(career.aiAtlasOverview?.backoffice);
     assert.doesNotMatch(JSON.stringify(career), /단독|5년차|sole|five-year|5-year/i);
     const side = getSideProjects(locale);
     assert.equal(side.cards.length, 4);
-    assert.equal(side.awards.split("\n").filter((l) => /^\d+\./.test(l)).length, 5);
+    assert.equal(side.awards.split("\n").filter((l) => /^\d+\./.test(l)).length, 4);
+    assert.doesNotMatch(side.awards, /Favus/i);
+    const favus = side.cards.find((card) => card.startsWith("## Favus"));
+    assert.match(favus, /WebSocket/);
+    assert.doesNotMatch(favus, /🏆|우수작|수상|award|winner|outstanding project/i);
+    assert.doesNotMatch(getProfile(locale).badges.join(" "), /오픈소스 개발자 대회|Open Source Developer Contest/i);
     assert.match(side.aiExperience, /Outbox/);
     assert.match(side.cards[0], /COMAtching/);
     assert.match(side.cards[0], /601 → 2/);

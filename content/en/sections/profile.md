@@ -12,7 +12,6 @@
   "subtagline": "From UI to APIs, permissions, Agents, data, testing, deployment, and operations",
   "badges": [
     "OSSCA 2025 Excellence Award (Ministerial Prize)",
-    "Open Source Developer Contest Winner",
     "Engineer, Information Processing",
     "OPIc IH"
   ]

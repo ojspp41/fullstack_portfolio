@@ -25,7 +25,7 @@
 - Eliminated unnecessary recomputation in D3.js chart components, improving performance on large commit datasets
 
 ## Favus — S3 Multipart Upload Tool (Team Lead)
-**2025.06 — 2025.09 · 🏆 2025 Open Source Developer Contest Winner — Professional Division**
+**2025.06 — 2025.09**
 
 `Go CLI` `React` `Next.js` `Python` `WebSocket` `AWS S3`
 
@@ -45,10 +45,9 @@
 # Awards
 
 1. **Academic Honors Award** — The Catholic University of Korea · 2026.02.11
-2. **Open Source Developer Contest — Outstanding Project** — Favus · 2025.12.21
-3. **Open Source Contribution Academy — Excellence Award / Ministerial Prize** — Ministry of Science and ICT · Githru · 2025.12.05
-4. **Programming Contest — Silver Prize** — The Catholic University of Korea · 2024.10.26
-5. **GGUM Hackathon — Excellence Award** — Classroom/library-seat visualization · 2024.10.21
+2. **Open Source Contribution Academy — Excellence Award / Ministerial Prize** — Ministry of Science and ICT · Githru · 2025.12.05
+3. **Programming Contest — Silver Prize** — The Catholic University of Korea · 2024.10.26
+4. **GGUM Hackathon — Excellence Award** — Classroom/library-seat visualization · 2024.10.21
 
 ---
 

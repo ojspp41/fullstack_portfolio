@@ -12,7 +12,7 @@
     {
       "company": "PTKOREA · Pengtai Greater China",
       "role": "Full-Stack Intern",
-      "period": "Jun 23, 2025 — Oct 1, 2025",
+      "period": "Jun 23, 2025 — Sep 30, 2025",
       "highlight": "Samsung global-site QA automation · 96-country validation · Initial loading time reduced by 65%"
     }
   ]
@@ -38,7 +38,7 @@ I directly built the frontend, selected Go Gateway features (metering queries, c
 ---
 
 ## PTKOREA (Pengtai Greater China) — Full-Stack Internship
-**Jun 23, 2025 — Oct 1, 2025 · Global-site QA automation**
+**Jun 23, 2025 — Sep 30, 2025 · Global-site QA automation**
 
 `TypeScript` `Django` `React` `Zustand` `Python` `AEM` `Jira`
 

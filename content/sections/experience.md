@@ -12,7 +12,7 @@
     {
       "company": "펑타이그레이터차이나 유한회사 (PTKOREA)",
       "role": "Full-Stack 인턴",
-      "period": "2025.06.23 — 2025.10.01",
+      "period": "2025.06.23 — 2025.09.30",
       "highlight": "삼성 글로벌 사이트 QA 자동화 — 96개국 일괄 검증 · 초기 로딩 65% 단축"
     }
   ]
@@ -40,7 +40,7 @@
 ---
 
 ## 펑타이그레이터차이나 유한회사 (PTKOREA) — Full-Stack Internship
-**2025.06.23 — 2025.10.01 · 대기업 글로벌 사이트 QA 자동화**
+**2025.06.23 — 2025.09.30 · 대기업 글로벌 사이트 QA 자동화**
 
 `TypeScript` `Django` `React` `Zustand` `Python` `AEM` `Jira`
 
