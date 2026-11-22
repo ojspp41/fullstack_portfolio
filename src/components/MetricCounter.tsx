@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
  * Metric value with a count-up as progressive enhancement.
  *
  * The server-rendered HTML always contains the FINAL value (crawlers, link
- * previews, and no-JS visitors see "750배↑", never "0"). Only after the
+ * previews, and no-JS visitors see "597×", never "0"). Only after the
  * component mounts — i.e. JS is actually running — does the number animate
  * 0 → target on viewport entry. prefers-reduced-motion skips the animation.
  *

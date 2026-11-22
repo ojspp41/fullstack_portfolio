@@ -1,6 +1,4 @@
-import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import CareerSummary from "@/components/CareerSummary";
-import CoverageMap from "@/components/CoverageMap";
 import ExperienceFeatures from "@/components/ExperienceFeatures";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -22,16 +20,13 @@ import {
 import { UI } from "@/lib/i18n";
 
 const NAV_SECTIONS = [
-  { id: "representative", label: "Experience" },
-  { id: "experience", label: "Career" },
-  { id: "architecture", label: "Architecture" },
-  { id: "projects", label: "Deep Dives" },
-  { id: "ai-workflow", label: "AI Workflow" },
-  { id: "side-projects", label: "Open Source" },
-  { id: "contact", label: "Contact" },
+  { id: "experience", ko: "경력", en: "Career" },
+  { id: "representative", ko: "대표 프로젝트", en: "Selected projects" },
+  { id: "projects", ko: "기술 사례", en: "Deep Dives" },
+  { id: "ai-workflow", ko: "AI 업무 활용", en: "AI Workflow" },
+  { id: "side-projects", ko: "제품·오픈소스", en: "Product & Open Source" },
+  { id: "contact", ko: "연락", en: "Contact" },
 ];
-
-const CARD = "h-full rounded-2xl border border-line bg-panel/80 p-5 shadow-sm backdrop-blur";
 
 export default function HomePage({ locale }: { locale: Locale }) {
   const t = UI[locale];
@@ -42,18 +37,33 @@ export default function HomePage({ locale }: { locale: Locale }) {
   const representative = getExperienceFeatures("representative", locale);
   const workflow = getExperienceFeatures("workflow", locale);
 
-  const projectTitles = Object.fromEntries(projects.map((p) => [p.id, p.title]));
-
   return (
     <main className="relative">
       <Header
-        items={NAV_SECTIONS}
+        items={NAV_SECTIONS.map(({ id, ...label }) => ({ id, label: label[locale] }))}
         email={profile.email}
         resumePdf={profile.resumePdf}
         locale={locale}
       />
 
-      <Hero profile={profile} locale={locale} />
+      <Hero profile={profile} locale={locale}>
+        <h2 className="mb-4 text-2xl font-bold tracking-tight">{t.sections.career.title}</h2>
+        <CareerSummary items={experience.summary} />
+        <details className="mb-5 rounded-xl border border-line bg-panel/80 px-5">
+          <summary className="cursor-pointer py-3 text-sm font-semibold text-accent">
+            {t.sections.career.details}
+          </summary>
+          <div className="border-t border-line py-5">
+            <Timeline experience={experience} locale={locale} />
+            {sideProjects.awards && (
+              <div className="mt-5">
+                <h3 className="mb-2 text-base font-bold">{t.sideProjects.awards}</h3>
+                <Markdown>{sideProjects.awards}</Markdown>
+              </div>
+            )}
+          </div>
+        </details>
+      </Hero>
 
       <section id="representative">
         <div className="mx-auto max-w-6xl px-6 py-20">
@@ -68,76 +78,11 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Experience */}
-      <section id="experience">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <Reveal>
-            <SectionHeading
-              index={t.sections.career.index}
-              label={t.sections.career.label}
-              title={t.sections.career.title}
-            />
-          </Reveal>
-          <CareerSummary items={experience.summary} />
-          <Timeline experience={experience} locale={locale} />
-
-          {/* Existing verified awards remain separate from Agent project experience. */}
-          <div className="mt-4">
-            {sideProjects.awards && (
-              <Reveal className="h-full">
-                <div className="h-full rounded-2xl border border-line bg-gradient-to-br from-indigo-50/90 to-pink-50/60 p-5 shadow-sm dark:from-indigo-500/10 dark:to-pink-500/5 sm:p-6">
-                  <p className="mb-3 text-sm font-bold text-accent">{t.sideProjects.awards}</p>
-                  <Markdown>{sideProjects.awards}</Markdown>
-                </div>
-              </Reveal>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Architecture — full-stack scope */}
-      <section id="architecture">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <Reveal>
-            <SectionHeading
-              index={t.sections.architecture.index}
-              label={t.sections.architecture.label}
-              title={t.sections.architecture.title}
-              sub={t.sections.architecture.sub}
-            />
-          </Reveal>
-          <Reveal delay={100}>
-            <ArchitectureDiagram projectTitles={projectTitles} locale={locale} />
-          </Reveal>
-
-          {/* Coverage Map — per-layer direct vs. integrated matrix */}
-          <Reveal>
-            <div id="coverage" className="mt-14 scroll-mt-16">
-              <h3 className="mb-4 text-lg font-bold">{t.sections.coverage}</h3>
-              <CoverageMap coverage={profile.coverage} locale={locale} />
-            </div>
-          </Reveal>
-
-          {/* About is now near the top; stack and scope remain beside the architecture. */}
-          <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <Reveal delay={80}>
-              <div className={CARD}>
-                <p className="mb-3 text-sm font-bold text-accent">{t.sections.stack}</p>
-                <Markdown>{profile.stack}</Markdown>
-              </div>
-            </Reveal>
-            <Reveal delay={160}>
-              <div className={CARD}>
-                <p className="mb-3 text-sm font-bold text-accent">{t.sections.strengths}</p>
-                <Markdown>{profile.strengths}</Markdown>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
       {/* Deep Dives */}
-      <section id="projects">
+      <section id="projects" className="relative">
+        {/* Bookmarks to the former overview now land on the case studies. */}
+        <span id="architecture" aria-hidden="true" className="absolute top-0" />
+        <span id="coverage" aria-hidden="true" className="absolute top-0" />
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading
@@ -152,7 +97,8 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section id="ai-workflow">
+      <section id="ai-workflow" className="relative">
+        <span id="ai-development" aria-hidden="true" className="absolute top-0" />
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading {...t.sections.workflow} />

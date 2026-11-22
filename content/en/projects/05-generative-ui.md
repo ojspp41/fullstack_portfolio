@@ -30,13 +30,13 @@
 }
 ---
 
+> **My scope:** Built original-first parsing, failed-input repair, structure checks, widget-error isolation, and regression tests.
+
 ## Architecture
 
 ![Malformed AI response recovery & widget isolation — architecture](/diagrams/genui.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Built original-first parsing, failed-input repair, structure checks, widget-error isolation, and regression tests.
 
 ## Problem · goal
 
@@ -46,7 +46,7 @@
 ## Solution
 
 1. Parse the original response first. Apply six repair steps for code fences, quotation marks, commas, and related defects only after parsing fails.
-2. Check structure and bracket balance after character-level repair, then parse again. Parsing recovery and widget rendering are separate failure boundaries.
+2. A stray quote made the bracket checker misread where a string ended and reject a recoverable widget. I moved the balance check after character cleanup and kept that input as a regression test.
 3. Use Error Boundary for synchronous rendering failures and explicit guards for asynchronous operations. Compare the same 40 fixtures before/after and retain failures as regression cases.
 
 ## Results

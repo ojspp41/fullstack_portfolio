@@ -7,7 +7,7 @@ export default function CareerSummary({ items }: { items: CareerSummaryItem[] })
   if (items.length === 0) return null;
 
   return (
-    <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
       {items.map((item, i) => (
         <Reveal key={item.company} delay={i * 90} className="h-full">
           <TiltCard max={5}>

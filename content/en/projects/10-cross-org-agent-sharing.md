@@ -31,13 +31,13 @@
 }
 ---
 
+> **My scope:** Built organization selection and approval-waiting UI, Go approval/permission/execution/revocation logic, and configuration propagation.
+
 ## Architecture
 
 ![Organization-scoped Agent sharing — architecture](/diagrams/sharing.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Built organization selection and approval-waiting UI, Go approval/permission/execution/revocation logic, and configuration propagation.
 
 ## Problem · goal
 
@@ -58,3 +58,5 @@
 ### Verification conditions · current limits
 
 These are selected approval, execution, revocation, and propagation scenarios, not proof of error-free permissions in all production environments. Persisted jobs and revalidation maintain consistency across DB changes and external propagation.
+
+All 50 unit and integration tests covering approval, revocation, and propagation passed. An update to 101 existing sessions ran in batches of 100 and one. Replaying an older job preserved the latest settings.

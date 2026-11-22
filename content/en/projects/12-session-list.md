@@ -31,13 +31,13 @@
 }
 ---
 
+> **My scope:** I defined equivalence checks for authorization and returned results. With AI assistance I revised Go queries, compound indexes, and loading states, then compared the responses before and after the change.
+
 ## Architecture
 
 ![Chat-list query optimization with permissions preserved — architecture](/diagrams/query.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Improved Go list queries, permission checks, compound indexes, and frontend loading states. Performance was measured on local query operations.
 
 ## Problem · goal
 
@@ -58,3 +58,7 @@
 ### Verification conditions · current limits
 
 Warmed local Apple M5 / MongoDB 8.0.28 / Go 1.24.5, AB/BA order, concurrency one, default first-page sorting, synthetic data for one organization/user/agent. HTTP, authentication, networking, frontend rendering, and index creation are excluded. This is neither a full permission regression suite nor a production-latency measurement.
+
+### Document lists and attachment lookups
+
+The document query now selects the final page in the database and reuses upload records it already read. In a separate local synthetic experiment, 10 documents reached detail processing, down from 463. The attachment dialog checks whether a file is linked before fetching its details. Across 10,000 synthetic chats, the link check and first detail lookup took two requests, down from 100.

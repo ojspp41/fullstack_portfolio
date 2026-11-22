@@ -195,34 +195,6 @@ footer {
   transform: none;
 }
 
-/* ---- signal flow (architecture diagram connectors) ---- */
-.signal-flow {
-  background-image: repeating-linear-gradient(
-    90deg,
-    var(--c-accent) 0 6px,
-    transparent 6px 14px
-  );
-  animation: signal-slide 1.2s linear infinite;
-}
-.signal-flow-v {
-  background-image: repeating-linear-gradient(
-    180deg,
-    var(--c-accent) 0 6px,
-    transparent 6px 14px
-  );
-  animation: signal-slide-v 1.2s linear infinite;
-}
-@keyframes signal-slide {
-  to {
-    background-position-x: 14px;
-  }
-}
-@keyframes signal-slide-v {
-  to {
-    background-position-y: 14px;
-  }
-}
-
 /* ---- dynamic UI: tilt card / magnetic button / cursor glow ---- */
 .tilt-card {
   position: relative;
@@ -306,8 +278,6 @@ footer {
     transform: none;
     transition: none;
   }
-  .signal-flow,
-  .signal-flow-v,
   .blob,
   .tw-caret {
     animation: none;

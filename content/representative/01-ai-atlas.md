@@ -25,24 +25,15 @@
       "value": "입사 후 6개월 안에",
       "note": "팀과 함께 제품화·개발"
     }
-  ],
-  "decision": "프론트엔드 오너로 화면과 담당 API·권한 로직을 구현하고, 공통 인입·집계 기반과 연결했습니다.",
-  "link": {
-    "label": "기술 사례 8개 보기",
-    "href": "#projects"
-  }
+  ]
 }
 ---
 
 ### 화면에서 운영까지 넓힌 담당 범위
 
-- **Frontend** — Chat·Agent·Generative UI·WebSocket, 관리자 백오피스, 파일 미리보기, RAG 처리 과정 및 청킹·임베딩 상태의 사용자 화면 시각화. Generative UI 폼에서 Jira 티켓을 생성하는 VOC Agent도 개발했습니다.
+- **Frontend** — Chat·Agent·Generative UI·WebSocket, 관리자 백오피스, 오류 제보(VOC), 파일 미리보기, RAG 처리 과정 및 청킹·임베딩 상태의 사용자 화면 시각화.
 - **Backend / API** — Python/FastAPI·Go를 활용한 미터링 조회·사용 한도·리소스 권한·공유 API. Go Gateway에서는 직접 담당한 일부 기능을 구현했습니다.
 - **Enterprise** — 다중 조직 RBAC의 read / execute / write / share 경계, Agent 공유 승인·회수·실행 재인가.
 - **Data / Operation** — Kafka·Redis·MongoDB의 공통 미터링 인입·일별 집계·가격·환율 기반과 조회 API를 연동하고, Docker, 테스트·배포·Smoke Test, 운영 자동화.
 
 입사 후 6개월 안에 팀과 함께 13개 계열사 약 1만 명 대상 첫 출시를 진행했습니다. 전체 플랫폼이나 공통 인프라를 혼자 개발한 경험으로 표현하지 않습니다. RAG 청킹 알고리즘·임베딩 모델·Vector DB 구축이 아니라 처리 상태를 사용자에게 보여주는 UX와 연동을 담당했습니다.
-
-### 기술 사례 8개
-
-SLP 생산 리포팅, 사용량·비용 미터링, 다중 조직 Agent 공유, 파일 인앱 미리보기, Generative UI JSON 복구, WebSocket 실시간 안정성, Docker 이미지 최적화, 채팅 목록 조회 개선의 구현·검증·한계를 별도로 공개합니다.

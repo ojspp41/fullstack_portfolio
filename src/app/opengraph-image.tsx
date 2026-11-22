@@ -13,7 +13,7 @@ const ACCENT = "#4f46e5";
 
 const METRICS = [
   { label: "서비스 규모", value: "1만 명" },
-  { label: "미터링 조회", value: "750×" },
+  { label: "로컬 요약 조회 p95", value: "597×" },
   { label: "수상", value: "장관상" },
   { label: "상용 서비스", value: "2,000명" },
 ];

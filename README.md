@@ -6,7 +6,7 @@
 
 상세 사례는 제출용 포트폴리오 PDF의 **아키텍처 → 문제·목표 → 해결 과정 → 결과** 순서로 작성했습니다. 각 페이지에 담당 범위·측정 조건·현재 한계를 함께 표시합니다. 구조 그림을 선택하면 원본 크기로 열 수 있습니다.
 
-## 기술 사례 8개
+## 기술 사례 9개
 
 | 사례 | 핵심 내용 | 상세 |
 |---|---|---|
@@ -18,6 +18,7 @@
 | WebSocket 안정화 | 연결 생명주기·스트리밍 유지·폭주 패턴 갱신 감소 | [보기](https://fullstack-portfolio-omega-one.vercel.app/?p=websocket) |
 | Docker 이미지 개선 | 레이어 분석·APM 설치 분리·실제 부팅 검증 | [보기](https://fullstack-portfolio-omega-one.vercel.app/?p=dockerfile) |
 | 채팅 목록 조회 개선 | projection·권한 재검증·인덱스·로딩 상태 | [보기](https://fullstack-portfolio-omega-one.vercel.app/?p=session-list) |
+| 오류 제보(VOC) | 직원 제보·관리자 선별·Jira 티켓과 첨부 복구 | [보기](https://fullstack-portfolio-omega-one.vercel.app/?p=voc) |
 
 미터링의 FE·조회·비교·한도 API와 공통 Kafka 인입·일배치·가격·환율 기반의 연동 범위를 구분했습니다. 파일 미리보기의 DRM/PDF 변환 엔진, RAG 처리 기반, 온프레미스 모델도 기존 시스템과 연동한 범위로 표시합니다. 실제 사내 UI·데이터·코드는 공개하지 않으며, 그림은 공개 설명을 위해 재구성한 자료입니다.
 
@@ -40,8 +41,8 @@
 ## 콘텐츠 관리
 
 - `content/sections/`: 프로필·경력·수상·사이드 프로젝트.
-- `content/representative/`: 대표 경험 4개.
-- `content/projects/`: 공개 기술 사례 8개와 비공개 초안. `published: true`인 파일만 표시합니다.
+- `content/representative/`: 대표 프로젝트 3개.
+- `content/projects/`: 공개 기술 사례 9개와 비공개 초안. `published: true`인 파일만 표시합니다.
 - `content/workflow/`: AI·업무 자동화 경험 5개.
 - `content/en/`: 같은 ID와 순서를 가진 영문 콘텐츠.
 - `content/diagrams/*.mmd`: 구조 그림의 Mermaid 원본.

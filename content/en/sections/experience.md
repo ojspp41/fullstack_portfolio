@@ -7,7 +7,7 @@
       "company": "Hansol PNS IT",
       "role": "Full-Stack · Frontend Owner",
       "period": "Oct 2025 — Present",
-      "highlight": "AI platform development for ~10,000 people across 13 affiliates · Frontend ownership, selected APIs and metering · Agent safety and manufacturing AX"
+      "highlight": "I led frontend development for an internal AI platform serving 13 affiliates and built the APIs for querying usage and enforcing limits."
     },
     {
       "company": "PTKOREA · Pengtai Greater China",
@@ -32,7 +32,6 @@ I directly built the frontend, selected Go Gateway features (metering queries, c
 
 - **신호등 에이전트** — Enterprise Agent safety validation in a Hansol Group AX project, separating rule-based final decisions from LLM scenario expansion.
 - **SLP Manufacturing AX** — Read-only production-reporting Agent connecting an on-premise sLLM with MES MCP.
-- **AI-assisted development system** — Development/validation/deployment loop, loop and harness engineering, documentation/test-case support, and weekly-report automation.
 
 > Actual internal service UI, data, and source code are not public. This portfolio reconstructs technical structures, ownership, and reproducible measurements in accordance with company security policies.
 
@@ -59,7 +58,7 @@ I directly built the frontend, selected Go Gateway features (metering queries, c
 
 ## Clubs · Activities
 
-- **COMA** (executive member) — University IT club · Mar 2023 — Mar 2026
+- **COMA** (executive member) — University IT club · Mar 2023 — Feb 2026
 - **COMATCHING** (team lead) — IT startup club · Sep 2023 — Aug 2025
 - **GDG CUK** (executive member) — Google Developer Group · Aug 2024 — Mar 2025
 - **UMC** — Node.js track · Aug 2023 — Dec 2023

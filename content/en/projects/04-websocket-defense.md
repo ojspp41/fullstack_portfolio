@@ -17,26 +17,26 @@
   ],
   "metrics": [
     {
-      "label": "Burst render commits",
-      "value": "500 → 2"
+      "label": "First-message recovery · local",
+      "value": "60/60 trials"
     },
     {
-      "label": "Profiler measurement",
-      "value": "99.6% reduction"
+      "label": "Duplicate executions",
+      "value": "0 in 60 trials"
     }
   ],
-  "summary": "Controlled duplicate connections, stale-socket events, and hidden-tab teardown. Short batching reduces burst commits while preserving final responses and normal-paced behavior.",
-  "measurement": "Render-commit counts from fixed React Profiler patterns. The 99.6% result does not measure network latency or overall service performance."
+  "summary": "An open socket revalidates the user after a token refresh. After reconnect, the client reconciles stored replies. A follow-up branch uses a request ID to check whether the first question was accepted.",
+  "measurement": "Follow-up branch with two local Gateways and a fixed-response model. Lost acknowledgements, concurrent sends, and termination just after receipt were tested 20 times each."
 }
 ---
+
+> **My scope:** I implemented token refresh on the open socket in the frontend and Gateway. I connected the team’s server-side recovery records to the UI so it could reconcile reply order with the current session history after reconnect.
 
 ## Architecture
 
 ![WebSocket lifecycle & streaming UI stability — architecture](/diagrams/websocket.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Built client connection lifecycle, session state, and response application. This does not claim ownership of the complete server transmission protocol.
 
 ## Problem · goal
 
@@ -59,4 +59,12 @@
 
 ### Verification conditions · current limits
 
-99.6% is the render-commit reduction for a fixed burst pattern. Normal-paced commits remain unchanged. Network latency, perceived response time, and overall service throughput were not measured.
+The historical Profiler replay recorded 99.6% fewer render commits for a fixed burst. The original trace has not been matched to the current implementation. Normal-paced commits remain unchanged. Network latency, perceived response time, and overall service throughput were not measured.
+
+### Recovering a first message after reconnect
+
+A restored connection leaves one question open: did the server accept the first message? A follow-up branch keeps an ID for each send and looks up its status if the acknowledgement (ACK) is lost. The Gateway stores the receipt and pending work together before acknowledging the request.
+
+I tested a lost ACK, simultaneous sends of the same ID, and a process exit just after storage, 20 times each across two local Gateways. Each of the 60 trials recorded one user message, one execution start, and one saved answer. The model returned a fixed response.
+
+A separate local UI experiment sent 500 chunks at 1ms intervals. A 16ms buffer reduced store writes from 500 to 24, while the 95th percentile from receipt to content commit rose from 19.7ms to 33.9ms.

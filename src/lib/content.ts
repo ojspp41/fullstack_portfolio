@@ -72,7 +72,7 @@ const experienceFeatureSchema = z.object({
   metrics: z.array(metricSchema).default([]),
   decision: z.string().optional(),
   steps: z.array(z.string()).default([]),
-  link: z.object({ label: z.string(), href: z.string().startsWith("#") }).optional(),
+  link: z.object({ label: z.string(), href: z.union([z.string().startsWith("#"), z.string().regex(/^\?p=[a-z0-9-]+$/)]) }).optional(),
 });
 
 export type ExperienceFeature = z.infer<typeof experienceFeatureSchema> & { body: string };

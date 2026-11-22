@@ -21,17 +21,17 @@
 
 # Turning AI into working products
 
-I am an Full-Stack Developer turning generative AI into products people can use at work. On an internal LLM platform for approximately 10,000 people across 13 affiliates, I expanded my scope from frontend development to metering, usage limits, permissions, sharing APIs, data aggregation, testing, deployment, and operations.
+I am a full-stack developer turning generative AI into products people can use at work. On an internal LLM platform for approximately 10,000 people across 13 affiliates, I expanded my scope from frontend development to metering, usage limits, permissions, sharing APIs, data aggregation, testing, deployment, and operations.
 
-I developed an enterprise Agent safety-validation platform and a production-reporting Agent connecting an on-premise sLLM with MES MCP. I also apply AI to development, QA, documentation, and operations to improve recurring work and quality checks.
+I developed an enterprise Agent safety-validation platform and a production-reporting Agent connecting an on-premise sLLM with MES MCP.
 
 ## Key Metrics
 
 | Metric | Value | Description |
 |---|---|---|
 | Service scale | 10,000 | AI platform development for ~10,000 people across 13 affiliates |
-| Metering query | 750× | Query time 1,970ms → 2.6ms · 3M-record reproduction |
-| Re-renders | 99.6%↓ | Response bursts · measured with React Profiler |
+| Metering query | 597× | User summary query · 95th percentile · 1M synthetic records |
+| Re-renders | 99.6%↓ | Historical React Profiler replay with a fixed burst |
 | Awards | Ministerial Prize | Ministry of Science and ICT · Githru |
 | Commercial service | 2,000 users | COMAtching · ₩8M revenue |
 
@@ -39,11 +39,12 @@ I developed an enterprise Agent safety-validation platform and a production-repo
 
 | Layer | Built directly | Understood & integrated |
 |---|---|---|
-| UI | Back-office dashboard·query hooks·ExcelJS · Organization-scoped sharing · Three-layer file renderer · Generative UI · WebSocket defenses · Streaming markdown parser · RAG processing·chunking·embedding status visualization | RAG processing pipeline integration |
-| API / Server contracts | Metering queries·comparison · Usage limits · Cross-org approval·execution authorization·revocation · File preview endpoint | Shared gRPC·Protobuf Gateway infrastructure |
-| AI / Agent | Safety inspection·result UI·async APIs · Deterministic risk classification · Read-only MES MCP queries·period comparisons·HTML reports | On-premise sLLM application · MES·MS-SQL integration |
-| Data / Pipeline | Query contracts·chat-list projection and indexes · Sharing Outbox convergence · COMAtching MySQL schema·joins·indexes | Kafka ingestion·daily aggregation·price/FX history integration · Parsing-engine PDF generation |
-| Test / Infra | Docker multi-stage·standalone · Non-root APM permissions · Jest·Go Test·Playwright · Deployment·Smoke tests | Kubernetes·operations collaboration · Shared auth·storage environment |
+| Chat and file previews | I built the streaming chat interface and an in-app viewer so employees can open files without downloading them. | I connected the UI to document processing status and to the PDFs produced for previews. |
+| Permissions and sharing | I built the approval flow for sharing AI agents across organizations and added a permission check at execution time. | I used the central API server’s shared authentication and service-to-service connections. |
+| Error reports and Jira | I built the employee report form, the admin review board, and the API that sends selected reports to Jira. | I connected private image storage to Jira attachments through Atlassian MCP. |
+| AI tools for employees | For manufacturing reports, I implemented comparisons with the previous period. In a separate safety tool, I built the inspection results and risk classification views. | I connected the on-premise language model to read-only tools for querying the manufacturing system. |
+| Data and usage costs | I built an API that retrieves usage across organizations in one request, the cost dashboard, and Excel exports. | I connected Kafka usage events, daily summaries, and price and FX history to the reporting flow. |
+| Build and deployment | I removed unnecessary runtime dependencies from the Docker image and checked that the smaller image could start the service. | I worked with operations on runtime permissions and monitoring in the on-premise Kubernetes environment. |
 
 ## Tech Stack
 
@@ -59,6 +60,6 @@ I developed an enterprise Agent safety-validation platform and a production-repo
 
 - **Leadership** — Team lead three times: COMAtching, Favus, and an in-house CoP
 - **Product delivery** — AI platform development for ~10,000 people across 13 affiliates; first release with the team within six months of joining
-- **Quantified impact** — Query time 1,970ms → 2.6ms · Render commits 99.6%↓ · Docker 3.63GB → 1.82GB
+- **Quantified impact** — Local summary query p95 228.665ms → 0.383ms · First-message recovery in 60/60 trials across two local Gateways · Docker 3.63GB → 1.82GB
 - **Safety and operations** — Permissions, approvals, auditability, and normal/exceptional/adversarial QA
 - **Continuous contribution** — Open-source contributions and VS Code Extension development

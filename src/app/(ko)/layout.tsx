@@ -4,7 +4,7 @@ import { siteUrl } from "@/lib/site-url";
 
 const TITLE = "오준석 — Full-Stack Developer";
 const DESCRIPTION =
-  "생성형 AI를 실제 서비스로 제품화하는 Full-Stack Developer. 13개 계열사 약 1만 명 대상 AI Atlas, 신호등 에이전트 안전성 검증, On-Prem sLLM × MES MCP 생산 리포팅, AI 개발·검증·배포 폐루프와 8개 기술 사례와 루프·하네스 엔지니어링.";
+  "생성형 AI를 실제 서비스로 제품화하는 Full-Stack Developer. 13개 계열사 약 1만 명 대상 AI Atlas, 신호등 에이전트 안전성 검증, On-Prem sLLM × MES MCP 생산 리포팅, AI 개발·검증·배포 폐루프와 9개 기술 사례와 루프·하네스 엔지니어링.";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,

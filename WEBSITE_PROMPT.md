@@ -13,21 +13,20 @@ Next.js 15 (App Router) + TypeScript(strict) + Tailwind v4의 기존 **AI Produc
 - `content/sections/profile.md` — 히어로·About·스택·강점
 - `content/sections/experience.md` — 경력(한솔 PNS·PTKOREA)·학력·활동
 - `content/projects/*.md` — 공개 심층분석 6개. frontmatter에 `id, order, published, title, category(fullstack|frontend|infra), badge, stack[], metrics[], summary, measurement`가 있다. 비공개 파일은 보관한다.
-- `content/representative/*.md` — AI Atlas·신호등 에이전트·SLP 제조 AX·AI 활용 개발 시스템.
+- `content/representative/*.md` — AI Atlas·신호등 에이전트·SLP 제조 AX.
 - `content/workflow/*.md` — 개발·검증·배포 폐루프, 재사용 AI Skill 36개, 활용 콘텐츠, 운영 주간보고 자동화.
 - `content/en/` — 동일한 사실관계·담당 범위·측정 경계를 유지한 영어판.
 - `content/sections/side-projects.md` — 오픈소스·사이드 프로젝트·수상
 - gray-matter로 frontmatter 파싱 + 서버 컴포넌트에서 빌드 타임에 읽고, 본문은 마크다운 렌더러(react-markdown + remark-gfm, 표 지원 필수)로 렌더.
 
 ### 페이지 구조 (원페이지, 스크롤 내비)
-1. **Hero** — 이름·AI Product / Full-Stack Engineer·태그라인·지표 4개(1만 명 / 미터링 조회 750× / 장관상 / 상용 서비스 2,000명). 기존 카운트업 유지.
-2. **Representative Experience** — About과 대표 경험 4개. 요약 → 핵심 수치 → 접힌 상세 순서. 신호등 에이전트는 규칙 기반 판정, SLP는 읽기 전용 MES MCP 기반 생산 리포팅으로 표현.
-3. **Career** — 한솔PNS → PTKOREA 타임라인과 기존 수상 4개. 팀과 함께 입사 후 6개월 안에 첫 출시한 범위로 표현.
-4. **Architecture / Coverage** — 기존 인터랙티브 다이어그램과 담당 범위 표. 직접 구현 / 설계 이해·연동 구분. RAG는 처리 상태 UX, 공통 인프라는 연동 범위임을 명확히 한다.
-5. **Technical Deep Dive** — 미터링 → 다중 조직 Agent 공유 → 파일 인앱 미리보기 → Generative UI → WebSocket → Docker. 필터·모달·딥링크·측정 조건·한계 유지.
-6. **AI-Native Development Workflow** — 네 가지 축의 요약·성과·상세. 코드가 계산·검증하고 AI는 분석·설명을 작성하는 역할 구분.
-7. **Product & Open Source** — COMAtching → Githru → Favus → 부천FC. 상용 서비스·외부 코드베이스 협업·장애 복구 등 개발 기본기 유지.
-8. **Contact / Footer** — 이메일·GitHub. 최신 일치가 확인되지 않은 PDF 다운로드 버튼은 숨긴 상태 유지.
+1. **프로필** — 이름과 직무를 짧게 표시한다.
+2. **Career** — 첫 화면에서 한솔PNS와 PTKOREA 경력을 읽을 수 있게 한다. 상세 이력, 학력, 수상은 펼쳐 본다. 경력 요약 아래에 프로젝트 링크와 주요 지표를 둔다.
+3. **Representative Experience** — About과 대표 프로젝트 3개. 요약 → 핵심 수치 → 접힌 상세 순서. 신호등 에이전트는 규칙 기반 판정, SLP는 읽기 전용 MES MCP 기반 생산 리포팅으로 표현.
+4. **Technical Deep Dive** — 각 사례 상세에서 담당 범위, 사용 기술과 검증 결과를 보여준다. 사용 한도 확인·비용 집계·계열사 비교 흐름은 미터링 사례에 포함한다.
+5. **AI-Native Development Workflow** — 네 가지 축의 요약·성과·상세. 코드가 계산·검증하고 AI는 분석·설명을 작성하는 역할 구분.
+6. **Product & Open Source** — COMAtching → Githru → Favus → 부천FC. 상용 서비스·외부 코드베이스 협업·장애 복구 등 개발 기본기 유지.
+7. **Contact / Footer** — 이메일·GitHub. 최신 일치가 확인되지 않은 PDF 다운로드 버튼은 숨긴 상태 유지.
 
 ### 인터랙션 & 모션
 - 스크롤 진행 인디케이터 + 우측 고정 섹션 도트 내비
@@ -39,14 +38,13 @@ Next.js 15 (App Router) + TypeScript(strict) + Tailwind v4의 기존 **AI Produc
 ### 디자인 방향
 - 흔한 AI 생성 룩(크림 배경 + 세리프 + 테라코타 / 검정 배경 + 형광 그린) 피할 것.
 - 기존 파스텔 배경·인디고 포인트·둥근 카드·Pretendard·JetBrains Mono·Lottie를 유지한다. 기본은 라이트이며 다크 전환을 지원한다. 대표 경험은 기존 카드와 native details로 추가하고, 동작 흐름은 줄바꿈 가능한 작은 Flow UI로 보여준다.
-- 시그니처는 2번 섹션의 아키텍처 다이어그램 하나에 집중하고 나머지는 절제.
 
 ### 기술 요건
-- 컴포넌트: `Hero, ArchitectureDiagram, ProjectFilter, ProjectCard, ProjectDetail(모달), Timeline, MetricCounter, SectionNav`
+- 컴포넌트: `Hero, ProjectFilter, ProjectCard, ProjectDetail(모달), Timeline, MetricCounter, SectionNav`
 - md 추가만으로 프로젝트가 늘어나는 구조 (frontmatter 스키마 zod 검증이면 더 좋음)
 - 라이트 기본 / 다크 전환, SEO 메타 + OG 태그, Vercel 배포 가능하게
 
-기존 디자인 토큰과 인터랙티브 아키텍처를 유지한다. 변경 후 `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`를 실행하고 한국어·영어, 데스크톱·모바일, 필터·펼치기·모달·딥링크를 검증한다.
+기존 디자인 토큰을 유지한다. 변경 후 `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`를 실행하고 한국어·영어, 데스크톱·모바일, 필터·펼치기·모달·딥링크를 검증한다.
 
 ---
 
@@ -59,7 +57,7 @@ project-root/
 │  │  ├─ profile.md
 │  │  ├─ experience.md
 │  │  └─ side-projects.md
-│  ├─ representative/            (대표 경험 4개)
+│  ├─ representative/            (대표 프로젝트 3개)
 │  ├─ workflow/                  (개발·QA·문서·운영 4개)
 │  ├─ en/                        (한국어와 같은 구조의 영어판)
 │  └─ projects/

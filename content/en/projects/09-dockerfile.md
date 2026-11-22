@@ -31,13 +31,13 @@
 }
 ---
 
+> **My scope:** Updated the Dockerfile, startup path, APM log permissions, and build/boot smoke checks. Shared Kubernetes operations are a collaboration scope.
+
 ## Architecture
 
 ![Smaller Docker image with runtime functions preserved — architecture](/diagrams/docker.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Updated the Dockerfile, startup path, APM log permissions, and build/boot smoke checks. Shared Kubernetes operations are a collaboration scope.
 
 ## Problem · goal
 
@@ -58,3 +58,7 @@
 ### Verification conditions · current limits
 
 Sizes come from direct builds. Cold pulls used Docker 29.7.0 / Colima Linux arm64, cleared caches, and three alternating runs per variant. They are distinct from production deployment time with different registry/network conditions. Build success was followed by actual startup and function checks.
+
+### Image size on the shared runner
+
+A later change removed a final-stage APM installation step that pulled development dependencies back in. Using the same command on the shared runner, the frontend development image fell from 3.98GB to 1.86GB. The release image at the time was still 3.98GB. This comparison used a later revision and a different environment from the local cold-pull measurements.

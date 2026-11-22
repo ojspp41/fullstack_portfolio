@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Locale, Profile } from "@/lib/content";
 import { UI } from "@/lib/i18n";
 import HeroLottie from "./HeroLottie";
@@ -5,7 +6,6 @@ import MetricCounter from "./MetricCounter";
 import MagneticButton from "./MagneticButton";
 import Reveal from "./Reveal";
 import TiltCard from "./TiltCard";
-import TypeWriter from "./TypeWriter";
 
 // pastel pill palette cycled over profile.badges (old-portfolio style)
 const PILL_COLORS = [
@@ -15,32 +15,23 @@ const PILL_COLORS = [
   "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-200",
 ];
 
-export default function Hero({ profile, locale = "ko" }: { profile: Profile; locale?: Locale }) {
+export default function Hero({ profile, locale, children }: { profile: Profile; locale: Locale; children: ReactNode }) {
   const t = UI[locale].hero;
   return (
-    <section id="hero" className="relative overflow-hidden">
-      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-24 sm:pt-28">
-        {/* two columns on desktop so the lottie can never overlap the copy */}
-        <div className="items-center gap-10 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] xl:grid-cols-[minmax(0,1fr)_22rem]">
+    <section id="experience" className="relative">
+      <span id="hero" aria-hidden="true" className="absolute top-0" />
+      <div className="relative mx-auto max-w-6xl px-6 pb-10 pt-24 sm:pt-28">
+        <div className="mb-7 flex items-center justify-between gap-5">
           <div>
-        <Reveal>
-          <p className="mb-3 text-lg font-medium text-accent">{t.greeting}</p>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-            {t.name}
-            {t.nameSuffix && (
-              <span className="text-mute/70 text-2xl sm:text-4xl">{t.nameSuffix}</span>
-            )}
-          </h1>
-          <p className="mt-4 text-lg font-semibold leading-snug text-accent sm:text-2xl">
-            {profile.role}
-          </p>
-          <p className="mt-4 min-h-16 text-xl leading-snug sm:min-h-10 sm:text-3xl">
-            <TypeWriter titles={t.typewriter} />
-          </p>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">
-            {profile.tagline}{profile.subtagline && <>. {profile.subtagline}</>}.
-          </p>
-        </Reveal>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{t.name}</h1>
+            <p className="mt-2 text-lg font-semibold text-accent">{profile.role}</p>
+          </div>
+          <div className="pointer-events-none hidden h-24 w-32 lg:block" aria-hidden>
+            <HeroLottie />
+          </div>
+        </div>
+
+        {children}
 
         {/* award / cert pills */}
         {profile.badges.length > 0 && (
@@ -71,10 +62,10 @@ export default function Hero({ profile, locale = "ko" }: { profile: Profile; loc
             </MagneticButton>
             <MagneticButton>
               <a
-                href="#coverage"
+                href="#projects"
                 className="inline-flex items-center rounded-xl border-2 border-line bg-panel px-7 py-3 text-base font-medium text-ink shadow-md transition-colors duration-300 hover:border-accent/50"
               >
-                {t.ctaCoverage}
+                {t.ctaCases}
               </a>
             </MagneticButton>
             <MagneticButton>
@@ -89,16 +80,8 @@ export default function Hero({ profile, locale = "ko" }: { profile: Profile; loc
             </MagneticButton>
           </div>
         </Reveal>
-          </div>
-
-          {/* developer lottie — desktop column */}
-          <div className="pointer-events-none hidden opacity-90 lg:block" aria-hidden>
-            <HeroLottie />
-          </div>
-        </div>
-
         {/* headline metrics */}
-        <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {profile.heroStats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 90} className="h-full">
               <TiltCard>

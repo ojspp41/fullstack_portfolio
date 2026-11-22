@@ -23,7 +23,7 @@ Within six months of joining, I worked with the team on the first release for ap
 
 ### Operations & Admin — Usage and Cost Metering
 
-I built query/comparison APIs, usage limits, query hooks, and browser-side ExcelJS exports for dashboard requirements, integrating them with shared Kafka ingestion, daily aggregation, and price/FX infrastructure. The `source_usages` array contract automatically carries new services into filters, colors, charts, and Excel.
+I designed the flow from usage collection to billing and quota checks. I built query/comparison APIs, usage limits, query hooks, and browser-side ExcelJS exports for dashboard requirements, connecting them to shared Kafka ingestion, daily aggregation, and price/FX infrastructure. The `source_usages` array contract automatically carries new services into filters, colors, charts, and Excel.
 
 ## Public scope
 

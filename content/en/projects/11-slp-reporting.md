@@ -31,13 +31,13 @@
 }
 ---
 
+> **My scope:** Built purpose-specific MES MCP tools and Agent behavior, integrating the existing MES/MS-SQL system and on-premise sLLM. This is application development, not model training or full MES construction.
+
 ## Architecture
 
 ![SLP · MES production-reporting Agent — architecture](/diagrams/slp.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Built purpose-specific MES MCP tools and Agent behavior, integrating the existing MES/MS-SQL system and on-premise sLLM. This is application development, not model training or full MES construction.
 
 ## Problem · goal
 

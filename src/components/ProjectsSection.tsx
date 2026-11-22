@@ -22,7 +22,6 @@ const CATEGORY_LABEL: Record<Project["category"], string> = {
   infra: "INFRA",
 };
 
-// same 2-color rule as the architecture diagram:
 // direct build → accent, integration/understanding → sub (both locales)
 function layerChipClass(layer: string): string {
   return /연동|이해|관점|협업|integration|understanding|perspective|collaboration/i.test(layer)
@@ -62,18 +61,6 @@ export default function ProjectsSection({
   const openProject = projects.find((p) => p.id === openId) ?? null;
 
   const close = useCallback(() => setOpenId(null), []);
-
-  // architecture diagram → open project modal
-  useEffect(() => {
-    const onOpen = (e: Event) => {
-      const id = (e as CustomEvent<string>).detail;
-      setFilter("all");
-      setOpenId(id);
-      document.getElementById("projects")?.scrollIntoView({ block: "start" });
-    };
-    document.addEventListener("open-project", onOpen);
-    return () => document.removeEventListener("open-project", onOpen);
-  }, []);
 
   // deep link: ?p=<id> opens the project on load…
   useEffect(() => {

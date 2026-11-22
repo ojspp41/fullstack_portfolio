@@ -20,8 +20,8 @@
   ],
   "metrics": [
     {
-      "label": "Reproduced query",
-      "value": "1,970ms → 2.6ms"
+      "label": "Local user summary · 95th percentile",
+      "value": "228.665ms → 0.383ms"
     },
     {
       "label": "Comparison requests",
@@ -29,17 +29,17 @@
     }
   ],
   "summary": "Separated real-time quota checks from daily-summary reads, connecting query APIs to dashboards, Excel, and invoices. Shared ingestion and aggregation infrastructure is identified separately.",
-  "measurement": "Query measurement on a 3M-record reproduction. I built the UI and query/comparison/quota APIs; Kafka ingestion, daily aggregation, and price/FX infrastructure are integration scope."
+  "measurement": "One day of synthetic usage, 100 users and one million records. The timing covers the server query for one user’s summary over 50 sequential reads after warm-up."
 }
 ---
+
+> **My scope:** I designed how usage events flow through daily aggregation, billing, quota checks, and dashboard queries. I built the query, comparison and quota APIs, dashboard, Excel export, and invoices on the shared ingestion and aggregation infrastructure.
 
 ## Architecture
 
 ![Usage & cost metering back office — architecture](/diagrams/metering.png)
 
 *Reconstructed diagram from the portfolio PDF; labels are in Korean. The implementation scope and steps are described below.*
-
-> **My scope:** Built back-office UI, query/comparison/quota APIs, Excel exports, and invoices. Kafka ingestion, daily batches, and price/FX infrastructure are understood and integrated scope.
 
 ## Problem · goal
 
@@ -48,17 +48,23 @@
 
 ## Solution
 
-1. Connected Redis-based quota checks to quota APIs, while dashboards read daily summaries. Raw detail and summary reads serve separate purposes.
-2. Implemented query/comparison filters, pagination, and the `source_usages` response contract. One response supplies current/previous periods and affiliate comparisons.
-3. Reused the contract in dashboards, ExcelJS exports, and invoices. Invoice preview and PDF use the same data and amount calculations.
+1. **Check the limit before the call.** My quota API checks the organization’s and employee’s accumulated spend when a question is sent. It blocks calls that have reached a limit.
+2. **Record usage and calculate cost.** After the call, the shared system records usage and calculates daily totals using the prices and exchange rates in effect at the time. I connected those totals to the query API.
+3. **Compare affiliates.** My query API returns affiliate totals for the selected and preceding periods in a single request. The dashboard and Excel export use the same results.
 
 ## Results
 
-- **3M-record reproduction:** query time 1,970ms → 2.6ms, approximately 750× improvement in the recorded comparison.
+- **User summary query p95:** 228.665ms reading 10,000 raw records for one user, versus 0.383ms reading one daily summary.
 - **Affiliate comparison requests:** approximately 34 → 1. Preview, Excel, and PDF follow the same query and calculation criteria.
 
 ### Verification conditions · current limits
 
-750× is a reproduced query result, not an improvement across all production requests. A separate 1M-record local comparison measured summary-query medians of 228.665ms → 0.383ms; aggregation runs of 26.924 seconds and 60.052 seconds verified stable counts and costs on rerun. Different data sets and operations are not combined into one metric.
+Generating and storing the daily summaries took 26.924 seconds in one run. A separate observation saw the counter in MongoDB 60.052 seconds after the flush timer started. The query benchmark excludes batch generation, HTTP and authentication.
 
-My query/quota/UI contracts are distinguished from integration with the shared ingestion and aggregation pipeline.
+### Follow-up work
+
+The dashboard compares token usage for new and existing agents by organization and period, and retains both filters in the detail view. If Redis lacks a usable total, the quota check reads MongoDB. When neither store can establish spend, enforced mode stops the call.
+
+For selected text requests, a separate path reserves the maximum cost before execution and settles actual spend after streaming. At the time of the record, reservations were disabled by default. Integration test execution and production rollout were unconfirmed.
+
+An invoice branch moved the billing document and its version to the server and rechecked permissions at download. Reusing Chromium with a fresh context per request reduced median warm conversion time from 1.53s to 0.66s for a synthetic nine-page invoice locally. This measures PDF conversion and excludes authentication and network time.

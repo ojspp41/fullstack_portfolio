@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
  * layout.tsx before paint (localStorage > system preference > light), so
  * this component only reads the resulting class after mount and flips it.
  */
-export default function ThemeToggle() {
+export default function ThemeToggle({ lightLabel, darkLabel }: { lightLabel: string; darkLabel: string }) {
   const [dark, setDark] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+      aria-label={dark ? lightLabel : darkLabel}
       className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-panel text-mute transition-colors hover:border-accent/50 hover:text-accent"
     >
       {dark ? (

@@ -13,7 +13,7 @@ export default function ExperienceFeatures({
 }) {
   const t = UI[locale].features;
   return (
-    <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+    <div className={`grid grid-cols-1 items-start gap-4 md:grid-cols-2 ${items.length === 3 ? "xl:grid-cols-3" : ""}`}>
       {items.map((item, i) => (
         <Reveal key={item.id} delay={(i % 2) * 80} className="min-w-0">
           <article

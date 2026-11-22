@@ -63,7 +63,7 @@ export default function Header({
         </a>
 
         <nav
-          aria-label="섹션 내비게이션"
+          aria-label={t.navigation}
           className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto whitespace-nowrap text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {items.map((s) => (
@@ -105,7 +105,7 @@ export default function Header({
           >
             {t.langSwitch}
           </a>
-          <ThemeToggle />
+          <ThemeToggle lightLabel={t.lightTheme} darkLabel={t.darkTheme} />
         </div>
       </div>
 

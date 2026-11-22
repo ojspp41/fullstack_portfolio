@@ -25,24 +25,15 @@
       "value": "Within six months of joining",
       "note": "Built and released with the team"
     }
-  ],
-  "decision": "I owned the frontend and implemented selected backend APIs and permission logic, integrating them with shared metering infrastructure.",
-  "link": {
-    "label": "Explore the eight technical case studies",
-    "href": "#projects"
-  }
+  ]
 }
 ---
 
 ### From user interfaces to operations
 
-- **Frontend** — Chat, Agent, Generative UI, WebSocket, admin back office, file previews, and user-facing visualization of RAG processing and chunking/embedding status. Also developed a VOC Agent that creates Jira tickets from Generative UI forms.
+- **Frontend** — Chat, Agent, Generative UI, WebSocket, admin back office, error reporting (VOC), file previews, and user-facing visualization of RAG processing and chunking/embedding status.
 - **Backend / API** — Python/FastAPI and Go experience covering metering queries, usage limits, resource permissions, and sharing APIs. Go Gateway ownership is limited to the features I directly implemented.
 - **Enterprise** — Multi-organization RBAC boundaries for read / execute / write / share, Agent sharing approval, revocation, and execution reauthorization.
 - **Data / Operation** — Query APIs integrated with shared metering ingestion, daily aggregation, and price/FX infrastructure; Docker, testing, deployment, Smoke Tests, and operational automation.
 
 Within six months of joining, I worked with the team on the first release for approximately 10,000 people across 13 affiliates. This does not imply ownership of the entire platform or shared infrastructure. RAG work means UX and integration for processing status, not development of chunking algorithms, embedding models, or a Vector DB.
-
-### Technical evidence retained
-
-Separate case studies retain implementation, verification, and limitations for usage/cost metering, multi-organization Agent sharing, in-app file previews, Generative UI JSON recovery, WebSocket reliability, and Docker image optimization.
