@@ -4,7 +4,7 @@
   "order": 1,
   "eyebrow": "Enterprise AI · 한솔PNS AI개발팀",
   "title": "AI Atlas — 1만 명 대상 엔터프라이즈 AI 플랫폼",
-  "summary": "13개 계열사 약 1만 명 대상 사내 LLM·RAG 플랫폼에서 AI UX부터 API·권한·미터링·파일·테스트·배포·운영까지 담당 범위를 확장한 Full-Stack 경험입니다.",
+  "summary": "직원용 채팅 화면과 관리자 대시보드를 만들었습니다. Go로 사용량 조회·한도 확인 API를 개발하고 기존 사용량 집계 시스템에 연결했습니다.",
   "stack": [
     "React",
     "TypeScript",

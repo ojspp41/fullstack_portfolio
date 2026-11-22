@@ -17,6 +17,7 @@ for (const locale of ["ko", "en"]) {
       assert.ok(p.body.length > 500, p.id);
       assert.ok(p.measurement?.length > 30, p.id);
       assert.equal(p.published, true);
+      assert.equal(p.badge, p.id === "slp-reporting" ? (locale === "ko" ? "SLP 제조 AX" : "SLP Manufacturing AX") : "AI Atlas");
       assert.match(p.body, locale === "ko" ? /전체적인 아키텍처[\s\S]*문제 원인 · 해결 목표[\s\S]*해결 과정[\s\S]*결과/ : /Architecture[\s\S]*Problem · goal[\s\S]*Solution[\s\S]*Results/);
       const asset = /!\[[^\]]+\]\((\/diagrams\/[^)]+)\)/.exec(p.body)?.[1];
       assert.ok(asset && fs.existsSync(path.join("public", asset)), p.id + " diagram");
@@ -73,7 +74,7 @@ for (const locale of ["ko", "en"]) {
       assert.equal(fs.readdirSync(dir).filter((file) => file.endsWith(".md")).length, ids.length);
       for (const item of items) {
         assert.ok(item.summary.length > 40, item.id);
-        assert.ok(item.body.length > 100, item.id);
+        assert.ok(item.body.length > (item.id === "slp-manufacturing" ? 40 : 100), item.id);
         assert.doesNotMatch(JSON.stringify(item), /\/Users\/|file:\/\//);
       }
     }
@@ -81,13 +82,14 @@ for (const locale of ["ko", "en"]) {
     const workflow = getExperienceFeatures("workflow", locale);
     assert.match(representative[1].title, /신호등 에이전트/);
     assert.match(representative[1].decision, /결정론적|Deterministic/i);
-    assert.match(representative[2].title, /On-Prem sLLM × MES MCP/);
-    assert.match(representative[2].decision, /읽기 전용|read-only/);
-    assert.equal(representative[2].steps.length, 8);
-    assert.match(representative[0].summary, /테스트|testing/i);
+    assert.equal(representative[2].steps.length, 0);
+    assert.match(representative[2].summary, /조회 도구|read-only tools/);
+    assert.match(representative[0].summary, /Go/);
+    assert.match(representative[1].summary, /Node\.js/);
     assert.ok(representative[1].stack.includes("Human-in-the-loop"));
     assert.match(representative[1].body, /결과\/이력 API|results\/history APIs/);
-    assert.match(representative[2].body, /인프라 장애|infrastructure failures/i);
+    const slpCase = getProjects(locale).find((project) => project.id === "slp-reporting");
+    assert.match(slpCase.body, /인프라 장애|infrastructure/i);
     assert.equal(workflow[0].steps.length, 9);
     assert.match(workflow[1].metrics[0].value, /10/);
     assert.match(workflow[0].body, /하네스|Harness/i);

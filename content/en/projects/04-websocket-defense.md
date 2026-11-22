@@ -5,7 +5,7 @@
   "published": true,
   "title": "WebSocket lifecycle & streaming UI stability",
   "category": "frontend",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Connection / response handling implementation"
   ],

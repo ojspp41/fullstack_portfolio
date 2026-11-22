@@ -5,7 +5,7 @@
   "published": true,
   "title": "SLP · MES production-reporting Agent",
   "category": "fullstack",
-  "badge": "Implementation · verification",
+  "badge": "SLP Manufacturing AX",
   "layers": [
     "Agent implementation",
     "MES / sLLM integration"

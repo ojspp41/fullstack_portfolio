@@ -36,7 +36,6 @@ export const UI = {
         sub: "개발·QA·문서·운영의 반복 작업을 재사용 가능한 절차로 만들고, 실패 증거를 다음 작업의 입력으로 남깁니다.",
       },
       workflowPrinciple: "재현성이 필요한 판단은 코드와 규칙으로 확정하고, AI는 사람이 검증할 수 있는 분석·설명 영역에 활용합니다.",
-      about: "About",
       deepDives: {
         index: "04",
         label: "Deep Dives",
@@ -94,7 +93,6 @@ export const UI = {
         sub: "Reusable procedures for development, QA, documentation, and operations. Evidence from failures becomes input for the next task.",
       },
       workflowPrinciple: "Code and deterministic rules settle reproducible decisions. AI supports analysis and explanations that people can verify.",
-      about: "About",
       deepDives: {
         index: "04",
         label: "Deep Dives",

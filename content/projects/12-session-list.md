@@ -5,7 +5,7 @@
   "published": true,
   "title": "권한을 유지한 채팅 목록 조회 최적화",
   "category": "fullstack",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "Go 조회·인덱스 직접",
     "FE 로딩 상태 직접"

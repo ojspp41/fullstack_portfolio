@@ -5,7 +5,7 @@
   "published": true,
   "title": "Organization-scoped Agent sharing",
   "category": "fullstack",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Frontend / approval API implementation",
     "Permission / execution checks"

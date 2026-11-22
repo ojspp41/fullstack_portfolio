@@ -69,10 +69,6 @@ export default function HomePage({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
             <SectionHeading {...t.sections.representative} />
-            <div className="mb-8 max-w-4xl border-l-2 border-accent/30 pl-5">
-              <p className="mb-3 text-sm font-bold text-accent">{t.sections.about}</p>
-              <Markdown>{profile.intro}</Markdown>
-            </div>
           </Reveal>
           <ExperienceFeatures items={representative} locale={locale} featured />
         </div>

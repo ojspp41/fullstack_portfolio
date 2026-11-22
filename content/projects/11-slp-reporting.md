@@ -5,7 +5,7 @@
   "published": true,
   "title": "SLP · MES 생산 리포팅 에이전트",
   "category": "fullstack",
-  "badge": "구현 · 검증",
+  "badge": "SLP 제조 AX",
   "layers": [
     "Agent 직접",
     "MES·sLLM 연동"

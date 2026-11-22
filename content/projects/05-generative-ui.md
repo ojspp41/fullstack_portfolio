@@ -5,7 +5,7 @@
   "published": true,
   "title": "깨진 AI 응답 복구와 위젯 오류 격리",
   "category": "frontend",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "파서·오류 격리 직접"
   ],

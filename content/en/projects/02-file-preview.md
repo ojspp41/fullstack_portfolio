@@ -5,7 +5,7 @@
   "published": true,
   "title": "In-app previews with generation isolation",
   "category": "fullstack",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Frontend / preview API implementation",
     "DRM / PDF engine integration"

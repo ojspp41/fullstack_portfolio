@@ -5,7 +5,7 @@
   "published": true,
   "title": "Employee error reports and Jira attachment recovery",
   "category": "fullstack",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Report form and admin board",
     "Go API and Jira integration"

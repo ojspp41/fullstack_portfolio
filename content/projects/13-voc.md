@@ -5,7 +5,7 @@
   "published": true,
   "title": "오류 제보(VOC) 접수와 Jira 첨부 복구",
   "category": "fullstack",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "제보 화면·관리자 보드 구현",
     "Go API·Jira 연동"

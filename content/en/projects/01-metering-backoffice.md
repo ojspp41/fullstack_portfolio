@@ -5,7 +5,7 @@
   "published": true,
   "title": "Usage & cost metering back office",
   "category": "fullstack",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Frontend / query API implementation",
     "Aggregation pipeline integration"

@@ -5,7 +5,7 @@
   "published": true,
   "title": "실행 기능을 유지하며 Docker 이미지 축소",
   "category": "infra",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "Docker·부팅 검증 직접",
     "K8s 운영 협업"

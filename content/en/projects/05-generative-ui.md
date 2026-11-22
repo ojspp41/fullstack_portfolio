@@ -5,7 +5,7 @@
   "published": true,
   "title": "Malformed AI response recovery & widget isolation",
   "category": "frontend",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Parser / error isolation implementation"
   ],

@@ -5,7 +5,7 @@
   "published": true,
   "title": "Chat-list query optimization with permissions preserved",
   "category": "fullstack",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Go query / index implementation",
     "Frontend loading-state implementation"

@@ -5,7 +5,7 @@
   "published": true,
   "title": "Smaller Docker image with runtime functions preserved",
   "category": "infra",
-  "badge": "Implementation · verification",
+  "badge": "AI Atlas",
   "layers": [
     "Docker / boot verification implementation",
     "Kubernetes operations collaboration"

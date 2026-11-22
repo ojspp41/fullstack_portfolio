@@ -3,7 +3,7 @@ id: signal-agent
 order: 2
 eyebrow: Agent Safety · Hansol Group AX Project
 title: 신호등 에이전트 — Enterprise AI Agent Safety Validation
-summary: A full-stack validation platform that analyzes permissions, sensitive information, approval procedures, and prompt-injection risks before an enterprise Agent is used at work, assigning green, yellow, or red outcomes.
+summary: I built the screens for requesting an agent safety check, tracking its progress, and reviewing past results. I connected them to the inspection status and results APIs in Node.js.
 stack: [React, TypeScript, TanStack Query, Node.js, Clean Architecture, AI Agent, Human-in-the-loop, JSON / PDF Report]
 metrics:
   - label: Task-specific quality presets

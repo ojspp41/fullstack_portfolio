@@ -4,7 +4,7 @@
   "order": 1,
   "eyebrow": "Enterprise AI · Hansol PNS AI Development Team",
   "title": "AI Atlas — Enterprise AI Platform for 10,000 Users",
-  "summary": "An internal LLM and RAG platform for approximately 10,000 people across 13 affiliates. I expanded my scope from AI UX to selected APIs, permissions, metering, files, testing, deployment, and operations.",
+  "summary": "I built the employee chat interface and the admin dashboard. I developed the usage lookup and limit-check APIs in Go and connected them to the shared metering system.",
   "stack": [
     "React",
     "TypeScript",

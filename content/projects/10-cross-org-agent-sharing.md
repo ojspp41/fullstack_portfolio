@@ -5,7 +5,7 @@
   "published": true,
   "title": "조직별 Agent 공유 권한 분리",
   "category": "fullstack",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "FE·승인 API 직접",
     "권한·실행 검증 직접"

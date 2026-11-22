@@ -5,7 +5,7 @@
   "published": true,
   "title": "사용량·비용 미터링 백오피스",
   "category": "fullstack",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "FE·조회 API 직접",
     "집계 파이프라인 연동"

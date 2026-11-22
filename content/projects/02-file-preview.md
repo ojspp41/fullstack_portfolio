@@ -5,7 +5,7 @@
   "published": true,
   "title": "파일을 내려받지 않고 안전하게 미리보기",
   "category": "fullstack",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "FE·미리보기 API 직접",
     "DRM·PDF 엔진 연동"

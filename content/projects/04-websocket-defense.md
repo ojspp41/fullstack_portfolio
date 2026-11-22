@@ -5,7 +5,7 @@
   "published": true,
   "title": "WebSocket 연결·스트리밍 화면 안정화",
   "category": "frontend",
-  "badge": "구현 · 검증",
+  "badge": "AI Atlas",
   "layers": [
     "연결·응답 처리 직접"
   ],

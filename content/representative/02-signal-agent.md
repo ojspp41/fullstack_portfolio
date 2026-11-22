@@ -3,7 +3,7 @@ id: signal-agent
 order: 2
 eyebrow: Agent Safety · 한솔그룹 AX 프로젝트
 title: 신호등 에이전트 — 기업용 AI Agent 안전성 검증
-summary: 기업용 AI Agent를 업무에 적용하기 전에 권한·민감정보·승인 절차·프롬프트 인젝션 위험을 분석하고 초록·노랑·빨강 단계로 판정하는 풀스택 검증 플랫폼입니다.
+summary: 에이전트 안전성 검사를 요청하고 진행 상황과 판정 이력을 확인하는 화면을 만들었습니다. Node.js에서 검사 상태와 결과를 제공하는 API를 화면에 연결했습니다.
 stack: [React, TypeScript, TanStack Query, Node.js, Clean Architecture, AI Agent, Human-in-the-loop, JSON / PDF Report]
 metrics:
   - label: 업무별 품질 프리셋
